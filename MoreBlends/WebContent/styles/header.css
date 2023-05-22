@@ -1,0 +1,69 @@
+@charset "ISO-8859-1";
+
+header.top {
+	background-color: #393E46;
+	margin: 10px 10px 0px 10px;
+	height: 230px;
+}
+
+header.top div.LogoContainer{
+	width: 560px;
+	height: 180px;
+}
+
+header.top div.LogoContainer img#logoHeader{
+	width: 392px;
+	height: 260px;
+}
+
+nav {
+	background-color: #8C8F93;
+	margin: 10px 10px 0px 10px;
+	height: 50px;
+}
+
+nav ul{
+	margin: 0px;
+	list-style-type: none;
+	padding: 5px 0px 5px 0px;
+}
+
+nav ul li{
+	display: inline;
+	padding: 5px 10px 5px 10px;
+}
+
+nav ul li a:link, nav ul li a:visited {
+	color: #EEEEEE;
+	text-decoration: none;
+	border-bottom: none;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+li.selected {
+	background-color: #74777b;
+}
+
+button.bCerca {
+	background-size: cover;
+	background-position: center;
+	display: inline;
+	border: none;
+	border-radius: 0px 6px 6px 0px;
+	text-transform: uppercase;
+	cursor: pointer;
+	height: 20px;
+}
+
+@media ( max-width :720px) {
+	header.top {
+		text-align: left;
+		padding: 5%;
+	}
+	header.top nav ul li {
+		display: block;
+		margin: 10px 0px;
+		text-align: left;
+	}
+}
