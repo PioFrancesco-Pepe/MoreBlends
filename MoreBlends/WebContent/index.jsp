@@ -1,24 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="java.util.*,control.*,model.*"%>
-	
-	<%
-	Collection<?> model = (Collection<?>)request.getAttribute("prodotti");
-	if(model == null) {
-		request.getRequestDispatcher("./getProdotto").forward(request, response);
-		return;
-	}
+	pageEncoding="ISO-8859-1"
+	import="java.util.*,control.*,model.*, java.lang.*"%>
+
+<%
+Collection<?> model = (Collection<?>) request.getAttribute("prodotti");
+Collection<?> newProduct = (Collection<?>) request.getAttribute("newProduct");
+if (model == null) {
+	request.getRequestDispatcher("./getProdotto").forward(request, response);
+	return;
+}
+if (newProduct == null) {
+	request.getRequestDispatcher("./GetNewProduct").forward(request, response);
+	return;
+}
+
+request.getSession().setAttribute("prodotti", model);
 %>
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="initial-scale=1, width=device-width">
+<script src="./scripts/setSrcIndex.js"></script>
 <link rel="stylesheet" href="./styles/header.css" type="text/css">
 <link rel="stylesheet" href="./styles/style.css" type="text/css">
 <link rel="stylesheet" href="./styles/footer.css" type="text/css">
 <title>MoreBlends</title>
 </head>
 <body>
+
+
 	<%@ include file="./fragments/header.jsp"%>
 	<div class="Container">
 		<div id="capsule-cialdeContainer">
@@ -58,8 +70,7 @@
 							src="./images/AllSystem/iperespresso-cat-100x100.webp"></a>
 					</div>
 					<div class="grid-item">
-						<a href="#"><img
-							src="./images/AllSystem/bialetti100x100.webp"></a>
+						<a href="#"><img src="./images/AllSystem/bialetti100x100.webp"></a>
 					</div>
 				</div>
 			</div>
@@ -67,64 +78,75 @@
 		<div class="textbar">
 			<h3>Nuovi prodotti</h3>
 		</div>
+		<%
+		List<Prodotto> p = new ArrayList<>();
+		if (newProduct != null && newProduct.size() > 0) {
+			Iterator<?> i = newProduct.iterator();
+			while (i.hasNext())
+				p.add((Prodotto) i.next());
+		}
+		%>
 		<div class="responsive">
 			<div class="gallery">
-				<a target="_blank" href="img_5terre.jpg"> <img
-					src="./images/img_5terre.jpg" alt="Cinque Terre" width="600" height="400">
+				<a href="./redirectNewProduct?id=<%=p.get(0).getId()%>"> <img alt="image" class="newProduct"
+					src="./getImage?id=<%=p.get(0).getId()%>">
 				</a>
-				<div class="desc">Add a description of the image here</div>
+				<div class="desc"><%=p.get(0).getNome()%>&nbsp;&nbsp;&nbsp;<%=p.get(0).getPrezzoVendita()%>&euro;
+				</div>
 			</div>
 		</div>
 
 		<div class="responsive">
 			<div class="gallery">
-				<a target="_blank" href=""> 
-				<img src="./getImage?id=1" width="600" height="400">
+				<a href="./redirectNewProduct?id=<%=p.get(1).getId()%>"> <img alt="image" class="newProduct"
+					src="./getImage?id=<%=p.get(1).getId()%>">
 				</a>
-				<div class="desc">Add a description of the image here</div>
+				<div class="desc"><%=p.get(1).getNome()%>&nbsp;&nbsp;&nbsp;<%=p.get(1).getPrezzoVendita()%>&euro;
+				</div>
 			</div>
 		</div>
 
 		<div class="responsive">
 			<div class="gallery">
-				<a target="_blank" href=""> <img
-					src="./images/img_lights.jpg" alt="Northern Lights" width="600" height="400">
+				<a href="./redirectNewProduct?id=<%=p.get(2).getId()%>"> <img alt="image" class="newProduct"
+					src="./getImage?id=<%=p.get(2).getId()%>">
 				</a>
-				<div class="desc">Add a description of the image here</div>
+				<div class="desc"><%=p.get(2).getNome()%>&nbsp;&nbsp;&nbsp;<%=p.get(2).getPrezzoVendita()%>&euro;
+				</div>
 			</div>
 		</div>
-
 		<div class="responsive">
 			<div class="gallery">
-				<a target="_blank" href=""> <img
-					src="" alt="Mountains" width="600" height="400">
+				<a href="./redirectNewProduct?id=<%=p.get(3).getId()%>"> <img alt="image" class="newProduct"
+					src="./getImage?id=<%=p.get(3).getId()%>">
 				</a>
-				<div class="desc">Add a description of the image here</div>
+				<div class="desc"><%=p.get(3).getNome()%>&nbsp;&nbsp;&nbsp;<%=p.get(3).getPrezzoVendita()%>&euro;
+				</div>
 			</div>
 		</div>
 		<div class="clearfix"></div>
 	</div>
 	<h3>Upload photo:</h3>
-<form action="UploadPhoto" enctype="multipart/form-data" method="post">
-	Name-surname:
-	<select name="id">
-<%
-	if(model != null && model.size() > 0) {
-		Iterator<?> it = model.iterator(); 
-		while(it.hasNext()) {
-			Prodotto item = (Prodotto)it.next();
-%>	
-		<option value="<%=item.getId()%>"><%=item.getNome()%> <%=item.getPrezzo()%></option>
-<%
-		}
-	}	
-%>		
-	</select>
-	<br>
-	<input class="file" type="file" name="talkPhoto" value="" maxlength="255">	
-	<br>		
-	<input type="submit" value="Upload"><input type="reset">
-</form>
+	<form action="UploadPhoto" enctype="multipart/form-data" method="post">
+		Name-surname: <select name="id">
+			<%
+			if (model != null && model.size() > 0) {
+				Iterator<?> it = model.iterator();
+				while (it.hasNext()) {
+					Prodotto item = (Prodotto) it.next();
+			%>
+			<option value="<%=item.getId()%>"><%=item.getNome()%>
+				<%=item.getPrezzoVendita()%></option>
+			<%
+				}
+			}
+			%>
+		</select> <br> <input class="file" type="file" name="talkPhoto" value=""
+			maxlength="255"> <br> <input type="submit"
+			value="Upload"><input type="reset">
+	</form>
 	<%@ include file="./fragments/footer.jsp"%>
+	
 </body>
+
 </html>

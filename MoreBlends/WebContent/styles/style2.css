@@ -1,0 +1,94 @@
+@charset "ISO-8859-1";
+
+div.polaroid {
+  width: 23%;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 25px;
+}
+
+div.container {
+  text-align: center;
+  font-weight: 500;
+  padding: 10px 20px;
+}
+
+div.polaroid img{
+	width: 100%;
+}
+
+div#vuoto{
+	height: 635px;
+	width: 250px;
+}
+
+div#table{
+	display: table;	
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	height: 580px;
+}
+
+div#NameProduct
+{
+	
+	width: 100%;
+
+}
+
+div#NameProduct h1
+{
+	font-weight: 600;
+	text-align: center;
+}
+
+div#NameProduct p
+{
+	text-align: center;
+	text-decoration: none;
+	font-size: 20px; 
+}
+
+div#NameProduct label {
+	text-align: center;
+	font-size: 18px;
+	margin: 45px;
+}
+
+div#NameProduct label input[type=number]{
+	border-radius: 5px;
+	width: 150px;
+	height: 30px;
+	text-align: center;
+	margin-left: 20px;
+}  
+
+div#NameProduct div#row{
+	display: table-cell;
+}
+
+div#row div#inrow{
+	margin: 50px 100px 100px 100px;
+}
+
+input[type=submit]
+{
+	border-radius: 5px;
+	width: 150px;
+	height: 30px;
+	text-align: center;
+	margin-left: 10px;
+}
+
+div#desc{
+	width: 550px;
+	margin-top: 50px;
+}
+
+p#descrizione{
+	font-size: 14px;
+	margin-top: 10px;
+	border-top: 1px solid #c0c0c0;
+	border-bottom: 1px solid #c0c0c0;
+	text-align: center;
+	padding: 20px 0px;
+}

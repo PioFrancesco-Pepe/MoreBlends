@@ -12,22 +12,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Prodotto;
 
-/**
- * Servlet implementation class GetProdotto
- */
-@WebServlet("/getProdotto")
-public class GetProdotto extends HttpServlet {
+@WebServlet("/GetNewProduct")
+public class GetNewProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+   
+    public GetNewProductServlet() {
+        super();
+ 
+    }
 
-	public GetProdotto() {
-		super();
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
 	{		
-			List<Prodotto> model = ProdottoControl.load();
-			request.setAttribute("prodotti", model);
+ 
+			List<Prodotto> model = ProdottoControl.loadNewProduct();
+			request.setAttribute("newProduct", model);
 			RequestDispatcher dispatcher = this.getServletContext().
 					getRequestDispatcher("/index.jsp");
 			dispatcher.forward(request, response);
@@ -37,4 +37,5 @@ public class GetProdotto extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
+
 }

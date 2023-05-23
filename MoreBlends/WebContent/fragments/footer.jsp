@@ -1,7 +1,7 @@
 <footer>
 <div class="footer">
 <div class="row">
-<img id="logoFooter" alt="logo MoreBlends" src="./images/logo_transparent.png">
+<img id="logoFooter" alt="logo MoreBlends" src="#">
 </div>
 
 <div class="row">
