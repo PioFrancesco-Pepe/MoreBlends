@@ -1,19 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
-	import="java.util.*,control.*,model.*, java.lang.*"%>
+	import="java.util.*, control.* ,model.*, java.lang.*"%>
 
 <%
 Collection<?> model = (Collection<?>) request.getAttribute("prodotti");
 Collection<?> newProduct = (Collection<?>) request.getAttribute("newProduct");
 if (model == null) {
-	request.getRequestDispatcher("./getProdotto").forward(request, response);
+	request.getRequestDispatcher("./getProdotto?current=1").forward(request, response);
 	return;
 }
 if (newProduct == null) {
 	request.getRequestDispatcher("./GetNewProduct").forward(request, response);
 	return;
 }
-
 request.getSession().setAttribute("prodotti", model);
 %>
 <!DOCTYPE html>
@@ -21,9 +20,11 @@ request.getSession().setAttribute("prodotti", model);
 <head>
 
 <meta charset="ISO-8859-1">
-<meta name="viewport" content="initial-scale=1, width=device-width">
 <script src="./scripts/setSrcIndex.js"></script>
+<script src="./scripts/redirect.js"></script>
+<meta name="viewport" content="initial-scale=1, width=device-width">
 <link rel="stylesheet" href="./styles/header.css" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="./styles/style.css" type="text/css">
 <link rel="stylesheet" href="./styles/footer.css" type="text/css">
 <title>MoreBlends</title>

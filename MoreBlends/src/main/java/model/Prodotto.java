@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Prodotto {
 
 	private int id;

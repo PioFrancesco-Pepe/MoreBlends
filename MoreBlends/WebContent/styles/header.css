@@ -20,6 +20,20 @@ nav {
 	background-color: #8C8F93;
 	margin: 10px 10px 0px 10px;
 	height: 50px;
+	display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+nav button#cart {
+	float: right;
+  	padding: 6px 10px;
+  	margin-top: 8px;
+  	margin-right: 16px;
+  	background: transparent;
+  	font-size: 17px;
+  	border: none;
+  	cursor: pointer;
 }
 
 nav ul{
@@ -45,16 +59,28 @@ li.selected {
 	background-color: #74777b;
 }
 
-button.bCerca {
-	background-size: cover;
-	background-position: center;
-	display: inline;
-	border: none;
-	border-radius: 0px 6px 6px 0px;
-	text-transform: uppercase;
-	cursor: pointer;
-	height: 20px;
+input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
 }
+
+.search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+  background: #ccc;
+}
+
 
 @media ( max-width :720px) {
 	header.top {

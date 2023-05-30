@@ -26,11 +26,50 @@ public class GetProdotto extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
 	{		
+			if(Integer.parseInt(request.getParameter("current")) == 3)
+			{
+				String marca=(String)request.getSession().getAttribute("marca");
+				String search=(String)request.getSession().getAttribute("search");	
+				if(search!=null && marca!=null)
+				{	
+					List<Prodotto> model;
+					if(!(marca.equals("0")))
+						model = ProdottoControl.loadSearchProduct(search,marca);
+					else
+						model = ProdottoControl.loadSearchProduct(search);
+					request.setAttribute("prodottiSearch", model);
+					RequestDispatcher dispatcher = this.getServletContext().
+					getRequestDispatcher("/pages/catalogo.jsp");
+					dispatcher.forward(request, response);
+				}
+				else
+				{
+					if(search==null)
+						search="";
+					List<Prodotto> model;
+					model = ProdottoControl.loadSearchProduct(search);
+					request.setAttribute("prodottiSearch", model);
+					RequestDispatcher dispatcher = this.getServletContext().
+					getRequestDispatcher("/pages/catalogo.jsp");
+					dispatcher.forward(request, response);
+				}
+					
+			}
+			else if(Integer.parseInt(request.getParameter("current")) == 2)
+			{
+				List<Prodotto> model = ProdottoControl.load();
+				request.setAttribute("prodotti", model);
+				RequestDispatcher dispatcher = this.getServletContext().
+						getRequestDispatcher("/pages/catalogo.jsp");
+				dispatcher.forward(request, response);
+			}
+			else if(Integer.parseInt(request.getParameter("current")) == 1){
 			List<Prodotto> model = ProdottoControl.load();
 			request.setAttribute("prodotti", model);
 			RequestDispatcher dispatcher = this.getServletContext().
 					getRequestDispatcher("/index.jsp");
 			dispatcher.forward(request, response);
+			}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
