@@ -15,7 +15,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 
 	private static final String TABLE_NAME = "prodotto";
 	
-	public synchronized static List<Prodotto> load() {
+	public static synchronized List<Prodotto> load() {
 
 		Connection connection = null;
 		PreparedStatement stmt = null;

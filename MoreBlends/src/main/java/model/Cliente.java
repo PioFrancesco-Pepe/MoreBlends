@@ -1,10 +1,18 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cliente {
 
 	private int id;
-	private String nome,cognome,email,password;
-	private boolean isAdmin;
+	private String nome;
+	private String cognome;
+	private String email;
+	private String password;
+	private int isAdmin;
+	private List<Telefono> numeriTelefono;
+	private List<Indirizzo> indirizzi;
 	
 	public Cliente() {
 		super();
@@ -13,7 +21,9 @@ public class Cliente {
 		this.cognome = "";
 		this.email = "";
 		this.password = "";
-		this.isAdmin = false;
+		this.isAdmin = 0;
+		this.numeriTelefono= new ArrayList<>();
+		this.indirizzi=new ArrayList<>();
 	}
 
 	public int getId() {
@@ -56,13 +66,35 @@ public class Cliente {
 		this.password = password;
 	}
 
-	public boolean isAdmin() {
+	public int isAdmin() {
 		return isAdmin;
 	}
 
-	public void setAdmin(boolean isAdmin) {
+	public void setAdmin(int isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+
+	public List<Indirizzo> getIndirizzi() {
+		return indirizzi;
+	}
+
+	public void setIndirizzi(List<Indirizzo> indirizzi) {
+		this.indirizzi = indirizzi;
+	}
+
+	public List<Telefono> getNumeriTelefono() {
+		return numeriTelefono;
+	}
 	
+	public void setNumeriTelefono(List<Telefono> numeriTelefono) {
+		this.numeriTelefono = numeriTelefono;
+	}
+
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", email=" + email + ", password="
+				+ password + ", isAdmin=" + isAdmin + ", numeriTelefono=" + numeriTelefono + ", indirizzi=" + indirizzi
+				+ "]";
+	}
 	
 }

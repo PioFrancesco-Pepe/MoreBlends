@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="java.util.*, control.* ,model.*, java.lang.*"%>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <%
 String s="";
 Prodotto item;

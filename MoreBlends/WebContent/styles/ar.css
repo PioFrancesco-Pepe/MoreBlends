@@ -1,0 +1,79 @@
+@charset "ISO-8859-1";
+body {
+	margin: 0 auto;
+}
+
+legend {
+	padding: 3px;
+	border: 1px solid black;
+	border-radius: 3px;
+}
+
+fieldset {
+	border: 1px solid black;
+	border-radius: 7px;
+}
+
+input {
+	border: 1px solid black;
+	border-radius: 2px;
+}
+
+label, input, span {
+	padding: 3px;
+}
+
+label, input {
+	margin-right: 3px;
+}
+
+div {
+	margin: 6px 0 6px 0;
+}
+
+.error {
+	border: thin solid red;
+}
+
+div#blocco{
+	display: flex;
+	justify-content: center;
+}
+
+div#pulsanti{
+	display: flex;
+	justify-content: space-between;
+}
+
+.popup{
+	width: 200px;
+	height: 400px;
+	background: #fefefe;
+	margin: 40px auto;
+	padding: 10px 20px;
+	position: relative;
+	color: #333;
+}
+
+.overlay{
+	position: fixed; /* schermo intero*/
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+  height: 100vh;
+	background: rgba(0,0,0,0.7); /* colore sfondo e opcità */
+	text-align: center;
+	display: none; /*cambiaremo in display: none*/
+}
+
+#close{
+	position: absolute;
+	top: -20px;
+	right: -20px;
+	color: #fff;
+}
+
+#close:hover{
+	cursor: pointer;
+}
