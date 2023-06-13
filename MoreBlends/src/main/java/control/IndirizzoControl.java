@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import model.Indirizzo;
 
@@ -67,7 +69,7 @@ public class IndirizzoControl implements IBeanDAO<Indirizzo> {
 				item.setCAP(rs.getString("CAP"));
 				item.setLocalita(rs.getString("localita"));
 				item.setSiglaProvincia(rs.getString("SiglaProvinca"));
-				item.setIdIndirizzo(rs.getInt("idcliente"));
+				item.setIdCliente(rs.getInt("idcliente"));
 			}
 
 		} finally {
@@ -136,7 +138,7 @@ public class IndirizzoControl implements IBeanDAO<Indirizzo> {
 				item.setCAP(rs.getString("CAP"));
 				item.setLocalita(rs.getString("localita"));
 				item.setSiglaProvincia(rs.getString("SiglaProvinca"));
-				item.setIdIndirizzo(rs.getInt("idcliente"));
+				item.setIdCliente(rs.getInt("idcliente"));
 				i.add(item);
 			}
 
@@ -151,4 +153,44 @@ public class IndirizzoControl implements IBeanDAO<Indirizzo> {
 		return i;
 	}
 
+	public static synchronized List<Indirizzo> getAllIndirizzi(int code) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		List<Indirizzo> t = new ArrayList<>();
+
+		String selectSQL = "SELECT * FROM " + IndirizzoControl.TABLE_NAME +" WHERE idCliente = ?";
+		
+
+		try {
+			connection = DBConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, code);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				Indirizzo item = new Indirizzo();
+
+				item.setIdIndirizzo(rs.getInt("idindirizzo"));
+				item.setVia(rs.getString("Via"));
+				item.setCivico(rs.getString("civico"));
+				item.setCAP(rs.getString("CAP"));
+				item.setLocalita(rs.getString("localita"));
+				item.setSiglaProvincia(rs.getString(6));
+				item.setIdCliente(rs.getInt("idcliente"));
+				t.add(item);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DBConnectionPool.releaseConnection(connection);
+			}
+		}
+		return t;
+	}
+	
 }

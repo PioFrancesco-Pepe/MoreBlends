@@ -10,6 +10,7 @@ String marca= (String)request.getSession().getAttribute("marca");
 Collection<?> model=(Collection<?>) request.getAttribute("prodotti");
 Collection<?> modelSearch=(Collection<?>) request.getAttribute("prodottiSearch");
 Collection <?> modelMarca=(Collection<?>) request.getAttribute("MarcaProdotti");
+int flag=0;
 	if(model == null){
 		request.getRequestDispatcher("../getProdotto?current=2").forward(request, response);
 	return;
@@ -22,9 +23,10 @@ Collection <?> modelMarca=(Collection<?>) request.getAttribute("MarcaProdotti");
 		request.getRequestDispatcher("../getProdotto?current=3").forward(request, response);
 		request.getSession().removeAttribute("search");
 		request.getSession().removeAttribute("marca");
+		flag=1;
 		return;
 	}
-	model=modelSearch;	
+	model=modelSearch;
 %>
 <head>
 <meta charset="ISO-8859-1">
@@ -64,9 +66,10 @@ Collection <?> modelMarca=(Collection<?>) request.getAttribute("MarcaProdotti");
 			Iterator<?> it = model.iterator();
 			while (it.hasNext()) {
 				item = (Prodotto) it.next();
-				s="<li><div class=\"itemProduct\"> <div class=\"polaroid\">"+"<a href=\"../redirectNewProduct?id="+item.getId()+"\">"+"<img src=\"../getImage?id="+item.getId()+"\"></a><div class=\"container\"><p>"+item.getNome()+"&nbsp;-&nbsp;"+item.getPrezzoVendita()+"&euro;</p></div></div></div></li>";
-				
-				out.write(s);
+				if(item.getQuantita() >= 1){
+					s="<li><div class=\"itemProduct\"> <div class=\"polaroid\">"+"<a href=\"../redirectNewProduct?id="+item.getId()+"\">"+"<img src=\"../getImage?id="+item.getId()+"\"></a><div class=\"container\"><p>"+item.getNome()+"&nbsp;-&nbsp;"+item.getPrezzoVendita()+"&euro;</p></div></div></div></li>";
+					out.write(s);
+				}
 			}}%>
 	</ul>
 	</div>

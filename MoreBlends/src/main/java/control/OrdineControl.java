@@ -1,38 +1,41 @@
 package control;
 
 import java.sql.Connection;
+import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 
-import model.Telefono;
+import model.Ordine;
 
-public class TelefonoControl implements IBeanDAO<Telefono> {
+public class OrdineControl implements IBeanDAO<Ordine> {
 
-	
-	private static final String TABLE_NAME = "telefono";
+	private static final String TABLE_NAME = "ordine";
+	private static int lastID;
 
 	@Override
-	public synchronized void doSave(Telefono t) throws SQLException {
+	public synchronized void doSave(Ordine o) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-
-		String insertSQL = "INSERT INTO " + TelefonoControl.TABLE_NAME
-				+ " (NumeroTelefono, IDCliente) VALUES (?, ?)";
+		String insertSQL = "INSERT INTO " + OrdineControl.TABLE_NAME
+				+ " (datadiinserimento, IDCliente, IDStatusOrdine) VALUES (?, ?, ?)";
 
 		try {
 			connection = DBConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, t.getNumTelefono());
-			preparedStatement.setInt(2, t.getIdCliente());
-
+			preparedStatement = connection.prepareStatement(insertSQL,Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setString(1, o.getDataInserimento());
+			preparedStatement.setInt(2, o.getIdCliente());
+			preparedStatement.setInt(3, o.getIdStatusOrdine());
+			
 			preparedStatement.executeUpdate();
-
+			
+			ResultSet rs = preparedStatement.getGeneratedKeys();
+			if(rs.next())
+				lastID=rs.getInt(1);
+			
 			connection.commit();
 		} finally {
 			try {
@@ -45,13 +48,13 @@ public class TelefonoControl implements IBeanDAO<Telefono> {
 	}
 
 	@Override
-	public synchronized Telefono doRetrieveByKey(int code) throws SQLException {
+	public synchronized Ordine doRetrieveByKey(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Telefono item = new Telefono();
+		Ordine item = new Ordine();
 
-		String selectSQL = "SELECT * FROM " + TelefonoControl.TABLE_NAME + " WHERE IDTelefono = ?";
+		String selectSQL = "SELECT * FROM " + OrdineControl.TABLE_NAME + " WHERE IDOrdine = ?";
 		try {
 			connection = DBConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
@@ -60,9 +63,10 @@ public class TelefonoControl implements IBeanDAO<Telefono> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				item.setIdTelefono(rs.getInt("idtelefono"));
-				item.setNumTelefono(rs.getString("numerotelefono"));
+				item.setIdOrdine(rs.getInt("idOrdine"));
+				item.setDataInserimento(rs.getString("datadiinserimento"));
 				item.setIdCliente(rs.getInt("idcliente"));
+				item.setIdStatusOrdine(rs.getInt("idstatusordine"));
 			}
 
 		} finally {
@@ -83,7 +87,7 @@ public class TelefonoControl implements IBeanDAO<Telefono> {
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + TelefonoControl.TABLE_NAME + " WHERE IDTelefono = ?";
+		String deleteSQL = "DELETE FROM " + OrdineControl.TABLE_NAME + " WHERE IDOrdine = ?";
 
 		try {
 			connection = DBConnectionPool.getConnection();
@@ -104,13 +108,13 @@ public class TelefonoControl implements IBeanDAO<Telefono> {
 	}
 
 	@Override
-	public synchronized Collection<Telefono> doRetrieveAll(String order) throws SQLException {
+	public synchronized Collection<Ordine> doRetrieveAll(String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<Telefono> t = new LinkedList<>();
+		Collection<Ordine> ordini = new LinkedList<>();
 
-		String selectSQL = "SELECT * FROM " + TelefonoControl.TABLE_NAME;
+		String selectSQL = "SELECT * FROM " + OrdineControl.TABLE_NAME;
 
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
@@ -119,16 +123,17 @@ public class TelefonoControl implements IBeanDAO<Telefono> {
 		try {
 			connection = DBConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			
+
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				Telefono item = new Telefono();
+				Ordine item = new Ordine();
 
-				item.setIdTelefono(rs.getInt("idtelefono"));
-				item.setNumTelefono(rs.getString("numerotelefono"));
+				item.setIdOrdine(rs.getInt("idOrdine"));
+				item.setDataInserimento(rs.getString("datadiinserimento"));
 				item.setIdCliente(rs.getInt("idcliente"));
-				t.add(item);
+				item.setIdStatusOrdine(rs.getInt("idstatusordine"));
+				ordini.add(item);
 			}
 
 		} finally {
@@ -139,43 +144,10 @@ public class TelefonoControl implements IBeanDAO<Telefono> {
 				DBConnectionPool.releaseConnection(connection);
 			}
 		}
-		return t;
+		return ordini;
 	}
-	
-	public static synchronized List<Telefono> getAllTelefono(int code) throws SQLException
-	{
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
 
-		List<Telefono> t = new ArrayList<>();
-
-		String selectSQL = "SELECT * FROM " + TelefonoControl.TABLE_NAME +" WHERE idCliente = ?";
-
-
-		try {
-			connection = DBConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, code);
-			
-			ResultSet rs = preparedStatement.executeQuery();
-
-			while (rs.next()) {
-				Telefono item = new Telefono();
-
-				item.setIdTelefono(rs.getInt("idtelefono"));
-				item.setNumTelefono(rs.getString("numerotelefono"));
-				item.setIdCliente(rs.getInt("idcliente"));
-				t.add(item);
-			}
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DBConnectionPool.releaseConnection(connection);
-			}
-		}
-		return t;
+	public static int getLastID() {
+		return lastID;
 	}
-	}
+}

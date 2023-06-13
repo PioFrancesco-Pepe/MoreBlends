@@ -1,11 +1,19 @@
 package model;
 
+import java.io.Serializable;
 
-public class Prodotto {
+public class Prodotto implements Serializable{
 
+	private static final long serialVersionUID = 1710914920512197684L;
+	
 	private int id;
-	private String nome,descrizione,descrizioneAmpia,datainserimento;
-	private float prezzoVendita,costo;
+	private String nome;
+	private String descrizione;
+	private String descrizioneAmpia;
+	private String datainserimento;
+	private float prezzoVendita;
+	private float costo;
+	private int quantita;
 	
 	public Prodotto() {
 		super();
@@ -16,6 +24,7 @@ public class Prodotto {
 		this.datainserimento="";
 		this.prezzoVendita = 0;
 		this.costo=0;
+		this.quantita=0;
 	}
 
 	public String getDescrizione() {
@@ -72,5 +81,13 @@ public class Prodotto {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public int getQuantita() {
+		return quantita;
+	}
+
+	public void setQuantita(int quantita) {
+		this.quantita = quantita;
 	}
 }

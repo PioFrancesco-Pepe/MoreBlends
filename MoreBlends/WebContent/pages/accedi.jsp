@@ -17,12 +17,18 @@
 <%@ include file="../fragments/header.jsp"%>
 </form>
 <%
-	int popup=0;
-	if(request.getSession().getAttribute("popupR")!=null)
-		popup=(int)request.getSession().getAttribute("popupR");
-	if(popup == 1){
-		out.write("<div class=\"overlay\" id=\"pop\"><div class=\"popup\"><p>Prodotto aggiunto al carello</p><span id=\"close\">X</span></div></div>");
-		request.getSession().removeAttribute("popup");
+	if(request.getSession().getAttribute("popupR")!=null && (int)request.getSession().getAttribute("popupR") == 1){
+		out.write("<div class=\"overlay\" id=\"pop\"><div class=\"popup\"><p>Registrazione effettuata ora puoi accedere.</p><span id=\"close\">X</span></div></div>");
+		request.getSession().removeAttribute("popupR");	
+	}
+	if(request.getSession().getAttribute("popupE")!=null && (int)request.getSession().getAttribute("popupE") == 1)
+	{
+		String s = (String)request.getSession().getAttribute("error");
+		if(s!=null)
+		{
+			out.write("<div class=\"overlay\" id=\"pop\"><div class=\"popup\"><p>"+s+"</p><span id=\"close\">X</span></div></div>");
+			request.getSession().removeAttribute("popupE");	
+		}
 	}
 	%>
 <h3>Accedi</h3>
@@ -45,13 +51,13 @@
 				</div>
 				<hr>
 				<div id="pulsanti">
-					<input type="submit" value="Registrati" onclick="return validate()">
+					<input type="submit" value="Accedi" onclick="return validate()">
 					<input type="reset" value="Reset">
 				</div>
 			</fieldset>
 		</form>
 	</div>
-
 <%@ include file="../fragments/footer.jsp"%>
+<script src="../scripts/popup.js"></script>
 </body>
 </html>

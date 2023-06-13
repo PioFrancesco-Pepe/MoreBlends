@@ -1,7 +1,11 @@
 package model;
 
-public class Indirizzo {
+import java.io.Serializable;
 
+public class Indirizzo implements Serializable {
+
+	private static final long serialVersionUID = 3138441055744591077L;
+	
 	private int idIndirizzo;
 	private String via;
 	private String civico;
@@ -11,13 +15,13 @@ public class Indirizzo {
 	private int idCliente;
 	
 	public Indirizzo() {
-		this.idIndirizzo =-1;
+		this.idIndirizzo = -1;
 		this.via ="";
 		this.civico ="";
 		this.CAP="";
-		this.localita ="";
-		this.siglaProvincia ="";
-		this.idCliente=-1;
+		this.localita = "";
+		this.siglaProvincia = "";
+		this.idCliente = -1;
 	}
 
 	public int getIdIndirizzo() {

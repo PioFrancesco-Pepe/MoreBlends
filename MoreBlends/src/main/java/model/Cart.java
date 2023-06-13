@@ -1,15 +1,17 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 
-public class Cart {
+public class Cart implements Serializable {
 
+private static final long serialVersionUID = 1L;
 private List<Prodotto> products;
 private List<Integer> quantita;
-	
+
 	public Cart() {
 		products = new ArrayList<>();
 		quantita= new ArrayList<>();
@@ -25,16 +27,15 @@ private List<Integer> quantita;
 	}
 	
 	public void deleteProduct(Prodotto product,Integer quantita) {
-		Iterator<Prodotto> p= products.iterator();
 	
-		while(p.hasNext()) {
-			Prodotto tempp=p.next();
-			if(tempp.getId()==product.getId())
+		int i=0;
+		while(i<products.size()) {
+			if(products.get(i).getId() == product.getId())
 			{
-				products.remove(product);
-				this.quantita.remove(quantita);
-				return;
+					products.remove(products.get(i));
+					this.quantita.remove(quantita);
 			}
+			i++;
 		}
 	}
 	
@@ -74,11 +75,15 @@ private List<Integer> quantita;
 		Iterator<Prodotto> p= products.iterator();
 		
 		while(p.hasNext()) {
-			Prodotto tempp=p.next();
-			if(tempp.getId()==product.getId())
+			Prodotto temp=p.next();
+			if(temp.getId()==product.getId())
 				return true;
 		}
 			return false;
 	}	
 	
+	public boolean isEmpty()
+	{
+		return (products.isEmpty() && quantita.isEmpty());
+	}
 }

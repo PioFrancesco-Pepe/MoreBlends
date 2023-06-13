@@ -36,7 +36,7 @@ public class CartServlet extends HttpServlet {
 			request.getSession().setAttribute("cart", cart);
 		}
 
-		String action = (String) request.getParameter("action");
+		String action = request.getParameter("action");
 
 		try {
 			if (action != null) {
@@ -59,10 +59,12 @@ public class CartServlet extends HttpServlet {
 		}
 		
 		request.getSession().setAttribute("cart", cart);
-		request.setAttribute("cart", cart);
+		
 		
 		if(action.equalsIgnoreCase("addC")) {
 			request.getSession().setAttribute("popup",1);
+			//Prodotto p=(Prodotto)request.getSession().getAttribute("prodottoCorrente");
+			//p.setQuantita(p.getQuantita()- (int)request.getAttribute("quantita"));
 			response.sendRedirect("./pages/pageProduct.jsp");
 		}
 		else if(action.equalsIgnoreCase("deleteC") || action.equalsIgnoreCase("updateC"))

@@ -25,7 +25,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 
 		try {
 			connection = DBConnectionPool.getConnection();
-			String sql = "SELECT * FROM prodotto";
+			String sql = "SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m WHERE p.idProdotto=l.idProdotto AND l.idMagazzino=m.idMagazzino";
 			stmt = connection.prepareStatement(sql);
 
 			rs = stmt.executeQuery();
@@ -39,6 +39,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 				item.setDatainserimento(rs.getString("dataInserimento"));
 				item.setPrezzoVendita(rs.getFloat("prezzovendita"));
 				item.setCosto(rs.getFloat("costo"));
+				item.setQuantita(rs.getInt("disponibilita"));
 				model.add(item);
 			}
 
@@ -58,7 +59,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 		}
 		return model;
 	}
-	public synchronized static List<Prodotto> loadNewProduct() {
+	public static synchronized List<Prodotto> loadNewProduct() {
 
 		Connection connection = null;
 		PreparedStatement stmt = null;
@@ -68,7 +69,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 
 		try {
 			connection = DBConnectionPool.getConnection();
-			String sql = "SELECT * FROM prodotto order by dataInserimento desc LIMIT 4";
+			String sql = "SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m WHERE p.idProdotto=l.idProdotto AND l.idMagazzino=m.idMagazzino AND l.disponibilita > 0 ORDER BY p.dataInserimento desc LIMIT 4";
 			
 			stmt = connection.prepareStatement(sql);
 			
@@ -82,6 +83,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 				item.setDatainserimento(rs.getString("dataInserimento"));
 				item.setPrezzoVendita(rs.getFloat("prezzovendita"));
 				item.setCosto(rs.getFloat("costo"));
+				item.setQuantita(rs.getInt("disponibilita"));
 				model.add(item);
 			}
 
@@ -102,7 +104,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 		return model;
 	}
 	
-	public synchronized static List<Prodotto> loadSearchProduct(String search) {
+	public static synchronized List<Prodotto> loadSearchProduct(String search) {
 
 		Connection connection = null;
 		PreparedStatement stmt = null;
@@ -112,7 +114,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 
 		try {
 			connection = DBConnectionPool.getConnection();
-			String sql = "SELECT * FROM prodotto WHERE NomeProdotto LIKE '%"+search.strip()+"%'";
+			String sql="SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m WHERE p.idProdotto=l.idProdotto AND l.idMagazzino=m.idMagazzino AND NomeProdotto LIKE '%"+search+"%'";
 			stmt = connection.prepareStatement(sql);
 			
 			rs = stmt.executeQuery();
@@ -125,6 +127,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 				item.setDatainserimento(rs.getString("dataInserimento"));
 				item.setPrezzoVendita(rs.getFloat("prezzovendita"));
 				item.setCosto(rs.getFloat("costo"));
+				item.setQuantita(rs.getInt("disponibilita"));
 				model.add(item);
 			}
 
@@ -145,7 +148,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 		return model;
 	}
 	
-	public synchronized static List<String> loadMarca() {
+	public static synchronized  List<String> loadMarca() {
 
 		Connection connection = null;
 		PreparedStatement stmt = null;
@@ -261,7 +264,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 
 		Prodotto item = new Prodotto();
 
-		String selectSQL = "SELECT * FROM " + ProdottoControl.TABLE_NAME + " WHERE IDProdotto = ?";
+		String selectSQL = "SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m WHERE p.idProdotto=l.idProdotto AND l.idMagazzino=m.idMagazzino AND p.IDProdotto = ?";
 		try {
 			connection = DBConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
@@ -277,6 +280,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 				item.setDatainserimento(rs.getString("dataInserimento"));
 				item.setPrezzoVendita(rs.getFloat("prezzovendita"));
 				item.setCosto(rs.getFloat("costo"));
+				item.setQuantita(rs.getInt("disponibilita"));
 			}
 
 		} finally {
@@ -358,5 +362,33 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 			}
 		}
 		return products;
+	}
+	
+	public static synchronized boolean updateQuantita(int code,int quantita,int quantitaOrdinata) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		int result = 0;
+		
+		String updateSQL="Update locazione SET Disponibilita = ? WHERE IdProdotto = ? AND IdMagazzino = ?";
+		
+		try {
+			connection = DBConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(updateSQL);
+			preparedStatement.setInt(1, (quantita-quantitaOrdinata));
+			preparedStatement.setInt(2,code);
+			preparedStatement.setInt(3, 1);
+
+			result = preparedStatement.executeUpdate();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DBConnectionPool.releaseConnection(connection);
+			}
+		}
+		return (result != 0);
 	}
 }

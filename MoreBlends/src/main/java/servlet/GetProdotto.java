@@ -27,6 +27,7 @@ public class GetProdotto extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
 	{		
+		String catalogo="/pages/catalogo.jsp";
 			if(Integer.parseInt(request.getParameter("current")) == 3)
 			{
 				String marca=(String)request.getSession().getAttribute("marca");
@@ -40,7 +41,7 @@ public class GetProdotto extends HttpServlet {
 						model = ProdottoControl.loadSearchProduct(search);
 					request.setAttribute("prodottiSearch", model);
 					RequestDispatcher dispatcher = this.getServletContext().
-					getRequestDispatcher("/pages/catalogo.jsp");
+					getRequestDispatcher(catalogo);
 					dispatcher.forward(request, response);
 				}
 				else
@@ -51,7 +52,7 @@ public class GetProdotto extends HttpServlet {
 					model = ProdottoControl.loadSearchProduct(search);
 					request.setAttribute("prodottiSearch", model);
 					RequestDispatcher dispatcher = this.getServletContext().
-					getRequestDispatcher("/pages/catalogo.jsp");
+					getRequestDispatcher(catalogo);
 					dispatcher.forward(request, response);
 				}
 					
@@ -61,20 +62,21 @@ public class GetProdotto extends HttpServlet {
 				List<Prodotto> model = ProdottoControl.load();
 				request.setAttribute("prodotti", model);
 				RequestDispatcher dispatcher = this.getServletContext().
-						getRequestDispatcher("/pages/catalogo.jsp");
+						getRequestDispatcher(catalogo);
 				dispatcher.forward(request, response);
 			}
-			else if(Integer.parseInt(request.getParameter("current")) == 1){
-			List<Prodotto> model = ProdottoControl.load();
-			request.setAttribute("prodotti", model);
-			RequestDispatcher dispatcher = this.getServletContext().
-					getRequestDispatcher("/index.jsp");
-			dispatcher.forward(request, response);
+			else if(Integer.parseInt(request.getParameter("current")) == 1)
+			{
+				List<Prodotto> model = ProdottoControl.load();
+				request.setAttribute("prodotti", model);
+				RequestDispatcher dispatcher = this.getServletContext().
+						getRequestDispatcher("/index.jsp");
+				dispatcher.forward(request, response);
 			}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+			doGet(request, response);
 	}
 }

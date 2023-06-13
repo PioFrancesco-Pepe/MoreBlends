@@ -4,26 +4,36 @@
 <!DOCTYPE html>
 <html>
 <%
-if((String)request.getSession().getAttribute("idproduct") == null)
-	response.sendRedirect("../index.jsp");
-else{
-int idproduct= Integer.parseInt((String) request.getSession().getAttribute("idproduct"));
+int idproduct = Integer.parseInt((String) request.getSession().getAttribute("idproduct"));
+int flag = 0;
 Prodotto item = new Prodotto();
-boolean exit = true;
-
 Collection<?> model = (Collection<?>) request.getSession().getAttribute("prodotti");
+Cart cart = (Cart) request.getSession().getAttribute("cart");
 
 if (model != null && model.size() > 0) {
 	Iterator<?> it = model.iterator();
-	while (it.hasNext() && exit != false) {
+	while (it.hasNext() && flag!=1) {
 		item = (Prodotto) it.next();
 		if (item.getId() == idproduct)
-			exit = false;
+			flag=1;
 	}
 }
+int i=-1;
+if(cart!=null)
+{
+	Iterator<Prodotto> iterP= cart.getProducts().iterator();
+	while(iterP.hasNext()){
+		i++;
+		Prodotto p = iterP.next();
+		if(p.getId()== idproduct);
+			break;
+	}
+}	
+if(i!=-1 && item.getQuantita()-cart.getQuantita().get(i)==0)
+	response.sendRedirect("/MoreBlends");
+if(flag==0)
+	response.sendRedirect("/MoreBlends");
 
-
-	
 %>
 <head>
 <meta charset="ISO-8859-1">
@@ -66,11 +76,16 @@ if (model != null && model.size() > 0) {
 							<p>
 								Prezzo di vendita&nbsp;&nbsp;&nbsp;<%=item.getPrezzoVendita()%>&euro;
 							</p>
-
+						<%
+						int quantita=item.getQuantita();
+							if(i!=-1)
+								quantita-=cart.getQuantita().get(i);
+						%>	
 							<form method="get" action="../cart">
 							<label>Quantità <input type="number" id="quantita" name="quantita"
-								min="1" max="5"> <input type="submit" id="AddCart" value="Aggiungi al carrello">
+								min="1" max="<%=quantita%>"> <input type="submit" id="AddCart" value="Aggiungi al carrello">
 							</label>
+						<% //request.getSession().setAttribute("prodottoCorrente",item);%>	
 							<input type="hidden" id="IDProduct" name="id" value="<%=item.getId()%>">
 							<input type="hidden" id="AddCart" name="action" value="addC">
 							</form>
@@ -80,7 +95,7 @@ if (model != null && model.size() > 0) {
 				</div> <!--DIV NameProduct-->
 			</div> <!--DIV table-->
 		</div><!--DIV prova-->
-	</div> <!--DIV Container--><%} %>
+	</div> <!--DIV Container-->
 	<%@ include file="../fragments/footer.jsp"%>
 <script src="../scripts/popup.js"></script>
 </body>

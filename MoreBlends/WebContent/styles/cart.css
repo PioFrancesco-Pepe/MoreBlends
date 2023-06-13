@@ -7,6 +7,28 @@ html, body {
 	font-family: sans-serif;
 }
 
+div#all {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+section#p-i{
+	border-radius: 6px;
+	height: 350px;
+	width: 400px;
+	border: 1px solid #fefefe;
+	box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.10);
+	margin: 80px 10px;
+	text-align: center;
+}
+
+div#telefono,div#indirizzo,div#metodospedizione,div#metodopagamento{
+	display: grid;
+	justify-content: center;
+	align-content: space-around;
+	height: 25%;
+}
+
 .shopping-cart {
 	
 	margin: 80px 10px 80px 10px;
@@ -127,6 +149,11 @@ button:focus, input:focus {
 	font-size: 16px;
 	color: #43484D;
 	font-weight: 300;
+}
+
+div#somma,div#no-log{
+	display: flex;
+	justify-content: space-around;
 }
 
 @media ( max-width : 800px) {

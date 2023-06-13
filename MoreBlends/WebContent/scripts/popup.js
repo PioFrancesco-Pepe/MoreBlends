@@ -3,7 +3,7 @@ setTimeout(
     function() {
     	console.log("run");
       document.getElementById('pop').style.display="block"	;
-   	}, 1000);
+   	}, 250);
 
 
 // chiudi il popup quando clicchi sulla X
