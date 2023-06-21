@@ -13,15 +13,21 @@ div#containerFilters {
 }
 
 div#containerProducts{
-	display: grid;
-  	gap: 115px 15px;
   	margin: 25px 0px 120px 0px;
-  	grid-template-columns: repeat(7, 150px);
+}
+
+div#containerProductsAdmin{
+  	margin: 25px 0px 150px 0px;
 }
 
 div.itemProduct{
 	height: 150px;
-	width: 150px;
+	width: 165px;
+}
+
+div.itemProductA{
+	height: 150px;
+	width: 155px;
 }
 
 div.polaroid {	
@@ -40,16 +46,34 @@ div.polaroid img{
 	width: 100%;
 }
 
-ul#list{
+ul.list{
 	display: grid;
-  	gap: 115px 15px;
+  	gap: 145px 20px;
   	margin: 25px 0px 120px 0px;
-  	grid-template-columns: repeat(7, 150px);
+  	grid-template-columns: repeat(7, 165px);
 	list-style-type: none;
 }
 
-ul#list li{
+ul.listAdmin{
+	display: grid;
+  	gap: 145px 15px;
+  	margin: 25px 0px 120px 0px;
+  	grid-template-columns: repeat(7, 165px);
+	list-style-type: none;
+}
+
+div#edit-trash
+{
+	display: flex;
+	justify-content: space-around;
+}
+
+ul.list li{
 	list-style-type: none; 	
+}
+
+a i.fa-pencil,a i.fa-trash-can{
+	color: black;
 }
 
 .hidden {

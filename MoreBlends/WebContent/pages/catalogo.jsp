@@ -10,7 +10,6 @@ String marca= (String)request.getSession().getAttribute("marca");
 Collection<?> model=(Collection<?>) request.getAttribute("prodotti");
 Collection<?> modelSearch=(Collection<?>) request.getAttribute("prodottiSearch");
 Collection <?> modelMarca=(Collection<?>) request.getAttribute("MarcaProdotti");
-int flag=0;
 	if(model == null){
 		request.getRequestDispatcher("../getProdotto?current=2").forward(request, response);
 	return;
@@ -23,7 +22,6 @@ int flag=0;
 		request.getRequestDispatcher("../getProdotto?current=3").forward(request, response);
 		request.getSession().removeAttribute("search");
 		request.getSession().removeAttribute("marca");
-		flag=1;
 		return;
 	}
 	model=modelSearch;
@@ -48,24 +46,25 @@ int flag=0;
 		<select id="marca" name="marca">
 		<option value="0">Tutte le marche</option>
 		<% 
-		String m;
+		Categoria m;
 		if (modelMarca != null && modelMarca.size() > 0) {
 			Iterator<?> i = modelMarca.iterator();
 			while (i.hasNext()){
-				m= (String)i.next();
-				out.print("<option value=\""+m+"\">"+m+"</option>");
+				m = (Categoria)i.next();
+				out.print("<option value=\""+m.getNomeCategoria()+"\">"+m.getNomeCategoria()+"</option>");
 				}
 		}%>
 		</select>	
 		</form>
 	</div>
 	<div id="containerProducts">
-	<ul id="list" data-current-page="1" aria-live="polite">
+	<ul class="list" id="list" data-current-page="1" aria-live="polite">
 		<%
 		if (model != null && model.size() > 0) {
 			Iterator<?> it = model.iterator();
 			while (it.hasNext()) {
 				item = (Prodotto) it.next();
+				//System.out.println(item);
 				if(item.getQuantita() >= 1){
 					s="<li><div class=\"itemProduct\"> <div class=\"polaroid\">"+"<a href=\"../redirectNewProduct?id="+item.getId()+"\">"+"<img src=\"../getImage?id="+item.getId()+"\"></a><div class=\"container\"><p>"+item.getNome()+"&nbsp;-&nbsp;"+item.getPrezzoVendita()+"&euro;</p></div></div></div></li>";
 					out.write(s);

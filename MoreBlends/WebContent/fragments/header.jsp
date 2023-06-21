@@ -22,10 +22,18 @@ Integer isAdmin=(Integer)request.getSession().getAttribute("isAdmin");
  %></li>
 <%if(isAdmin!=null && isAdmin.intValue() == 1)
 	out.write("<li class=\"dropdown\">Funzioni Admin");
+
 	out.write("<div class=\"dropdown-content\"><a href=\"" + application.getContextPath()
  	+ "/admin/newProdotto.jsp\">Inserisci Nuovo Prodotto</a>");
-	out.write("<div class=\"dropdown-content\"><a href=\"" + application.getContextPath()
- 	+ "/admin/Report.jsp\">Report entrate</a></div></li>");
+	
+	out.write("<a href=\"" + application.getContextPath()
+ 	+ "/admin/viewProduct.jsp\">Visualizza Prodotti</a>");
+	
+	out.write("<a href=\"" + application.getContextPath()
+ 	+ "/admin/viewOrders.jsp\">Visualizza Ordini</a>");
+	
+	out.write("<a href=\"" + application.getContextPath()
+ 	+ "/admin/report.jsp\">Report entrate</a></div></li>");
 	%>
 	</ul>
 	<div class="search-container">

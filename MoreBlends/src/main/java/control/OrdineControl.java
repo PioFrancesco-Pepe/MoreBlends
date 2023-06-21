@@ -114,7 +114,7 @@ public class OrdineControl implements IBeanDAO<Ordine> {
 
 		Collection<Ordine> ordini = new LinkedList<>();
 
-		String selectSQL = "SELECT * FROM " + OrdineControl.TABLE_NAME;
+		String selectSQL = "SELECT * FROM " + OrdineControl.TABLE_NAME+" AS O, StatusOrdine AS SO WHERE SO.IdStatusOrdine=O.IdStatusOrdine";
 
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
@@ -133,6 +133,7 @@ public class OrdineControl implements IBeanDAO<Ordine> {
 				item.setDataInserimento(rs.getString("datadiinserimento"));
 				item.setIdCliente(rs.getInt("idcliente"));
 				item.setIdStatusOrdine(rs.getInt("idstatusordine"));
+				item.setStatusOrdine(rs.getString("statusordine"));
 				ordini.add(item);
 			}
 
@@ -149,5 +150,59 @@ public class OrdineControl implements IBeanDAO<Ordine> {
 
 	public static int getLastID() {
 		return lastID;
+	}
+
+	public Collection<Ordine> findOrder(String datex, String datey, int user) throws SQLException {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<Ordine> ordini = new LinkedList<>();
+
+		String selectSQL = "SELECT * FROM " + OrdineControl.TABLE_NAME+" AS O, StatusOrdine AS SO WHERE SO.IdStatusOrdine=O.IdStatusOrdine ";
+		
+		boolean flag=false;
+		if(user!=0) {
+			selectSQL+="AND o.idcliente=? AND datadiinserimento BETWEEN ? AND ? ORDER BY O.idOrdine DESC";
+			flag=true;
+		}
+		else
+			selectSQL+="AND datadiinserimento BETWEEN ? AND ? ORDER BY O.idOrdine DESC";
+		
+		try {
+			connection = DBConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			if(flag) {
+				preparedStatement.setInt(1, user);
+				preparedStatement.setString(2, datex);
+				preparedStatement.setString(3, datey);
+			}
+			else {
+				preparedStatement.setString(1, datex);
+				preparedStatement.setString(2, datey);
+			}
+			
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				Ordine item = new Ordine();
+
+				item.setIdOrdine(rs.getInt("idOrdine"));
+				item.setDataInserimento(rs.getString("datadiinserimento"));
+				item.setIdCliente(rs.getInt("idcliente"));
+				item.setIdStatusOrdine(rs.getInt("idstatusordine"));
+				item.setStatusOrdine(rs.getString("statusordine"));
+				ordini.add(item);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DBConnectionPool.releaseConnection(connection);
+			}
+		}
+		return ordini;
 	}
 }

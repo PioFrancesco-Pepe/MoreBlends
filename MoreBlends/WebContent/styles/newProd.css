@@ -1,0 +1,23 @@
+@charset "ISO-8859-1";
+
+div#all{
+	display: flex;
+	justify-content: center;
+}
+
+fieldset 
+{
+	margin: 10px;
+	border-radius: 6px;
+}
+
+fieldset div{
+	margin: 20px;
+}
+
+div#pulsanti{
+	margin: 20px;
+	display: flex;
+	justify-content: space-between;
+}
+

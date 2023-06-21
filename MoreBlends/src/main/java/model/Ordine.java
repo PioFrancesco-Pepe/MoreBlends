@@ -6,6 +6,7 @@ public class Ordine {
 	private String dataInserimento;
 	private int idCliente;
 	private int idStatusOrdine;
+	private String statusOrdine;
 	
 	public Ordine()
 	{
@@ -45,5 +46,13 @@ public class Ordine {
 	
 	public void setIdStatusOrdine(int idStatusOrdine) {
 		this.idStatusOrdine = idStatusOrdine;
+	}
+
+	public String getStatusOrdine() {
+		return statusOrdine;
+	}
+
+	public void setStatusOrdine(String statusOrdine) {
+		this.statusOrdine = statusOrdine;
 	}
 }

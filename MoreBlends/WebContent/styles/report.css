@@ -1,0 +1,27 @@
+@charset "ISO-8859-1";
+
+div#setDate{
+	display: none;
+}
+
+fieldset{
+	border-radius: 6px;
+}
+
+div#container-all{
+	margin: 10px;
+	display: flex;
+	justify-content: space-evenly;
+}
+
+div#radio, div#setDate, div#divG, div#divM, div#divA
+{
+	margin: 20px;
+}
+
+div#pulsanti
+{
+	display: flex;
+	justify-content: space-around;
+	margin: 10px;
+}

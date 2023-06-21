@@ -15,7 +15,8 @@
 <script src="https://code.jquery.com/jquery-2.2.4.js" charset="utf-8"></script>
 <meta name="viewport" content="initial-scale=1, width=device-width">
 <link rel="stylesheet" href="../styles/header.css" type="text/css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="../styles/cart.css" type="text/css">
 <link rel="stylesheet" href="../styles/footer.css" type="text/css">
 </head>
@@ -53,7 +54,7 @@
 		  if(!cart.isEmpty()){
 			//out.write("<form id=\"checkoutForm\" method=\"POST\" action=\"../checkout\">");
 	  		out.write("<div id=\"somma\">");	  	
-	  		out.write("<input type=\"submit\" value=\"Checkout\"><p id=\"id\">&euro;"+somma+"</p></div>");
+	  		out.write("<input type=\"submit\" value=\"Checkout\">&euro;"+somma+"</div>");
 	  		out.write("<input type=\"hidden\" name=\"totale\" id=\"totale\" value=\""+somma+"\">");
 	  		}
 		  else
@@ -72,7 +73,7 @@
 			out.write("<section id=\"p-i\">");
 			out.write("<div id=\"indirizzo\">");
 			out.write("<label for=\"indirizzo\">Seleziona un indirizzo</label>");
-			out.write("<select id=\"indirizzo\">");
+			out.write("<select name=\"indirizzo\" id=\"indirizzo\" required>");
 			List<Indirizzo> indirizziCliente = currentCliente.getIndirizzi();
 			List<Telefono> telefoniCliente = currentCliente.getNumeriTelefono();
 			Iterator<Indirizzo> iterI= indirizziCliente.iterator();
@@ -80,16 +81,16 @@
 			while(iterI.hasNext())
 			{
 				Indirizzo ind= iterI.next();
-				out.write("<option name=\"indirizzo\" id=\"indirizzo\" value=\""+ind.getIdIndirizzo()+"\">"+ind.getVia()+" "+ind.getCivico()+" "+ind.getCAP()+" "+ind.getLocalita()+" "+ind.getSiglaProvincia()+"</option>");
+				out.write("<option id=\"indirizzo\" value=\""+ind.getIdIndirizzo()+"\">"+ind.getVia()+" "+ind.getCivico()+" "+ind.getCAP()+" "+ind.getLocalita()+" "+ind.getSiglaProvincia()+"</option>");
 			}
 			out.write("</select></div>");
 			out.write("<div id=\"telefono\">");
 			out.write("<label for=\"telefono\">Seleziona un numero di telefono</label>");
-			out.write("<select id=\"telefono\">");
+			out.write("<select name=\"telefono\" id=\"telefono\" required>");
 			while(iterT.hasNext())
 			{
 				Telefono tel=iterT.next();
-				out.write("<option name=\"telefono\" id=\"telefono\" value=\""+tel.getIdCliente()+"\">"+tel.getNumTelefono()+"</option>");
+				out.write("<option value=\""+tel.getIdCliente()+"\">"+tel.getNumTelefono()+"</option>");
 			}
 			out.write("</select></div>");
 		

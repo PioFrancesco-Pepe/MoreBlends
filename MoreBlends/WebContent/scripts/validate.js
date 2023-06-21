@@ -1,4 +1,3 @@
-let count = 1;
 const nameOrLastnameErrorMessage = "Questo campo deve contenere solo lettere";
 const emailErrorMessage = "Il campo Email deve avere questo formato username@domain.ext";
 const phoneErrorMessage = "Il campo Telefono deve avere questo formato ###-#######";
@@ -9,8 +8,6 @@ const civicoErrorMessage="Il campo Civico deve avere il seguente formato 44 o 4d
 const capErrorMessage="Il campo CAP deve essere composta da 5 numeri";
 const cittaErrorMessage="il campo Citt&agrave;-Paese puoi contenere solo lettere";
 const spErrorMessage="Il campo Sigla Provincia deve essere composta da due lettere maiuscole";
-
-
 
 
 function validateFormElem(formElem, span, errorMessage) {

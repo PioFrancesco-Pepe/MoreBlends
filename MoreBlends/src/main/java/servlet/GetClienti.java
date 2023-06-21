@@ -11,36 +11,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import control.CategoriaControl;
+import control.ClienteControl;
 import control.IBeanDAO;
-import model.Categoria;
-
+import model.Cliente;
 
 /**
- * Servlet implementation class getMarca
+ * Servlet implementation class GetClienti
  */
-@WebServlet("/getMarca")
-public class getMarca extends HttpServlet {
+@WebServlet("/getClienti")
+public class GetClienti extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static IBeanDAO<Categoria> categoriaDao= new CategoriaControl();
-	
-    public getMarca() {
+       
+	static IBeanDAO<Cliente> clienteDao= new ClienteControl();
+
+    public GetClienti() {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Collection<Categoria> model=null;
+		Collection<Cliente> clienti;
 		try {
-			model = categoriaDao.doRetrieveAll("");
+			clienti=clienteDao.doRetrieveAll("");
+			request.setAttribute("clienti", clienti);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		request.setAttribute("MarcaProdotti", model);
 		RequestDispatcher dispatcher = this.getServletContext().
-			getRequestDispatcher("/pages/catalogo.jsp");
+			getRequestDispatcher("/admin/viewOrders.jsp");
 		dispatcher.forward(request, response);
-	}	
-	
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

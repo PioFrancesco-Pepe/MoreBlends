@@ -2,45 +2,40 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Collection;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import control.CategoriaControl;
 import control.IBeanDAO;
 import model.Categoria;
+import control.CategoriaControl;
 
 
 /**
- * Servlet implementation class getMarca
+ * Servlet implementation class GetCategoria
  */
-@WebServlet("/getMarca")
-public class getMarca extends HttpServlet {
+@WebServlet("/getCategoria")
+public class GetCategoria extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static IBeanDAO<Categoria> categoriaDao= new CategoriaControl();
+       
+	static IBeanDAO<Categoria> categoriaDao = new CategoriaControl();
 	
-    public getMarca() {
+    public GetCategoria() {
         super();
     }
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Collection<Categoria> model=null;
 		try {
-			model = categoriaDao.doRetrieveAll("");
+			request.getSession().setAttribute("Categoria", categoriaDao.doRetrieveAll(""));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		request.setAttribute("MarcaProdotti", model);
-		RequestDispatcher dispatcher = this.getServletContext().
-			getRequestDispatcher("/pages/catalogo.jsp");
-		dispatcher.forward(request, response);
-	}	
-	
+		response.sendRedirect("../admin/newProdotto.jsp");
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

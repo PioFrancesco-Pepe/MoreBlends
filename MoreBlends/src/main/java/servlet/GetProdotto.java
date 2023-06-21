@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import control.IBeanDAO;
 import control.ProdottoControl;
 import model.Prodotto;
 
@@ -20,6 +23,8 @@ import model.Prodotto;
 public class GetProdotto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	static IBeanDAO<Prodotto> productDao= new ProdottoControl();
+	
 	public GetProdotto() {
 		super();
 	}
@@ -32,13 +37,17 @@ public class GetProdotto extends HttpServlet {
 			{
 				String marca=(String)request.getSession().getAttribute("marca");
 				String search=(String)request.getSession().getAttribute("search");	
+				
 				if(search!=null && marca!=null)
 				{	
-					List<Prodotto> model;
+					Collection<Prodotto> model;
 					if(!(marca.equals("0")))
+					{
 						model = ProdottoControl.loadSearchProduct(search,marca);
-					else
+					}
+					else {
 						model = ProdottoControl.loadSearchProduct(search);
+					}
 					request.setAttribute("prodottiSearch", model);
 					RequestDispatcher dispatcher = this.getServletContext().
 					getRequestDispatcher(catalogo);
@@ -48,7 +57,7 @@ public class GetProdotto extends HttpServlet {
 				{
 					if(search==null)
 						search="";
-					List<Prodotto> model;
+					Collection<Prodotto> model;
 					model = ProdottoControl.loadSearchProduct(search);
 					request.setAttribute("prodottiSearch", model);
 					RequestDispatcher dispatcher = this.getServletContext().
@@ -65,13 +74,34 @@ public class GetProdotto extends HttpServlet {
 						getRequestDispatcher(catalogo);
 				dispatcher.forward(request, response);
 			}
+			else if(Integer.parseInt(request.getParameter("current")) == 4)
+			{
+				Collection<Prodotto> model;
+				try {
+					model = productDao.doRetrieveAll("");
+					request.setAttribute("prodotti", model);
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				RequestDispatcher dispatcher = this.getServletContext().
+						getRequestDispatcher("/pages/pageProduct.jsp");
+					dispatcher.forward(request, response);
+				
+			}
 			else if(Integer.parseInt(request.getParameter("current")) == 1)
 			{
-				List<Prodotto> model = ProdottoControl.load();
-				request.setAttribute("prodotti", model);
+				Collection<Prodotto> model;
+				try {
+					model = productDao.doRetrieveAll("");
+					request.setAttribute("prodotti", model);
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 				RequestDispatcher dispatcher = this.getServletContext().
 						getRequestDispatcher("/index.jsp");
-				dispatcher.forward(request, response);
+					dispatcher.forward(request, response);
 			}
 	}
 
