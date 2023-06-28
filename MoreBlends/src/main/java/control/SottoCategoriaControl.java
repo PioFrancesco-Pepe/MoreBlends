@@ -20,7 +20,7 @@ private static final String TABLE_NAME = "sottocategoria";
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + SottoCategoriaControl.TABLE_NAME
-				+ " (nomecategoria) VALUES (?)";
+				+ " (nomesottocategoria) VALUES (?)";
 
 		try {
 			connection = DBConnectionPool.getConnection();

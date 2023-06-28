@@ -129,7 +129,6 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 			
 			boolean b1=false;
 			boolean b2=false;
-			boolean b3=false;
 			int i=1;
 			
 			if(!marca.equals("0"))
@@ -142,10 +141,11 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 				sql+=" AND st.idsottocategoria=? ";
 				b2=true;
 			}
-			if(!search.equals(""))
-				sql+=" AND p.nomeprodotto LIKE ?";
+			if(!search.equals("")) {
+				sql+=" AND p.nomeprodotto LIKE '%"+search+"%'";
+			}
 				
-			sql+="ORDER BY p.idcategoria,p.idsottocategoria,p.idprodotto ASC";
+			sql+=" ORDER BY p.idcategoria,p.idsottocategoria,p.idprodotto ASC";
 			
 			stmt = connection.prepareStatement(sql);
 			
@@ -153,8 +153,6 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 				stmt.setInt(i++, Integer.parseInt(marca));
 			if(b2)
 				stmt.setInt(i++, Integer.parseInt(sistema));
-			if(b3)
-				stmt.setString(i, " %"+search+"% ");
 			
 			rs = stmt.executeQuery();
 

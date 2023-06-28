@@ -7,7 +7,7 @@ Prodotto item;
 
 Collection<?> model=(Collection<?>) request.getAttribute("prodotti");
 Collection<?> modelSearch=(Collection<?>) request.getAttribute("prodottiSearch");
-Collection <?> modelMarca=(Collection<?>) request.getAttribute("MarcaProdotti");
+Collection <?> modelMarca=(Collection<?>) request.getAttribute("Categoria");
 Collection<?> modelSottoCategoria=(Collection<?>) request.getAttribute("SottoCategoria"); 
 
 	if(model == null){
@@ -15,7 +15,7 @@ Collection<?> modelSottoCategoria=(Collection<?>) request.getAttribute("SottoCat
 		return;
 	}
 	if(modelMarca == null){
-		request.getRequestDispatcher("../getMarca").forward(request, response);
+		request.getRequestDispatcher("../getCategoria?common=1").forward(request, response);
 		return;
 	}
 	if(modelSottoCategoria == null){

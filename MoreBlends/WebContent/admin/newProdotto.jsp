@@ -10,11 +10,11 @@ else {
 	Collection<?> sottoCategoria = (Collection<?>) request.getSession().getAttribute("SottoCategoria");
 
 	if (categoria == null) {
-		request.getRequestDispatcher("../getCategoria").forward(request, response);
+		request.getRequestDispatcher("../getCategoria?admin=1").forward(request, response);
 		return;
 	}
 	if (sottoCategoria == null) {
-		request.getRequestDispatcher("../getSottoCategoria").forward(request, response);
+		request.getRequestDispatcher("../getSottoCategoria?admin=1").forward(request, response);
 		return;
 	}
 %>
@@ -81,10 +81,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 					<label for="categoria">Marca: </label> <select name="categoria"
 						id="categoria" required>
 						<%
+						if(categoria!=null && !categoria.isEmpty()){
 						Iterator<?> iterC = categoria.iterator();
 						while (iterC.hasNext()) {
 							Categoria c = (Categoria) iterC.next();
 							out.write("<option value=\"" + c.getIdCategoria() + "\"" + ">" + c.getNomeCategoria() + "</option>");
+						}
 						}
 						%>
 					</select>
@@ -93,10 +95,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 					<label for="sottocategoria">Sotto Categoria: </label> <select
 						name="sottocategoria" id="sottocategoria" required>
 						<%
+						if(sottoCategoria!=null && !sottoCategoria.isEmpty()){
 						Iterator<?> iterSC = sottoCategoria.iterator();
 						while (iterSC.hasNext()) {
 							SottoCategoria sc = (SottoCategoria) iterSC.next();
 							out.write("<option value=\"" + sc.getIdSottoCategoria() + "\"" + ">" + sc.getNomeSottoCategoria() + "</option>");
+						}
 						}
 						%>
 					</select>

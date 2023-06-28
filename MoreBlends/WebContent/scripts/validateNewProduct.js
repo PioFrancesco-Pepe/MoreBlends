@@ -5,6 +5,10 @@ const errorCosto="Il campo pu&ograve; contenere solo numeri decimali. Si utilizz
 const errorPrezzoVendita="Il campo pu&ograve; contenere solo numeri decimali. Si utilizza il punto al posto della virgola ES: 12.05";
 const errorQuantita="Il campo pu&ograve; contenere solo numeri naturali.";
 const emptyFieldErrorMessage = "Questo campo non pu&ograve; essere vuoto";
+const namemErrorMessage ="Questo campo non ammette lo spazio e i numeri.";
+const descmErrorMessage = "Questo campo non ammette i numeri";
+const namesErrorMessage ="Questo campo non ammette i numeri.";
+
 
 function validateFormElem(formElem, span, errorMessage) {
 	if(formElem.checkValidity()){
@@ -52,4 +56,30 @@ function validate() {
 		valid = false;
 	}
 	return valid;	
+}
+
+function validateM() {
+	let valid = true;
+	let form = document.getElementById("newMarca");
+
+	let spanMarca = document.getElementById("errorNameM");
+	if (!validateFormElem(form.nameM, spanMarca, namemErrorMessage)) {
+		valid = false;
+	}
+	let spanDescrizione = document.getElementById("errorDescM");
+	if (!validateFormElem(form.descM, spanDescrizione, descmErrorMessage)) {
+		valid = false;
+	}
+	return valid;
+}
+
+function validateS() {
+	let valid = true;
+	let form = document.getElementById("newSistema");
+
+	let spanSistema = document.getElementById("errorNameS");
+	if (!validateFormElem(form.nameS, spanSistema, namesErrorMessage)) {
+		valid = false;
+	}
+	return valid;
 }

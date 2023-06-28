@@ -13,7 +13,7 @@ function setSrcOther() {
   else if(url.includes("report.jsp"))
   	document.Cerca.action="../search";
   else if(url.includes("viewProduct.jsp"))
-  	document.Cerca.action="../search";
+  	document.Cerca.action="../searchAdmin";
   else if(url.includes("editProduct.jsp"))
   	document.Cerca.action="../search";
   else if(url.includes("viewOrders.jsp"))
@@ -27,7 +27,9 @@ function setSrcOther() {
   else if(url.includes("insertOtherTelefono.jsp"))
   	document.Cerca.action="../search";
   else if(url.includes("insertOtherIndirizzo.jsp"))
-  	document.Cerca.action="../search";	
+  	document.Cerca.action="../search";
+  else if (url.includes("newMorS.jsp"))
+  	document.Cerca.action="../search";
 
 }
 

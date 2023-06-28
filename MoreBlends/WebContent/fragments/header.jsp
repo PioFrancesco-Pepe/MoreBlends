@@ -26,6 +26,12 @@ Integer isAdmin=(Integer)request.getSession().getAttribute("isAdmin");
 	out.write("<div class=\"dropdown-content\"><a href=\"" + application.getContextPath()
  	+ "/admin/newProdotto.jsp\">Inserisci Nuovo Prodotto</a>");
 	
+	out.write("<div class=\"dropdown-content\"><a href=\"" + application.getContextPath()
+ 	+ "/admin/newMorS.jsp?action=M\">Inserisci Nuova Marca</a>");
+	
+	out.write("<div class=\"dropdown-content\"><a href=\"" + application.getContextPath()
+ 	+ "/admin/newMorS.jsp?action=S\">Inserisci Nuovo Sistema</a>");
+	
 	out.write("<a href=\"" + application.getContextPath()
  	+ "/admin/viewProduct.jsp\">Visualizza Prodotti</a>");
 	
