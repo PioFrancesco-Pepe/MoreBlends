@@ -113,7 +113,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 		return model;
 	}
 	
-	public static synchronized Collection<Prodotto> loadSearchProduct(String search) {
+	public static synchronized Collection<Prodotto> loadSearchProduct(String search, String marca,String sistema) {
 
 		Connection connection = null;
 		PreparedStatement stmt = null;
@@ -123,54 +123,38 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 
 		try {
 			connection = DBConnectionPool.getConnection();
-			String sql="SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m WHERE p.idProdotto=l.idProdotto AND l.idMagazzino=m.idMagazzino AND NomeProdotto LIKE '%"+search+"%' ORDER BY p.idcategoria,p.idsottocategoria,p.idprodotto ASC";
+			String sql="SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m, categoria AS c,sottocategoria AS st"
+					+" WHERE p.idProdotto=l.idProdotto AND l.idMagazzino=m.idMagazzino AND c.idcategoria=p.idcategoria"
+					+" AND st.idsottocategoria=p.idsottocategoria ";
+			
+			boolean b1=false;
+			boolean b2=false;
+			boolean b3=false;
+			int i=1;
+			
+			if(!marca.equals("0"))
+			{
+				sql+=" AND c.idcategoria=? ";
+				b1=true;
+			}	
+			if(!sistema.equals("0"))
+			{
+				sql+=" AND st.idsottocategoria=? ";
+				b2=true;
+			}
+			if(!search.equals(""))
+				sql+=" AND p.nomeprodotto LIKE ?";
+				
+			sql+="ORDER BY p.idcategoria,p.idsottocategoria,p.idprodotto ASC";
+			
 			stmt = connection.prepareStatement(sql);
 			
-			rs = stmt.executeQuery();
-
-			while (rs.next()) {
-				Prodotto item = new Prodotto();
-				item.setId(rs.getInt("idprodotto"));
-				item.setNome(rs.getString("nomeProdotto"));
-				item.setDescrizione(rs.getString("descrizione"));
-				item.setDatainserimento(rs.getString("dataInserimento"));
-				item.setPrezzoVendita(rs.getFloat("prezzovendita"));
-				item.setCosto(rs.getFloat("costo"));
-				item.setQuantita(rs.getInt("disponibilita"));
-				item.setIdCategoria(rs.getInt("idcategoria"));
-				item.setIdSottoCategoria(rs.getInt("idSottoCategoria"));
-				model.add(item);
-			}
-
-		} catch (SQLException sqlException) {
-			System.out.println(sqlException);
-		} 
-			finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-			} catch (SQLException sqlException) {
-				System.out.println(sqlException);
-			} finally {
-				if (connection != null) 
-					DBConnectionPool.releaseConnection(connection);
-			}
-		}
-		return model;
-	}
-	
-	public static synchronized Collection<Prodotto> loadSearchProduct(String search, String marca) {
-
-		Connection connection = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-
-		Collection<Prodotto> model = new ArrayList<>();
-
-		try {
-			connection = DBConnectionPool.getConnection();
-			String sql="SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m, categoria AS c WHERE p.idProdotto=l.idProdotto AND l.idMagazzino=m.idMagazzino AND c.idcategoria=p.idcategoria AND NomeProdotto LIKE '%"+search+"%' AND c.nomecategoria='"+marca+"' "+"ORDER BY p.idcategoria,p.idsottocategoria,p.idprodotto ASC";
-			stmt = connection.prepareStatement(sql);
+			if(b1)
+				stmt.setInt(i++, Integer.parseInt(marca));
+			if(b2)
+				stmt.setInt(i++, Integer.parseInt(sistema));
+			if(b3)
+				stmt.setString(i, " %"+search+"% ");
 			
 			rs = stmt.executeQuery();
 

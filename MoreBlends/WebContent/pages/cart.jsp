@@ -6,14 +6,15 @@
 	Cliente currentCliente = (Cliente) request.getSession().getAttribute("currentUtente");
 %>    
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <meta charset="ISO-8859-1">
+<meta name="viewport" content="initial-scale=1, width=device-width">
 <title>Carrello</title>
 <script src="../scripts/setSrcOther.js"></script>
 <script src="../scripts/redirect.js"></script>
 <script src="https://code.jquery.com/jquery-2.2.4.js" charset="utf-8"></script>
-<meta name="viewport" content="initial-scale=1, width=device-width">
+
 <link rel="stylesheet" href="../styles/header.css" type="text/css">
 <link rel="stylesheet" 
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -44,7 +45,18 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	  {
 		  Prodotto prodotto= iter.next();
 		  Integer n= q.next();
-		  out.write("<div class=\"item\"><div class=\"buttons\"><a href=\"../cart?action=deleteC&id="+prodotto.getId()+"&quantita="+n.intValue()+"\"><span class=\"delete-btn\"></span></a></div><div class=\"image\"><img class=\"imgprod\" src=\"../getImage?id="+prodotto.getId()+"\" alt=\"\" /></div><div class=\"description\"><span>"+prodotto.getNome()+"</span></div><div class=\"quantity\"><input id=\"max\"type=\"hidden\" value=\""+prodotto.getQuantita()+"\"><button class=\"plus-btn\" type=\"button\" name=\"button\"><img class=\"plus\" src=\"../images/plus.svg\" alt=\"\" /></button> <input type=\"hidden\" id=\"idP\" name=\"idP\" value=\""+prodotto.getId()+"\"><input id=\"q\" readonly type=\"text\" name=\"name\" value=\""+n.intValue()+"\"><button class=\"minus-btn\" type=\"button\" name=\"button\"><img src=\"../images/minus.svg\" alt=\"\" /></button></div><div class=\"total-price\">&euro;"+prodotto.getPrezzoVendita()*n.intValue()+"</div></div>");
+		  out.write("<div class=\"item\"><div class=\"buttons\"><a href=\"../cart?action=deleteC&id="+prodotto.getId()+
+				  "&quantita="+n.intValue()+"\"><span class=\"delete-btn\"></span></a></div>"
+		  		 +"<div class=\"image\"><img class=\"imgprod\" src=\"../getImage?id="+prodotto.getId()
+		  		 +"\" alt=\"\" /></div><div class=\"description\"><span>"+prodotto.getNome()+
+		  		 "</span></div><div class=\"quantity\"><input id=\"max\"type=\"hidden\" value=\""+prodotto.getQuantita()+
+		  		 "\"><button class=\"plus-btn\" type=\"button\" name=\"button\">"+
+		  		 "<img class=\"plus\" src=\"../images/plus.svg\" alt=\"\" /></button>"
+		  		 +"<input type=\"hidden\" id=\"idP\" name=\"idP\" value=\""
+		  		 +prodotto.getId()+"\"><input id=\"q\" readonly type=\"text\" name=\"name\" value=\""
+		  		 +n.intValue()+"\"><button class=\"minus-btn\" type=\"button\" name=\"button\">"
+		  		 +"<img src=\"../images/minus.svg\" alt=\"\" /></button></div><div class=\"total-price\">&euro;"
+		  		 +prodotto.getPrezzoVendita()*n.intValue()+"</div></div>");
 		  somma=somma+(prodotto.getPrezzoVendita()*n.intValue());
 	  }%>
 
@@ -55,7 +67,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 			//out.write("<form id=\"checkoutForm\" method=\"POST\" action=\"../checkout\">");
 	  		out.write("<div id=\"somma\">");	  	
 	  		out.write("<input type=\"submit\" value=\"Checkout\">&euro;"+somma+"</div>");
-	  		out.write("<input type=\"hidden\" name=\"totale\" id=\"totale\" value=\""+somma+"\">");
+	  		//out.write("<input type=\"hidden\" name=\"totale\" id=\"totale\" value=\""+somma+"\">");
 	  		}
 		  else
 			  out.write("<div><p>Carrello vuoto</p></div>");
@@ -67,7 +79,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 	  out.write("<div id=\"no-log\"><p>Carrello vuoto.</p></div>");
   %>
 </div>
-<%if(currentCliente != null)
+<%if(currentCliente != null && cart!=null)
 		{	
 		if(!cart.isEmpty()){
 			out.write("<section id=\"p-i\">");

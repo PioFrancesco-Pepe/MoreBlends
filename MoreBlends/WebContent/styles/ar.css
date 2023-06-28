@@ -1,8 +1,4 @@
 @charset "ISO-8859-1";
-body {
-	margin: 0 auto;
-}
-
 legend {
 	padding: 3px;
 	border: 1px solid black;
@@ -25,10 +21,6 @@ label, input, span {
 
 label, input {
 	margin-right: 3px;
-}
-
-div {
-	margin: 6px 0 6px 0;
 }
 
 .error {
@@ -61,7 +53,7 @@ div#pulsanti{
 	left: 0;
 	right: 0;
 	bottom: 0;
-  height: 100vh;
+  	height: 100vh;
 	background: rgba(0,0,0,0.7); /* colore sfondo e opcità */
 	text-align: center;
 	display: none; /*cambiaremo in display: none*/

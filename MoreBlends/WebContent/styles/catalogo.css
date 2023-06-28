@@ -7,9 +7,18 @@ div#containerAll{
 }
 
 div#containerFilters {
+	text-align: center;
     background-color: #efe5d0;
     width: 200px;
     margin: 0px 15px 0px 0px;
+}
+
+div#marcaF, div#sistemaF{
+    text-align: left;
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+    margin-bottom: 10%;
 }
 
 div#containerProducts{

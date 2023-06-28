@@ -37,17 +37,12 @@ public class GetProdotto extends HttpServlet {
 			{
 				String marca=(String)request.getSession().getAttribute("marca");
 				String search=(String)request.getSession().getAttribute("search");	
+				String sistema=(String) request.getSession().getAttribute("sistema");
 				
-				if(search!=null && marca!=null)
+				if(search!=null && marca!=null && sistema!=null)
 				{	
 					Collection<Prodotto> model;
-					if(!(marca.equals("0")))
-					{
-						model = ProdottoControl.loadSearchProduct(search,marca);
-					}
-					else {
-						model = ProdottoControl.loadSearchProduct(search);
-					}
+					model = ProdottoControl.loadSearchProduct(search,marca,sistema);
 					request.setAttribute("prodottiSearch", model);
 					RequestDispatcher dispatcher = this.getServletContext().
 					getRequestDispatcher(catalogo);
@@ -55,16 +50,13 @@ public class GetProdotto extends HttpServlet {
 				}
 				else
 				{
-					if(search==null)
-						search="";
 					Collection<Prodotto> model;
-					model = ProdottoControl.loadSearchProduct(search);
+					model = ProdottoControl.loadSearchProduct("","0","0");
 					request.setAttribute("prodottiSearch", model);
 					RequestDispatcher dispatcher = this.getServletContext().
 					getRequestDispatcher(catalogo);
 					dispatcher.forward(request, response);
 				}
-					
 			}
 			else if(Integer.parseInt(request.getParameter("current")) == 2)
 			{

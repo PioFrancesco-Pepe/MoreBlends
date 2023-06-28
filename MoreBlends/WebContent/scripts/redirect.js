@@ -1,22 +1,32 @@
-function redirect()
-{
-	var url=document.URL;
-	if(url.substring(34)== "catalogo.jsp")
+function redirect() {
+	var url = document.URL;
+	if (url.includes("catalogo.jsp"))
+		location.replace("../pages/cart.jsp");	
+	else if (url.includes("newProdotto.jsp"))
 		location.replace("../pages/cart.jsp");
-	else if(url.substring(34)=="pageProduct.jsp")
+	else if (url.includes("pageProduct.jsp"))
 		location.replace("../pages/cart.jsp");
-	else if(url.substring(34)=="newProdotto.jsp")
+	else if (url.includes("cart.jsp"))
 		location.replace("../pages/cart.jsp");
-	else if(url.substring(17)=="MoreBlends/")	
+	else if (url.includes("report.jsp"))
+		location.replace("../pages/cart.jsp");
+	else if (url.includes("viewProduct.jsp"))
+		location.replace("../pages/cart.jsp");
+	else if (url.includes("editProduct.jsp"))
+		location.replace("../pages/cart.jsp");
+	else if (url.includes("viewOrders.jsp"))
+		location.replace("../pages/cart.jsp");
+	else if (url.includes("complessivoOrdine.jsp"))
+		location.replace("../pages/cart.jsp");
+	else if (url.includes("Profilo.jsp"))
+		location.replace("../pages/cart.jsp");
+	else if (url.includes("editProfile.jsp"))
+		location.replace("../pages/cart.jsp");
+	else if (url.includes("insertOtherTelefono.jsp"))
+		location.replace("../pages/cart.jsp");
+	else if (url.includes("insertOtherIndirizzo.jsp"))
+		location.replace("../pages/cart.jsp");
+	else
 		location.replace("./pages/cart.jsp");
-	else if(url.substring(34)=="report.jsp")
-		location.replace("../pages/cart.jsp");
-	else if((url.substring(34) == "viewProduct.jsp"))
-  		location.replace("../pages/cart.jsp");	
-  	else if((url.substring(34) == "viewOrders.jsp"))
-  		location.replace("../pages/cart.jsp");
-  	else if((url.substring(34) == "editProduct.jsp"))
-  		location.replace("../pages/cart.jsp");		
-  	else if((url.substring(34) == "complessivoOrdine.jsp"))
-  		location.replace("../pages/cart.jsp");		
+
 }

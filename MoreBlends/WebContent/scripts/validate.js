@@ -28,7 +28,7 @@ function validateFormElem(formElem, span, errorMessage) {
 }
 
 
-function validate() {
+function validateReg() {
 	let valid = true;	
 	let form = document.getElementById("regForm");
 	
@@ -48,10 +48,65 @@ function validate() {
 	if (!validateFormElem(form.password, spanPassword, passwordErrorMessage)){
 		valid = false;
 	}
-	let spanPhone = document.getElementById("errorPhone0");
-	if (!validateFormElem(document.getElementById("phone0"), spanPhone, phoneErrorMessage)){
+	let spanPhone = document.getElementById("errorPhone");
+	if (!validateFormElem(document.getElementById("phone"), spanPhone, phoneErrorMessage)){
 		valid = false;
 	}
+	let spanVia = document.getElementById("errorVia");
+	if (!validateFormElem(form.via, spanVia, viaErrorMessage)){
+		valid = false;
+	}
+	let spanCivico = document.getElementById("errorCivico");
+	if (!validateFormElem(form.civico, spanCivico, civicoErrorMessage)){
+		valid = false;
+	}
+	let spanCAP = document.getElementById("errorCAP");
+	if (!validateFormElem(form.CAP, spanCAP, capErrorMessage)){
+		valid = false;
+	}	
+	let spanCitta = document.getElementById("errorCitta");
+	if (!validateFormElem(form.localita, spanCitta, cittaErrorMessage)){
+		valid = false;
+	}
+	let spanSP = document.getElementById("errorSP");
+	if (!validateFormElem(form.sp, spanSP, spErrorMessage)){
+		valid = false;
+	}
+	return valid;
+}
+
+function validateLog() {
+	let valid = true;	
+	let form = document.getElementById("logForm");
+	
+	let spanEmail = document.getElementById("errorEmail");
+	if (!validateFormElem(form.email, spanEmail, emailErrorMessage)){
+		valid = false;
+	}
+	let spanPassword = document.getElementById("errorPassword");
+	if (!validateFormElem(form.password, spanPassword, passwordErrorMessage)){
+		valid = false;
+	}
+	
+	return valid;
+}
+
+function validatePhone() {
+	let valid = true;	
+	let form = document.getElementById("phoneForm");
+	
+	let spanPhone = document.getElementById("errorPhone");
+	if (!validateFormElem(form.phone, spanPhone, phoneErrorMessage)){
+		valid = false;
+	}
+	return valid;
+}
+
+function validateInd()
+{
+	let valid = true;	
+	let form = document.getElementById("indForm");
+	
 	let spanVia = document.getElementById("errorVia");
 	if (!validateFormElem(form.via, spanVia, viaErrorMessage)){
 		valid = false;

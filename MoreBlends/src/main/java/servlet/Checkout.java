@@ -31,10 +31,10 @@ import model.Spedizione;
 public class Checkout extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	static IBeanDAO<Ordine> ordineDao = new OrdineControl();
-	static IBeanDAO<Composizione> composizioneDao = new ComposizioneControl();
-	static IBeanDAO<Spedizione> spedizioneDao = new SpedizioneControl();
-	static IBeanDAO<Pagamento> pagamentoDao = new PagamentoControl();
+	private static IBeanDAO<Ordine> ordineDao = new OrdineControl();
+	private static IBeanDAO<Composizione> composizioneDao = new ComposizioneControl();
+	private static IBeanDAO<Spedizione> spedizioneDao = new SpedizioneControl();
+	private static IBeanDAO<Pagamento> pagamentoDao = new PagamentoControl();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -62,6 +62,7 @@ public class Checkout extends HttpServlet {
 			Iterator<Prodotto> iterP = cart.getProducts().iterator();
 			Iterator<Integer> iterQ = cart.getQuantita().iterator();
 			beanComposizione.setIdOrdine(beanOrdine.getIdOrdine());
+			float somma=0;
 			while (iterP.hasNext() && iterQ.hasNext()) {
 				Prodotto prodotto = iterP.next();
 				int quantita = iterQ.next().intValue();
@@ -72,6 +73,7 @@ public class Checkout extends HttpServlet {
 				try {
 					ProdottoControl.updateQuantita(prodotto.getId(), prodotto.getQuantita(), quantita);
 					composizioneDao.doSave(beanComposizione);
+					somma+=prodotto.getPrezzoVendita()*quantita;
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -91,7 +93,8 @@ public class Checkout extends HttpServlet {
 			Pagamento p= new Pagamento();
 			p.setIdOrdine(beanOrdine.getIdOrdine());
 			p.setDataPagamento(date.toString());
-			p.setTotaleOrdine(Float.parseFloat(request.getParameter("totale")));
+			//p.setTotaleOrdine(Float.parseFloat(request.getParameter("totale")));
+			p.setTotaleOrdine(somma);
 			p.setIdMetodoPagamento(Integer.parseInt(request.getParameter("idmetodopagamento")));
 			
 			try {

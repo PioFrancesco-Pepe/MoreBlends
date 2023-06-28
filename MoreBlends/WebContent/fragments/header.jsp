@@ -14,7 +14,7 @@ Integer isAdmin=(Integer)request.getSession().getAttribute("isAdmin");
 		<li><a href="<%=application.getContextPath()%>">Home</a></li>
 		<li><a
 			href="<%=application.getContextPath() + "/pages/catalogo.jsp"%>">Catalogo</a></li>
-		<li class="dropdown"><a href="#" class="dropbtn">Profilo</a> <%
+		<li class="dropdown"><a href="<%=application.getContextPath()%>/pages/Profilo.jsp" class="dropbtn">Profilo</a> <%
  if (idCliente == null)
  	out.write("<div class=\"dropdown-content\"><a href=\"" + application.getContextPath()
  	+ "/pages/accedi.jsp\">Accedi</a><a href=\"" + application.getContextPath() + "/pages/registrati.jsp\""

@@ -52,7 +52,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 				</div>
 				<hr>
 				<div id="pulsanti">
-					<input type="submit" value="Accedi" onclick="return validate()">
+					<input type="submit" value="Accedi" onclick="return validateLog()">
 					<input type="reset" value="Reset">
 				</div>
 			</fieldset>

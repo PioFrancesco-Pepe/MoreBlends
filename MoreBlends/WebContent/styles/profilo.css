@@ -1,0 +1,65 @@
+@charset "ISO-8859-1";
+   .profile {
+      max-width: 800px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .profile h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .profile p {
+      line-height: 1.5;
+      color: #777;
+      text-align: center;
+    }
+    .profile .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    
+    .popup{
+	width: 200px;
+	height: 400px;
+	background: #fefefe;
+	margin: 40px auto;
+	padding: 10px 20px;
+	position: relative;
+	color: #333;
+}
+
+.overlay{
+	position: fixed; /* schermo intero*/
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+  	height: 100vh;
+	background: rgba(0,0,0,0.7); /* colore sfondo e opcità */
+	text-align: center;
+	display: none; /*cambiaremo in display: none*/
+}
+
+#close{
+	position: absolute;
+	top: -20px;
+	right: -20px;
+	color: #fff;
+}
+
+#close:hover{
+	cursor: pointer;
+}

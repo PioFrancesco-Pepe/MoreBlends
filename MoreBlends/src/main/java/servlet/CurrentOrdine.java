@@ -53,7 +53,10 @@ public class CurrentOrdine extends HttpServlet {
 			}
 			request.getSession().setAttribute("prodottiOrdine", products);
 			request.getSession().setAttribute("quantitaOrdine", quantita);
-			response.sendRedirect("./admin/complessivoOrdine.jsp");
+			if(request.getHeader("referer").contains("/admin/viewOrders.jsp"))
+				response.sendRedirect("./admin/complessivoOrdine.jsp");
+			else if(request.getHeader("referer").contains("/pages/viewOrders.jsp"))
+				response.sendRedirect("./pages/complessivoOrdine.jsp");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

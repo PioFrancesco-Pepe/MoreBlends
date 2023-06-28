@@ -28,8 +28,8 @@ import model.Ordine;
 public class FindOrderJson extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private OrdineControl ordineControl = new OrdineControl();
-	private IBeanDAO<Cliente> userDao = new ClienteControl();
+	private static OrdineControl ordineControl = new OrdineControl();
+	private static IBeanDAO<Cliente> userDao = new ClienteControl();
 
 	public FindOrderJson() {
 		super();
@@ -55,7 +55,12 @@ public class FindOrderJson extends HttpServlet {
 			b2 = true;
 		if (user != null)
 			b3 = true;
-
+		else
+			user=(String)request.getSession().getAttribute("common");
+		if(user!=null)
+			b3=true;
+		
+		
 		if (b1 && b2 && b3) {
 			try {
 				if (datex.equals(""))

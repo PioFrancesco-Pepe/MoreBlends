@@ -1,16 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"
-	import="model.Cliente,java.util.Collection,java.util.Iterator,model.Ordine"%>
+	pageEncoding="ISO-8859-1" import="model.Cliente"%>
 <%
 Cliente cliente = (Cliente) request.getSession().getAttribute("currentUtente");
-if (cliente == null || cliente.isAdmin() == 0)
+if (cliente == null)
 	response.sendRedirect(application.getContextPath());
 else {
-	Collection<?> clienti = (Collection<?>) request.getAttribute("clienti");
-	if (clienti == null) {
-		request.getRequestDispatcher("../getClienti").forward(request, response);
-		return;
-	}
+	request.getSession().setAttribute("common", ""+cliente.getId());
 %>
 <!DOCTYPE html>
 <html lang="it">
@@ -48,20 +43,6 @@ else {
 					<label for="datex">Da: </label><input type="date" id="datex"
 						name="datex"><br> <label for="datey"> A: </label><input
 						type="date" id="datey" name="datey">
-				</div>
-				<div id="utenti">
-					<label for="user">Cliente </label><select name="user" id="user">
-						<option value=0>Tutti i clienti</option>
-						<%
-						Iterator<?> iter = clienti.iterator();
-						while (iter.hasNext()) {
-							Cliente temp = (Cliente) iter.next();
-						%>
-						<option value="<%=temp.getId()%>"><%=temp.getId() + " " + temp.getNome() + " " + temp.getCognome()%></option>
-						<%
-						}
-						%>
-					</select>
 				</div>
 				<div>
 					<button type="button" id="find">Cerca</button>

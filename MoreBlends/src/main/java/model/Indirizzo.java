@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Indirizzo implements Serializable {
 
@@ -85,4 +86,25 @@ public class Indirizzo implements Serializable {
 		return "Indirizzo [idIndirizzo=" + idIndirizzo + ", via=" + via + ", civico=" + civico + ", CAP=" + CAP
 				+ ", localita=" + localita + ", siglaProvincia=" + siglaProvincia + ", idCliente=" + idCliente + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(CAP, civico, localita, siglaProvincia, via);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Indirizzo other = (Indirizzo) obj;
+		return Objects.equals(CAP, other.CAP) && Objects.equals(civico, other.civico)
+				&& Objects.equals(localita, other.localita) && Objects.equals(siglaProvincia, other.siglaProvincia)
+				&& Objects.equals(via, other.via);
+	}
+	
+	
 }

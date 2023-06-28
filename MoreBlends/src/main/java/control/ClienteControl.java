@@ -59,7 +59,7 @@ public class ClienteControl implements IBeanDAO<Cliente> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				item.setId(rs.getInt("idiCliente"));
+				item.setId(rs.getInt("idCliente"));
 				item.setNome(rs.getString("nome"));
 				item.setCognome(rs.getString("cognome"));
 				item.setEmail(rs.getString("email"));
@@ -174,6 +174,34 @@ public class ClienteControl implements IBeanDAO<Cliente> {
 		}
 		
 		return false;
+	}
+	
+	public static synchronized boolean updateCliente(Cliente c) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		int result = 0;
 		
+		String updateSQL="Update "+ClienteControl.TABLE_NAME+" SET email = ?, password= ? WHERE IdCliente = ?";
+		
+		try {
+			connection = DBConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(updateSQL);
+			preparedStatement.setString(1,c.getEmail());
+			preparedStatement.setString(2,c.getPassword());
+			preparedStatement.setInt(3, c.getId());
+			
+			result = preparedStatement.executeUpdate();
+			
+			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DBConnectionPool.releaseConnection(connection);
+			}
+		}
+		return (result != 0);
 	}
 }

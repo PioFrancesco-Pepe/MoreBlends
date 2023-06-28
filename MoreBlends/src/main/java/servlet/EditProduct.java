@@ -55,8 +55,7 @@ public class EditProduct extends HttpServlet {
 		p.setIdSottoCategoria(Integer.parseInt(request.getParameter("sottocategoria")));
 		
 		try {
-			boolean b=ProdottoControl.updateProdotto(p);
-				System.out.println(b);
+			ProdottoControl.updateProdotto(p);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -68,8 +67,7 @@ public class EditProduct extends HttpServlet {
 		
 		
 		try {
-			boolean b=LocazioneControl.updateLocazione(l);
-			System.out.println(b);
+			LocazioneControl.updateLocazione(l);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -3,23 +3,28 @@
 <!DOCTYPE html>
 <html lang="it">
 <%
-String s="";
 Prodotto item;
-String search= (String)request.getSession().getAttribute("search");
-String marca= (String)request.getSession().getAttribute("marca");
+
 Collection<?> model=(Collection<?>) request.getAttribute("prodotti");
 Collection<?> modelSearch=(Collection<?>) request.getAttribute("prodottiSearch");
 Collection <?> modelMarca=(Collection<?>) request.getAttribute("MarcaProdotti");
+Collection<?> modelSottoCategoria=(Collection<?>) request.getAttribute("SottoCategoria"); 
+
 	if(model == null){
 		request.getRequestDispatcher("../getProdotto?current=2").forward(request, response);
-	return;
+		return;
 	}
 	if(modelMarca == null){
 		request.getRequestDispatcher("../getMarca").forward(request, response);
-	return;
+		return;
+	}
+	if(modelSottoCategoria == null){
+		request.getRequestDispatcher("../getSottoCategoria?common=1").forward(request, response);
+		return;
 	}
 	if(modelSearch == null){
 		request.getRequestDispatcher("../getProdotto?current=3").forward(request, response);
+		request.getSession().removeAttribute("sistema");
 		request.getSession().removeAttribute("search");
 		request.getSession().removeAttribute("marca");
 		return;
@@ -43,6 +48,7 @@ Collection <?> modelMarca=(Collection<?>) request.getAttribute("MarcaProdotti");
 	<div id="containerAll">
 	<div id="containerFilters">
 		<p>Filtri</p>
+		<div id="marcaF"><label for="marca">Marca: </label>
 		<select id="marca" name="marca">
 		<option value="0">Tutte le marche</option>
 		<% 
@@ -51,10 +57,24 @@ Collection <?> modelMarca=(Collection<?>) request.getAttribute("MarcaProdotti");
 			Iterator<?> i = modelMarca.iterator();
 			while (i.hasNext()){
 				m = (Categoria)i.next();
-				out.print("<option value=\""+m.getNomeCategoria()+"\">"+m.getNomeCategoria()+"</option>");
+				out.print("<option value=\""+m.getIdCategoria()+"\">"+m.getNomeCategoria()+"</option>");
 				}
 		}%>
-		</select>	
+		</select>
+		</div>
+		<div id="sistemaF">
+		<label for="Sistema">Sistema: </label>
+		<select id="Sistema" name="sistema">
+			<option value="0">Tutti i sistemi</option>
+			<% Iterator<?> iterSC = modelSottoCategoria.iterator();
+					while(iterSC.hasNext())
+					{
+						SottoCategoria temp= (SottoCategoria)iterSC.next();
+			%>
+				<option value="<%=temp.getIdSottoCategoria()%>"><%=temp.getNomeSottoCategoria()%></option>
+			<%} %>
+		</select>
+		</div>	
 		</form>
 	</div>
 	<div id="containerProducts">
@@ -64,9 +84,8 @@ Collection <?> modelMarca=(Collection<?>) request.getAttribute("MarcaProdotti");
 			Iterator<?> it = model.iterator();
 			while (it.hasNext()) {
 				item = (Prodotto) it.next();
-				//System.out.println(item);
 				if(item.getQuantita() >= 1){
-					s="<li><div class=\"itemProduct\"> <div class=\"polaroid\">"+"<a href=\"../redirectNewProduct?id="+item.getId()+"\">"+"<img src=\"../getImage?id="+item.getId()+"\"></a><div class=\"container\"><p>"+item.getNome()+"&nbsp;-&nbsp;"+item.getPrezzoVendita()+"&euro;</p></div></div></div></li>";
+					String s="<li><div class=\"itemProduct\"> <div class=\"polaroid\">"+"<a href=\"../redirectNewProduct?id="+item.getId()+"\">"+"<img src=\"../getImage?id="+item.getId()+"\"></a><div class=\"container\"><p>"+item.getNome()+"&nbsp;-&nbsp;"+item.getPrezzoVendita()+"&euro;</p></div></div></div></li>";
 					out.write(s);
 				}
 			}}%>
