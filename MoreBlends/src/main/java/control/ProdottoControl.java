@@ -26,13 +26,21 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
+		LocalDate date = LocalDate.now();
+		
 		List<Prodotto> model = new ArrayList<>();
 
 		try {
 			connection = DBConnectionPool.getConnection();
-			String sql = "SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m WHERE p.idProdotto=l.idProdotto AND l.idMagazzino=m.idMagazzino ORDER BY p.idcategoria,p.idsottocategoria,p.idprodotto ASC";
+			String sql = "SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m , StoricoPrezzi AS sp "
+			+"WHERE p.idProdotto=l.idProdotto AND l.idMagazzino=m.idMagazzino "
+			+"AND sp.idprodotto=p.idprodotto AND sp.DataInizio <= '"+date.toString()
+			+ "' AND (sp.datafine >= '"+date.toString()+"' OR sp.datafine is null) "		
+			+"ORDER BY p.idcategoria,p.idsottocategoria,p.idprodotto ASC";
 			stmt = connection.prepareStatement(sql);
 
+			
+			
 			rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -45,6 +53,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 				item.setPrezzoVendita(rs.getFloat("prezzovendita"));
 				item.setCosto(rs.getFloat("costo"));
 				item.setQuantita(rs.getInt("disponibilita"));
+				item.setStato(rs.getInt("stato"));
 				item.setIdCategoria(rs.getInt("idcategoria"));
 				item.setIdSottoCategoria(rs.getInt("idSottoCategoria"));
 				model.add(item);
@@ -72,11 +81,17 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
+		LocalDate date = LocalDate.now();
+		
 		List<Prodotto> model = new ArrayList<>();
 
 		try {
 			connection = DBConnectionPool.getConnection();
-			String sql = "SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m WHERE p.idProdotto=l.idProdotto AND l.idMagazzino=m.idMagazzino AND l.disponibilita > 0 ORDER BY p.dataInserimento desc LIMIT 4";
+			String sql = "SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m, storicoPrezzi AS sp "
+			+"WHERE p.idProdotto=l.idProdotto AND l.idMagazzino=m.idMagazzino AND sp.idprodotto=p.idprodotto "
+			+"AND l.disponibilita > 0 AND sp.DataInizio <= '"+date.toString()
+			+"' AND (sp.datafine >= '"+date.toString()+"' OR sp.datafine is null) AND sp.datafine is null AND p.stato=1 "
+			+"ORDER BY p.dataInserimento desc LIMIT 4";
 			
 			stmt = connection.prepareStatement(sql);
 			
@@ -91,6 +106,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 				item.setPrezzoVendita(rs.getFloat("prezzovendita"));
 				item.setCosto(rs.getFloat("costo"));
 				item.setQuantita(rs.getInt("disponibilita"));
+				item.setStato(rs.getInt("stato"));
 				item.setIdCategoria(rs.getInt("idcategoria"));
 				item.setIdSottoCategoria(rs.getInt("idSottoCategoria"));
 				model.add(item);
@@ -119,13 +135,18 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
+		LocalDate date = LocalDate.now();
+		
 		Collection<Prodotto> model = new ArrayList<>();
 
 		try {
 			connection = DBConnectionPool.getConnection();
-			String sql="SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m, categoria AS c,sottocategoria AS st"
-					+" WHERE p.idProdotto=l.idProdotto AND l.idMagazzino=m.idMagazzino AND c.idcategoria=p.idcategoria"
-					+" AND st.idsottocategoria=p.idsottocategoria ";
+			String sql="SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m, categoria AS c,sottocategoria AS st, storicoprezzi AS sp"
+					+" WHERE sp.idprodotto=p.idprodotto AND p.idProdotto=l.idProdotto "
+					+"AND l.idMagazzino=m.idMagazzino AND c.idcategoria=p.idcategoria"
+					+" AND st.idsottocategoria=p.idsottocategoria "
+					+" AND sp.DataInizio <= '"+date.toString()
+					+"' AND (sp.datafine >= '"+date.toString()+"' OR sp.datafine is null) AND sp.datafine is null "; 
 			
 			boolean b1=false;
 			boolean b2=false;
@@ -166,6 +187,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 				item.setPrezzoVendita(rs.getFloat("prezzovendita"));
 				item.setCosto(rs.getFloat("costo"));
 				item.setQuantita(rs.getInt("disponibilita"));
+				item.setStato(rs.getInt("stato"));
 				item.setIdCategoria(rs.getInt("idcategoria"));
 				item.setIdSottoCategoria(rs.getInt("idSottoCategoria"));
 				model.add(item);
@@ -195,9 +217,9 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + ProdottoControl.TABLE_NAME
-				+ " (nomeprodotto, descrizione, descrizioneampia, prezzovendita, costo,"
+				+ " (nomeprodotto, descrizione, descrizioneampia, "
 				+"datainserimento, idcategoria, idsottocategoria)"
-				+"VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+				+"VALUES (?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = DBConnectionPool.getConnection();
@@ -205,11 +227,9 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 			preparedStatement.setString(1, product.getNome());
 			preparedStatement.setString(2, product.getDescrizione());
 			preparedStatement.setString(3, product.getDescrizioneAmpia());
-			preparedStatement.setFloat(4, product.getPrezzoVendita());
-			preparedStatement.setFloat(5, product.getCosto());
-			preparedStatement.setString(6, product.getDatainserimento());
-			preparedStatement.setInt(7, product.getIdCategoria());
-			preparedStatement.setInt(8, product.getIdSottoCategoria());
+			preparedStatement.setString(4, product.getDatainserimento());
+			preparedStatement.setInt(5, product.getIdCategoria());
+			preparedStatement.setInt(6, product.getIdSottoCategoria());
 			preparedStatement.executeUpdate();
 
 			ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -232,9 +252,15 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
+		LocalDate date = LocalDate.now();
+		
 		Prodotto item = new Prodotto();
 
-		String selectSQL = "SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m WHERE p.idProdotto=l.idProdotto AND l.idMagazzino=m.idMagazzino AND p.IDProdotto = ?";
+		String selectSQL = "SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m, StoricoPrezzi AS sp "
+				+"WHERE p.idProdotto=l.idProdotto AND l.idMagazzino=m.idMagazzino AND sp.idProdotto=p.idprodotto "
+				+"AND sp.datainizio <= '"+date.toString()+"' AND (sp.datafine >= '"+date.toString()+"' OR sp.datafine is null) "
+				+"AND p.IDProdotto = ? AND sp.datafine is null";
+		
 		try {
 			connection = DBConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
@@ -251,6 +277,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 				item.setPrezzoVendita(rs.getFloat("prezzovendita"));
 				item.setCosto(rs.getFloat("costo"));
 				item.setQuantita(rs.getInt("disponibilita"));
+				item.setStato(rs.getInt("stato"));
 				item.setIdCategoria(rs.getInt("idcategoria"));
 				item.setIdSottoCategoria(rs.getInt("idSottoCategoria"));
 			}
@@ -273,7 +300,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + ProdottoControl.TABLE_NAME + " WHERE IDProdotto = ?";
+		String deleteSQL = "UPDATE " + ProdottoControl.TABLE_NAME + " SET Stato=0 WHERE IDProdotto = ?";
 
 		try {
 			connection = DBConnectionPool.getConnection();
@@ -281,7 +308,8 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 			preparedStatement.setInt(1, code);
 
 			result = preparedStatement.executeUpdate();
-
+			
+			connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -297,11 +325,17 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 	public synchronized Collection<Prodotto> doRetrieveAll(String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-
+		LocalDate date = LocalDate.now();
+		
+		
 		Collection<Prodotto> products = new LinkedList<>();
 
-		String selectSQL = "SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m WHERE p.idProdotto=l.idProdotto AND l.idMagazzino=m.idMagazzino";
+		String selectSQL = "SELECT * FROM prodotto AS p,locazione AS l, magazzino AS m, StoricoPrezzi as sp "+
+		" WHERE p.idProdotto=l.idProdotto AND l.idMagazzino=m.idMagazzino "+
+		" AND sp.idprodotto=p.idprodotto AND sp.DataInizio <= '"+date.toString()+
+		"' AND (sp.datafine >= '"+date.toString()+"' OR sp.datafine is null) AND sp.datafine is null ";
 
+		
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
 		}
@@ -323,9 +357,9 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 				item.setPrezzoVendita(rs.getFloat("prezzovendita"));
 				item.setCosto(rs.getFloat("costo"));
 				item.setQuantita(rs.getInt("disponibilita"));
+				item.setStato(rs.getInt("stato"));
 				item.setIdCategoria(rs.getInt("idcategoria"));
 				item.setIdSottoCategoria(rs.getInt("idSottoCategoria"));
-				//System.out.println(item);
 				products.add(item);
 			}
 
@@ -348,6 +382,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 		
 		String updateSQL="Update locazione SET Disponibilita = ? WHERE IdProdotto = ? AND IdMagazzino = ?";
 		
+		
 		try {
 			connection = DBConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(updateSQL);
@@ -357,6 +392,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 
 			result = preparedStatement.executeUpdate();
 
+			connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -380,8 +416,10 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 		
 		String selectSQL="SELECT SUM(C.Quantita*(PrezzoVendita-Costo)) AS Guadagno, SUM(Quantita) AS ProdottiVenduti"
 				+", SUM(C.Quantita*PrezzoVendita) AS Ricavo, SUM(C.Quantita*Costo) AS CostoTOT "
-				+ "FROM Composizione as C, Prodotto as P, Ordine as O\r\n"
-				+ "WHERE C.IDProdotto=P.IDProdotto AND C.IDOrdine=O.IDOrdine";
+				+ "FROM Composizione as C, Prodotto as P, Ordine as O, StoricoPrezzi as sp "
+				+ "WHERE C.IDProdotto=P.IDProdotto AND C.IDOrdine=O.IDOrdine"
+				+" AND sp.idProdotto=p.idprodotto AND sp.DataInizio <= O.datadiinserimento "
+				+" AND (sp.datafine >= O.datadiinserimento OR sp.datafine is null) ";
 		
 		if(report==1)
 			selectSQL += " AND O.datadiinserimento ='"+date+"'";
@@ -421,7 +459,7 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 		PreparedStatement preparedStatement = null;
 		int result = 0;
 		
-		String updateSQL="Update "+ProdottoControl.TABLE_NAME+" SET nomeprodotto = ?, descrizione = ?,descrizioneAmpia=?,prezzovendita=?,costo=?, idcategoria=?,idsottocategoria=? WHERE IdProdotto = ?";
+		String updateSQL="Update "+ProdottoControl.TABLE_NAME+" SET nomeprodotto = ?, descrizione = ?,descrizioneAmpia=?, idcategoria=?,idsottocategoria=? WHERE IdProdotto = ?";
 		
 		try {
 			connection = DBConnectionPool.getConnection();
@@ -429,11 +467,9 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 			preparedStatement.setString(1,p.getNome());
 			preparedStatement.setString(2, p.getDescrizione());
 			preparedStatement.setString(3, p.getDescrizioneAmpia());
-			preparedStatement.setFloat(4, p.getPrezzoVendita());
-			preparedStatement.setFloat(5, p.getCosto());
-			preparedStatement.setInt(6, p.getIdCategoria());
-			preparedStatement.setInt(7, p.getIdSottoCategoria());
-			preparedStatement.setInt(8, p.getId());
+			preparedStatement.setInt(4, p.getIdCategoria());
+			preparedStatement.setInt(5, p.getIdSottoCategoria());
+			preparedStatement.setInt(6, p.getId());
 			
 			result = preparedStatement.executeUpdate();
 			
@@ -447,5 +483,51 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 			}
 		}
 		return (result != 0);
+	}
+	
+	public static synchronized Prodotto getProdottoOrdine(int code,String dataOrdine) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		Prodotto item= new Prodotto();
+		
+		String selectSQL="SELECT *"
+				+ "FROM Composizione as C, Prodotto as P, Ordine as O, StoricoPrezzi as sp "
+				+ "WHERE C.IDProdotto=P.IDProdotto AND C.IDOrdine=O.IDOrdine"
+				+" AND sp.idProdotto=p.idprodotto AND sp.DataInizio <= ? "
+				+" AND (sp.datafine >= ? OR sp.datafine is null) AND p.idprodotto = ?";
+		
+		
+		try {
+			connection = DBConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			preparedStatement.setString(1, dataOrdine);
+			preparedStatement.setString(2, dataOrdine);
+			preparedStatement.setInt(3,code);	
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				item.setId(rs.getInt("idprodotto"));
+				item.setNome(rs.getString("nomeProdotto"));
+				item.setDescrizione(rs.getString("descrizione"));
+				item.setDescrizioneAmpia(rs.getString("descrizioneAmpia"));
+				item.setDatainserimento(rs.getString("dataInserimento"));
+				item.setPrezzoVendita(rs.getFloat("prezzovendita"));
+				item.setCosto(rs.getFloat("costo"));
+				item.setStato(rs.getInt("stato"));
+				item.setIdCategoria(rs.getInt("idcategoria"));
+				item.setIdSottoCategoria(rs.getInt("idSottoCategoria"));
+			}
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DBConnectionPool.releaseConnection(connection);
+			}
+		}
+		return item;
 	}
 }

@@ -16,7 +16,9 @@ import control.IBeanDAO;
 import control.LocazioneControl;
 import control.PhotoControl;
 import control.ProdottoControl;
+import control.StoricoPrezziControl;
 import model.Prodotto;
+import model.StoricoPrezzi;
 import model.Locazione;
 
 @WebServlet("/InsertProduct")
@@ -26,12 +28,13 @@ maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class InsertProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
-	static IBeanDAO<Prodotto> productDao = new ProdottoControl();
-	static IBeanDAO<Locazione> locazioneDao = new LocazioneControl();
+	private static IBeanDAO<Prodotto> productDao = new ProdottoControl();
+	private static IBeanDAO<Locazione> locazioneDao = new LocazioneControl();
+	private static IBeanDAO<StoricoPrezzi> spDao= new StoricoPrezziControl();
 	
 	public InsertProduct() {
 		
- }
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
@@ -41,20 +44,30 @@ public class InsertProduct extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Prodotto p = new Prodotto();
-		Locazione l= new Locazione();
+		Locazione l = new Locazione();
+		StoricoPrezzi sp = new StoricoPrezzi();
 		LocalDate date = LocalDate.now();
 	
 		p.setNome(request.getParameter("NomeProdotto"));
 		p.setDescrizione(request.getParameter("desc"));
 		p.setDescrizioneAmpia(request.getParameter("descA"));
 		p.setDatainserimento(date.toString());
-		p.setCosto(Float.parseFloat(request.getParameter("costo")));
-		p.setPrezzoVendita(Float.parseFloat(request.getParameter("pv")));
 		p.setIdCategoria(Integer.parseInt(request.getParameter("categoria")));
 		p.setIdSottoCategoria(Integer.parseInt(request.getParameter("sottocategoria")));
 		
 		try {
 			productDao.doSave(p);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		sp.setCosto(Float.parseFloat(request.getParameter("costo")));
+		sp.setPv(Float.parseFloat(request.getParameter("pv")));
+		sp.setDataInizio(date.toString());
+		sp.setIdProdotto(ProdottoControl.getLastID());
+		
+		try {
+			spDao.doSave(sp);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

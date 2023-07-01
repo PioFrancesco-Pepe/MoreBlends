@@ -39,9 +39,14 @@ public class EditDeleteProduct extends HttpServlet {
 			if(action.compareTo("delete")==0)
 			{
 				int code=Integer.parseInt(request.getParameter("code"));
-				boolean b = productDao.doDelete(code);
-				if(b)
-					request.getSession().setAttribute("prodotti",productDao.doRetrieveAll(""));
+				boolean b=productDao.doDelete(code);
+				if(b) {
+					request.getSession().setAttribute("prodottiV2",productDao.doRetrieveAll(" p.idcategoria,p.idsottocategoria,p.idprodotto ASC"));
+					request.getSession().setAttribute("status", "Cancellato con successo.");
+				}
+				else
+					request.getSession().setAttribute("status", "Errore riprova a cancellarlo di nuovo.");
+
 				response.sendRedirect("./admin/viewProduct.jsp");
 			}
 			else if(action.compareTo("edit")==0)

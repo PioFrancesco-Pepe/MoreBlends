@@ -26,7 +26,6 @@ import model.Prodotto;
 public class CurrentOrdine extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	static IBeanDAO<Prodotto> productDao= new ProdottoControl();
 	static IBeanDAO<Ordine> ordineDao = new OrdineControl();
 	static IBeanDAO<Composizione> composizioneDao = new ComposizioneControl();
 	
@@ -40,17 +39,31 @@ public class CurrentOrdine extends HttpServlet {
 		try {
 			Collection<Prodotto> products = new LinkedList<>();
 			Collection<Integer> quantita= new LinkedList<>();
-			Collection<Composizione> c = composizioneDao.doRetrieveAll("");
-			Iterator<Composizione> comp= c.iterator();
+			
+			
+			Collection<Ordine> ordini = ordineDao.doRetrieveAll("");
+			Iterator<Ordine> iterO= ordini.iterator();
+			String data="";
+			
+			while(iterO.hasNext())
+			{
+				Ordine temp = iterO.next();
+				if(temp.getIdOrdine() == code) 
+					data=temp.getDataInserimento();
+			}
+			
+			Iterator<Composizione> comp= composizioneDao.doRetrieveAll("").iterator();
 			while(comp.hasNext())
 			{
 				Composizione temp = comp.next();
 				if(temp.getIdOrdine() == code)
 				{
-					products.add(productDao.doRetrieveByKey(temp.getIdProdotto()));
+					products.add(ProdottoControl.getProdottoOrdine(temp.getIdProdotto(),data));
 					quantita.add(temp.getQuantita());
 				}
 			}
+			
+			
 			request.getSession().setAttribute("prodottiOrdine", products);
 			request.getSession().setAttribute("quantitaOrdine", quantita);
 			if(request.getHeader("referer").contains("/admin/viewOrders.jsp"))

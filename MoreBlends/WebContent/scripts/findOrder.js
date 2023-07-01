@@ -8,7 +8,7 @@ $(document).ready(function(){
 	$("#user").change(handleOrder);
 	
 	function handleOrder(){
-		var jqxhr = $.post("../findOrderJson", { "datex": $("#datex").val(), "datey": $("#datey").val(), "user": $("#user").val()}, function(data){
+		let jqxhr = $.post("../findOrderJson", { "datex": $("#datex").val(), "datey": $("#datey").val(), "user": $("#user").val()}, function(data){
 			//alert(JSON.stringify(data)); //de-commenta questa linea per stampare la stringa JSON tramite un alert
 			$("#list").html(data.result);
 		});

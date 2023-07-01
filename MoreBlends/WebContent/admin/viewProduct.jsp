@@ -74,18 +74,21 @@
 		</form>
 	</div>
 	<div id="containerProductsAdmin">
-
+		<%if(request.getSession().getAttribute("status")!=null){ %>
+		<span><%=request.getSession().getAttribute("status") %></span>
+		<%} request.getSession().removeAttribute("status"); %>
 		<ul class="listAdmin" id="list" data-current-page="1"
 			aria-live="polite">
 			<%
 			Iterator<?> iterP = prodotti.iterator();
 			while (iterP.hasNext()) {
 				Prodotto item = (Prodotto) iterP.next();
-				
+				if(item.getStato()==1)
+				{
 			%>
 			<li><div class="itemProductA">
 					<div class="polaroid">
-						<img src="../getImage?id=<%=item.getId()%>">
+						<img src="../getImage?id=<%=item.getId()%> alt=<%=item.getNome()%>">
 						<div class="container">
 							<div id="edit-trash">
 								<a
@@ -100,7 +103,7 @@
 					</div>
 				</div></li>
 			<%
-			}
+			}}
 			%>
 		</ul>
 	</div>
@@ -119,6 +122,6 @@
 	<%@ include file="../fragments/footer.jsp"%>
 </body>
 <script type="text/javascript" src="../scripts/pagination.js"></script>
-<% }
+<% }request.getSession().removeAttribute("cercaP");request.getSession().removeAttribute("status");
 %>
 </html>

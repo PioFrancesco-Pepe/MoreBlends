@@ -63,8 +63,6 @@ public class CartServlet extends HttpServlet {
 		
 		if(action.equalsIgnoreCase("addC")) {
 			request.getSession().setAttribute("popup",1);
-			//Prodotto p=(Prodotto)request.getSession().getAttribute("prodottoCorrente");
-			//p.setQuantita(p.getQuantita()- (int)request.getAttribute("quantita"));
 			response.sendRedirect("./pages/pageProduct.jsp");
 		}
 		else if(action.equalsIgnoreCase("deleteC") || action.equalsIgnoreCase("updateC"))

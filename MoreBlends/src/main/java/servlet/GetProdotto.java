@@ -85,7 +85,7 @@ public class GetProdotto extends HttpServlet {
 			{
 				Collection<Prodotto> model;
 				try {
-					model = productDao.doRetrieveAll("");
+					model = productDao.doRetrieveAll(" p.idcategoria,p.idsottocategoria,p.idprodotto ASC ");
 					request.setAttribute("prodotti", model);
 					
 				} catch (SQLException e) {

@@ -84,7 +84,7 @@ Collection<?> modelSottoCategoria=(Collection<?>) request.getAttribute("SottoCat
 			Iterator<?> it = model.iterator();
 			while (it.hasNext()) {
 				item = (Prodotto) it.next();
-				if(item.getQuantita() >= 1){
+				if(item.getQuantita() >= 1 && item.getStato()==1){
 					String s="<li><div class=\"itemProduct\"> <div class=\"polaroid\">"+"<a href=\"../redirectNewProduct?id="+item.getId()+"\">"+"<img src=\"../getImage?id="+item.getId()+"\"></a><div class=\"container\"><p>"+item.getNome()+"&nbsp;-&nbsp;"+item.getPrezzoVendita()+"&euro;</p></div></div></div></li>";
 					out.write(s);
 				}

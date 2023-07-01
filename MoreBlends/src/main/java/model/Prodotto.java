@@ -14,6 +14,7 @@ public class Prodotto implements Serializable{
 	private float prezzoVendita;
 	private float costo;
 	private int quantita;
+	private int stato;
 	private int idCategoria;
 	private int idSottoCategoria;
 	
@@ -26,6 +27,7 @@ public class Prodotto implements Serializable{
 		this.prezzoVendita = 0;
 		this.costo=0;
 		this.quantita=0;
+		stato=1;
 		idCategoria=-1;
 		idSottoCategoria=-1;
 		}
@@ -88,6 +90,14 @@ public class Prodotto implements Serializable{
 
 	public int getQuantita() {
 		return quantita;
+	}
+	
+	public int getStato() {
+		return stato;
+	}
+
+	public void setStato(int stato) {
+		this.stato = stato;
 	}
 
 	public void setQuantita(int quantita) {

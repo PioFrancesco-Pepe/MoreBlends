@@ -16,7 +16,7 @@ if (newProduct == null) {
 request.getSession().setAttribute("prodottiV2", model);
 %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 
 <meta charset="ISO-8859-1">
@@ -47,32 +47,32 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 		<div id="prova">
 			<div id="allSystem">
 				<div class="systemFeatured">
-					<a href="#"><img
-						src="./images/AllSystem/cialde-cat-e1634101288563-300x300.webp"></a>
+					<a href="./search?sistema=1&marca=0&search="><img
+						src="./images/AllSystem/cialde-cat-e1634101288563-300x300.webp" alt="Cialda ESE 44mm"></a>
 				</div>
 				<div class="grid-container">
 					<div class="grid-item">
-						<a href="#"><img
-							src="./images/AllSystem/lavazza-a-modo-mio-cat-100x100.webp"></a>
+						<a href="./search?sistema=2&marca=0&search="><img
+							src="./images/AllSystem/lavazza-a-modo-mio-cat-100x100.webp" alt="Lavazza A Modo Mio"></a>
 					</div>
 					<div class="grid-item">
-						<a href="#"><img
-							src="./images/AllSystem/dolce-gusto-cat-100x100.webp"></a>
+						<a href="./search?sistema=6&marca=0&search="><img
+							src="./images/AllSystem/dolce-gusto-cat-100x100.webp" alt="Nescafè Dolce Gusto"></a>
 					</div>
 					<div class="grid-item">
-						<a href="#"><img
-							src="./images/AllSystem/espresso-point-cat-100x100.webp"></a>
+						<a href="./search?sistema=5&marca=0&search="><img
+							src="./images/AllSystem/espresso-point-cat-100x100.webp" alt="Lavazza Espresso Point"></a>
 					</div>
 					<div class="grid-item">
-						<a href="#"><img
-							src="./images/AllSystem/nespresso-cat-100x100.webp"></a>
+						<a href="./search?sistema=3&marca=0&search="><img
+							src="./images/AllSystem/nespresso-cat-100x100.webp" alt="Nespresso"></a>
 					</div>
 					<div class="grid-item">
-						<a href="#"><img
-							src="./images/AllSystem/iperespresso-cat-100x100.webp"></a>
+						<a href="./search?sistema=7&marca=0&search="><img
+							src="./images/AllSystem/iperespresso-cat-100x100.webp" alt="illyespresso"></a>
 					</div>
 					<div class="grid-item">
-						<a href="#"><img src="./images/AllSystem/bialetti100x100.webp"></a>
+						<a href="./search?sistema=4&marca=0&search="><img src="./images/AllSystem/bialetti100x100.webp" alt="Bialetti"></a>
 					</div>
 				</div>
 			</div>

@@ -21,7 +21,7 @@ public class RedirectNewProduct extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getSession().setAttribute("idproduct", (String) request.getParameter("id"));
+		request.getSession().setAttribute("idproduct",request.getParameter("id"));
 		response.sendRedirect("./pages/pageProduct.jsp");
 		
 	}

@@ -2,7 +2,9 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -16,8 +18,10 @@ import control.IBeanDAO;
 import control.LocazioneControl;
 import control.PhotoControl;
 import control.ProdottoControl;
+import control.StoricoPrezziControl;
 import model.Locazione;
 import model.Prodotto;
+import model.StoricoPrezzi;
 import model.Cliente;
 
 
@@ -28,7 +32,8 @@ maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class EditProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
-	static IBeanDAO<Prodotto> productDao = new ProdottoControl();
+	private static IBeanDAO<Prodotto> productDao = new ProdottoControl();
+	private static IBeanDAO<StoricoPrezzi> spDao = new StoricoPrezziControl();
 	
     public EditProduct() {
         super();
@@ -40,10 +45,37 @@ public class EditProduct extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Cliente cliente=(Cliente)request.getSession().getAttribute("currentUtente");
-		if(cliente!=null ) {
+		if(cliente!=null) {
 			if(cliente.isAdmin()==1) {
 		Prodotto p= (Prodotto)request.getSession().getAttribute("ProductEdit");
 		Locazione l= new Locazione();
+		
+		
+		if((p.getPrezzoVendita()!= Float.parseFloat(request.getParameter("pv"))) || (p.getCosto() != Float.parseFloat(request.getParameter("costo")))) {
+		try {
+			LocalDate date = LocalDate.now();
+			Iterator<StoricoPrezzi> iterSP= spDao.doRetrieveAll("").iterator();
+			while(iterSP.hasNext())
+			{
+				StoricoPrezzi temp= iterSP.next();
+				if(temp.getDataFine()==null && temp.getIdProdotto()==p.getId())
+				{
+					temp.setDataFine(date.toString());
+					StoricoPrezziControl.updateSP(temp);
+					StoricoPrezzi sp= new StoricoPrezzi();
+					sp.setDataInizio(date.toString());
+					sp.setCosto(Float.parseFloat(request.getParameter("costo")));
+					sp.setPv(Float.parseFloat(request.getParameter("pv")));
+					sp.setIdProdotto(p.getId());
+					sp.setDataFine(null);
+					spDao.doSave(sp);
+				}
+			}
+		} catch (SQLException e) {
+			request.getSession().setAttribute("status","Riprova a modificare il prodotto.");
+			response.sendRedirect("./admin/viewProduct.jsp");
+		}
+		}
 		
 		p.setNome(request.getParameter("NomeProdotto"));
 		p.setDescrizione(request.getParameter("desc"));
@@ -57,7 +89,8 @@ public class EditProduct extends HttpServlet {
 		try {
 			ProdottoControl.updateProdotto(p);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			request.getSession().setAttribute("status","Riprova a modificare il prodotto.");
+			response.sendRedirect("./admin/viewProduct.jsp");
 		}
 		
 		l.setIdProdotto(p.getId());
@@ -69,7 +102,8 @@ public class EditProduct extends HttpServlet {
 		try {
 			LocazioneControl.updateLocazione(l);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			request.getSession().setAttribute("status","Riprova a modificare il prodotto.");
+			response.sendRedirect("./admin/viewProduct.jsp");
 		}
 		
 		for (Part part : request.getParts()) {
@@ -78,23 +112,25 @@ public class EditProduct extends HttpServlet {
 				try {
 					PhotoControl.updatePhoto(""+p.getId(), part.getInputStream());
 				} catch (SQLException sqlException) {
-					System.out.println(sqlException);
+					request.getSession().setAttribute("status","Riprova a modificare il prodotto.");
+					response.sendRedirect("./admin/viewProduct.jsp");
 				}
 			}
 		}
 		
 		try {
-			Collection<Prodotto> prodotti=productDao.doRetrieveAll("");
+			Collection<Prodotto> prodotti=productDao.doRetrieveAll(" p.idcategoria,p.idsottocategoria,p.idprodotto ASC");
 			request.getSession().removeAttribute("prodottiV2");
 			request.getSession().setAttribute("prodottiV2",prodotti);
 			request.getSession().removeAttribute("ProductEdit");
+			request.getSession().setAttribute("status","Prodotto aggiornato");
 			response.sendRedirect("./admin/viewProduct.jsp");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		}else
-			response.sendRedirect("");}
+			response.sendRedirect(this.getServletContext().getContextPath());}
 		
 	}
 }
