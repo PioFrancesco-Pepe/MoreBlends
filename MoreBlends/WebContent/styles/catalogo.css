@@ -118,3 +118,66 @@ a i.fa-pencil,a i.fa-trash-can{
   color: #fff;
   background: #0085b6;
 }
+
+@media only screen and (max-width: 600px) {
+	
+	div#containerFilters,div.polaroid,select
+	{
+		width: 115px;
+	}
+
+	div.polaroid{
+		font-size: 14px;
+		height: 235px;
+	}
+	ul#list{
+		padding-left: 15px;
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	div#containerFilters,div.polaroid,select
+	{
+		width: 150px;
+	}
+
+	div.polaroid{
+		font-size: 15px;
+		height: 250px;
+	}
+	ul#list{
+		padding-left: 30px;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	div#containerFilters,div.polaroid,select
+	{
+		width: 175px;
+	}
+
+	div.polaroid{
+		font-size: 17px;
+		height: 300px;
+	}
+	ul#list{
+		padding-left: 40px;
+		gap: 185px 40px;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	div#containerFilters,div.polaroid,select
+	{
+		width: 200px;
+	}
+
+	div.polaroid{
+		font-size: 19px;
+		height: 320px;
+	}
+	ul#list{
+		padding-left: 50px;
+		gap: 185px 80px;
+	}
+}

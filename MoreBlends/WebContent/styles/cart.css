@@ -156,7 +156,7 @@ div#somma,div#no-log{
 	justify-content: space-around;
 }
 
-@media ( max-width : 800px) {
+@media only screen and( max-width : 800px) {
 	.shopping-cart {
 		width: 100%;
 		height: auto;
@@ -177,5 +177,38 @@ div#somma,div#no-log{
 	}
 	.buttons {
 		margin-right: 20px;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	div.image {
+		display: none;
+	}
+	section#p-i {
+		width: 300px;
+		height: 300px;
+	}
+	section#p-i select {
+		width: 250px;
+	}
+	div#all {
+		display: block;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	div.image img {
+		width: 150px;
+		height: 150px;
+	}
+	div#all {
+		display: block;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	div.image img {
+		height: 150px;
+		width: 150px;
 	}
 }

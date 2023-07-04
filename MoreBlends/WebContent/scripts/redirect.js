@@ -28,6 +28,10 @@ function redirect() {
 		location.replace("../pages/cart.jsp");
 	else if (url.includes("newMorS.jsp"))
 		location.replace("../pages/cart.jsp");
+	else if (url.includes("registrati.jsp"))
+		location.replace("../pages/cart.jsp");
+	else if (url.includes("accedi.jsp"))
+		location.replace("../pages/cart.jsp");
 	else
 		location.replace("./pages/cart.jsp");
 

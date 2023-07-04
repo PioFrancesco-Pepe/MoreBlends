@@ -1,12 +1,5 @@
 @charset "ISO-8859-1";
 
-body { 
-  font-family:      Georgia, "Times New Roman", Times, serif;
-  font-size:        medium;
-  margin:           0px;
-  text-decoration: none;
-}
-
 div#capsule-cialdeContainer h1#capsule-cialde
 {
 	text-align: center;
@@ -30,7 +23,8 @@ div.Container div#capsule-cialdeContainer {
 div#prova{
 	display: flex;
   	align-items: center;
-  	justify-content: center;	
+  	justify-content: center;
+  	margin: 0px 10px;	
 }
 
 div.Container div#allSystem
@@ -102,6 +96,8 @@ div.desc {
   width: 24.99999%;
 }
 
+
+
 @media only screen and (max-width: 700px) {
   .responsive {
     width: 49.99999%;
@@ -114,7 +110,6 @@ div.desc {
     width: 100%;
   }
 }
-
 .clearfix:after {
   content: "";
   display: table;

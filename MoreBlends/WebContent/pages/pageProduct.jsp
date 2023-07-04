@@ -3,8 +3,11 @@
 	import="java.util.*,control.*,model.*, java.lang.*"%>
 <!DOCTYPE html>
 <html lang="it">
-<%
-int idproduct = Integer.parseInt((String) request.getSession().getAttribute("idproduct"));
+<%int idproduct=-1;
+if(request.getSession().getAttribute("idproduct")== null)
+ 	response.sendRedirect("../pages/catalogo.jsp");
+else{
+	idproduct= Integer.parseInt((String) request.getSession().getAttribute("idproduct"));
 int flag = 0;
 Prodotto item = new Prodotto();
 Collection<?> model = (Collection<?>) request.getAttribute("prodotti");
@@ -77,6 +80,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 			<div id="table">
 				<div id="NameProduct">
 					<h1><%=item.getNome()%></h1>
+				</div> <!--DIV NameProduct-->	
 					<div id="row">
 						<div id="inrow">
 							<p>
@@ -97,11 +101,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 							<div id="desc"><p id="descrizione"><%=item.getDescrizioneAmpia()%></p></div>
 						</div> <!--DIV inrow-->
 					</div> <!--DIV row-->
-				</div> <!--DIV NameProduct-->
 			</div> <!--DIV table-->
 		</div><!--DIV prova-->
 	</div> <!--DIV Container-->
 	<%@ include file="../fragments/footer.jsp"%>
 <script src="../scripts/popup.js"></script>
 </body>
+<%} %>
 </html>

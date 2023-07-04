@@ -74,7 +74,7 @@ public class GetProdotto extends HttpServlet {
 					request.setAttribute("prodotti", model);
 					
 				} catch (SQLException e) {
-					e.printStackTrace();
+					System.out.println(e);
 				}
 				RequestDispatcher dispatcher = this.getServletContext().
 						getRequestDispatcher("/pages/pageProduct.jsp");

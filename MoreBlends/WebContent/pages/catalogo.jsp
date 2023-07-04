@@ -34,6 +34,7 @@ Collection<?> modelSottoCategoria=(Collection<?>) request.getAttribute("SottoCat
 <head>
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="initial-scale=1, width=device-width">
+<script src="https://code.jquery.com/jquery-2.2.4.js" charset="utf-8"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../styles/header.css" type="text/css">
 <link rel="stylesheet" href="../styles/style.css" type="text/css">

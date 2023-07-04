@@ -1,77 +1,74 @@
 @charset "ISO-8859-1";
 
 div.polaroid {
-  width: 23%;
-  background-color: white;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  margin-bottom: 25px;
+	width: 23%;
+	background-color: white;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	margin-bottom: 25px;
 }
 
 div.container {
-  text-align: center;
-  font-weight: 500;
-  padding: 10px 20px;
+	text-align: center;
+	font-weight: 500;
+	padding: 10px 20px;
 }
 
-div.polaroid img{
+div.polaroid img {
 	width: 100%;
 }
 
-div#vuoto{
+div#vuoto {
 	height: 635px;
 	width: 250px;
 }
 
-div#table{
-	display: table;	
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+div#table {
+	display: table;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
 	height: 580px;
 }
 
-div#NameProduct
-{
-	
+div#NameProduct {
 	width: 100%;
-
 }
 
-div#NameProduct h1
-{
+div#NameProduct h1 {
 	font-weight: 600;
 	text-align: center;
 }
 
-div#NameProduct p
-{
+div#row p {
 	text-align: center;
 	text-decoration: none;
-	font-size: 20px; 
+	font-size: 20px;
 }
 
-div#NameProduct label {
+div#row label {
 	text-align: center;
 	font-size: 18px;
 	margin: 45px;
 }
 
-div#NameProduct label input[type=number]{
+div#row label input[type=number] {
 	border-radius: 5px;
 	width: 150px;
 	height: 30px;
 	text-align: center;
 	margin-left: 20px;
-}  
-
-div#NameProduct div#row{
-	display: table-cell;
 }
 
-div#row div#inrow{
+div#row {
+	display: grid;
+	justify-content: center;
+}
+
+div#row div#inrow {
 	margin: 50px 100px 100px 100px;
 }
 
-input[type=submit]
-{
+input[type=submit] {
 	border-radius: 5px;
 	width: 150px;
 	height: 30px;
@@ -79,12 +76,12 @@ input[type=submit]
 	margin-left: 10px;
 }
 
-div#desc{
+div#desc {
 	width: 550px;
 	margin-top: 50px;
 }
 
-p#descrizione{
+p#descrizione {
 	font-size: 14px;
 	margin-top: 10px;
 	border-top: 1px solid #c0c0c0;
@@ -93,7 +90,7 @@ p#descrizione{
 	padding: 20px 0px;
 }
 
-.popup{
+.popup {
 	width: 200px;
 	height: 400px;
 	background: #fefefe;
@@ -103,25 +100,74 @@ p#descrizione{
 	color: #333;
 }
 
-.overlay{
+.overlay {
 	position: fixed; /* schermo intero*/
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-  height: 100vh;
-	background: rgba(0,0,0,0.7); /* colore sfondo e opcità */
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.7); /* colore sfondo e opcità */
 	text-align: center;
 	display: none; /*cambiaremo in display: none*/
 }
 
-#close{
+#close {
 	position: absolute;
 	top: -20px;
 	right: -20px;
 	color: #fff;
 }
 
-#close:hover{
+#close:hover {
 	cursor: pointer;
+}
+
+@media only screen and (max-width: 465px) {
+	div.polaroid, div#vuoto {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	h3 {
+		font-size: 12px;
+	}
+	div#table, div#NameProduct, div#row, div#inrow, p#descrizione {
+		width: 300px;
+		font-size: 12px;
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	h3 {
+		font-size: 14px;
+	}
+	div#table, div#NameProduct, div#row, div#inrow, p#descrizione {
+		width: 400px;
+		font-size: 14px;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	h3 {
+		font-size: 16px;
+	}
+	div#table, div#NameProduct, div#row, div#inrow, p#descrizione {
+		width: 528px;
+		font-size: 16px;
+	}
+	div.polaroid{
+		width: 750px;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	h3 {
+		font-size: 18px;
+	}
+	div#table, div#NameProduct, div#row, div#inrow, p#descrizione {
+		width: 769px;
+		font-size: 18px;
+	}
 }

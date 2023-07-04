@@ -26,8 +26,9 @@ else {
 </head>
 <body>
 	<%@ include file="../fragments/header.jsp"%>
+	</form>
 	<div id="all">
-		<div>
+		<div id="container">
 			<div class="table-orderLegend">
 				<div id="no">Numero Ordine</div>
 				<div id="do">Data Ordine</div>

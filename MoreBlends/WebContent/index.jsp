@@ -46,7 +46,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 		</div>
 		<div id="prova">
 			<div id="allSystem">
-				<div class="systemFeatured">
+				<div class="systemFeatured responsive">
 					<a href="./search?sistema=1&marca=0&search="><img
 						src="./images/AllSystem/cialde-cat-e1634101288563-300x300.webp" alt="Cialda ESE 44mm"></a>
 				</div>

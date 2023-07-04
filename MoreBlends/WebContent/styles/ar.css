@@ -5,6 +5,10 @@ legend {
 	border-radius: 3px;
 }
 
+h3 {
+	text-align: center;
+}
+
 fieldset {
 	border: 1px solid black;
 	border-radius: 7px;
@@ -27,17 +31,17 @@ label, input {
 	border: thin solid red;
 }
 
-div#blocco{
+div#blocco {
 	display: flex;
 	justify-content: center;
 }
 
-div#pulsanti{
+div#pulsanti {
 	display: flex;
 	justify-content: space-between;
 }
 
-.popup{
+.popup {
 	width: 200px;
 	height: 400px;
 	background: #fefefe;
@@ -47,25 +51,25 @@ div#pulsanti{
 	color: #333;
 }
 
-.overlay{
+.overlay {
 	position: fixed; /* schermo intero*/
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-  	height: 100vh;
-	background: rgba(0,0,0,0.7); /* colore sfondo e opcità */
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.7); /* colore sfondo e opcità */
 	text-align: center;
 	display: none; /*cambiaremo in display: none*/
 }
 
-#close{
+#close {
 	position: absolute;
 	top: -20px;
 	right: -20px;
 	color: #fff;
 }
 
-#close:hover{
+#close:hover {
 	cursor: pointer;
 }

@@ -9,7 +9,6 @@ $(document).ready(function(){
 	
 	function handleOrder(){
 		let jqxhr = $.post("../findOrderJson", { "datex": $("#datex").val(), "datey": $("#datey").val(), "user": $("#user").val()}, function(data){
-			//alert(JSON.stringify(data)); //de-commenta questa linea per stampare la stringa JSON tramite un alert
 			$("#list").html(data.result);
 		});
 			
