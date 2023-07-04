@@ -1,5 +1,13 @@
 @charset "ISO-8859-1";
 
+@font-face {
+  font-family: "Roboto";
+  src: url(../styles/font/Roboto-Regular.ttf);
+}
+
+*{
+	font-family: 'Roboto',Verdana, Helvetica, sans-serif;
+}
 header.top {
 	background-color: #393E46;
 	margin: 10px 10px 0px 10px;

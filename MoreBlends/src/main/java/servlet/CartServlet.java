@@ -21,7 +21,7 @@ import model.Prodotto;
 public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	static IBeanDAO<Prodotto> productDao = new ProdottoControl();
+	private static IBeanDAO<Prodotto> productDao = new ProdottoControl();
 
 	public CartServlet() {
 		super();
@@ -55,7 +55,7 @@ public class CartServlet extends HttpServlet {
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println("Error:" + e.getMessage());
+			response.sendRedirect(this.getServletContext().getContextPath());
 		}
 		
 		request.getSession().setAttribute("cart", cart);

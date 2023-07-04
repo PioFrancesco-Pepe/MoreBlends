@@ -24,8 +24,7 @@ request.getSession().setAttribute("prodottiV2", model);
 <script src="./scripts/redirect.js"></script>
 <meta name="viewport" content="initial-scale=1, width=device-width">
 <link rel="stylesheet" href="./styles/header.css" type="text/css">
-<link rel="stylesheet" 
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="./styles/all.min.css">
 <link rel="stylesheet" href="./styles/style.css" type="text/css">
 <link rel="stylesheet" href="./styles/footer.css" type="text/css">
 <title>MoreBlends</title>

@@ -26,8 +26,8 @@ import model.Prodotto;
 public class CurrentOrdine extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	static IBeanDAO<Ordine> ordineDao = new OrdineControl();
-	static IBeanDAO<Composizione> composizioneDao = new ComposizioneControl();
+	private static IBeanDAO<Ordine> ordineDao = new OrdineControl();
+	private static IBeanDAO<Composizione> composizioneDao = new ComposizioneControl();
 	
     public CurrentOrdine() {
         super();
@@ -71,7 +71,7 @@ public class CurrentOrdine extends HttpServlet {
 			else if(request.getHeader("referer").contains("/pages/viewOrders.jsp"))
 				response.sendRedirect("./pages/complessivoOrdine.jsp");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.sendRedirect(this.getServletContext().getContextPath());
 		}
 		
 	}

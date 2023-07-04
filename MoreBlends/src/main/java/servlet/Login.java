@@ -58,7 +58,7 @@ public class Login extends HttpServlet {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.sendRedirect(this.getServletContext().getContextPath());
 		}
 		if (flag == 0) {
 			String s = "Impossibile accedere riprova con un'altra email o password";

@@ -25,9 +25,9 @@ import model.Telefono;
 public class Registration extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	static IBeanDAO<Cliente> clienteDao = new ClienteControl();
-	static IBeanDAO<Telefono> telefonoDao = new TelefonoControl();
-	static IBeanDAO<Indirizzo> indirizzoDao = new IndirizzoControl();
+	private static IBeanDAO<Cliente> clienteDao = new ClienteControl();
+	private static IBeanDAO<Telefono> telefonoDao = new TelefonoControl();
+	private static IBeanDAO<Indirizzo> indirizzoDao = new IndirizzoControl();
 	
     public Registration() {
         super();
@@ -65,10 +65,6 @@ public class Registration extends HttpServlet {
 			
 				try {
 					clienteDao.doSave(beanC);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				try {
 					Collection<Cliente> clienti=clienteDao.doRetrieveAll("");
 					int idCliente=ClienteControl.getidCliente(clienti,beanC);
 					beanI.setIdCliente(idCliente);
@@ -78,15 +74,13 @@ public class Registration extends HttpServlet {
 					beanT.setIdCliente(idCliente);
 					telefonoDao.doSave(beanT);
 				} catch (SQLException e) {
-
-					e.printStackTrace();
+					response.sendRedirect(this.getServletContext().getContextPath());
 				}
-			
 				request.getSession().setAttribute("popupR",1);
 				response.sendRedirect(getServletContext().getContextPath()+"/pages/accedi.jsp");
 			}
 		} catch (SQLException | IOException e) {
-			e.printStackTrace();
+			response.sendRedirect(this.getServletContext().getContextPath());
 		}
 	}
 

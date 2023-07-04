@@ -126,7 +126,8 @@ public class EditProduct extends HttpServlet {
 			request.getSession().setAttribute("status","Prodotto aggiornato");
 			response.sendRedirect("./admin/viewProduct.jsp");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			request.getSession().setAttribute("status","Riprova a modificare il prodotto.");
+			response.sendRedirect("./admin/viewProduct.jsp");
 		}
 		
 		}else

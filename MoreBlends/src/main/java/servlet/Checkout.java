@@ -57,7 +57,7 @@ public class Checkout extends HttpServlet {
 				ordineDao.doSave(beanOrdine);
 				beanOrdine.setIdOrdine(OrdineControl.getLastID());
 			} catch (SQLException e) {
-				e.printStackTrace();
+				response.sendRedirect(this.getServletContext().getContextPath());
 			}
 			Iterator<Prodotto> iterP = cart.getProducts().iterator();
 			Iterator<Integer> iterQ = cart.getQuantita().iterator();
@@ -75,7 +75,7 @@ public class Checkout extends HttpServlet {
 					composizioneDao.doSave(beanComposizione);
 					somma+=prodotto.getPrezzoVendita()*quantita;
 				} catch (SQLException e) {
-					e.printStackTrace();
+					response.sendRedirect(this.getServletContext().getContextPath());
 				}
 			}
 			
@@ -87,20 +87,19 @@ public class Checkout extends HttpServlet {
 			try {
 				spedizioneDao.doSave(s);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				response.sendRedirect(this.getServletContext().getContextPath());
 			}
 			
 			Pagamento p= new Pagamento();
 			p.setIdOrdine(beanOrdine.getIdOrdine());
 			p.setDataPagamento(date.toString());
-			//p.setTotaleOrdine(Float.parseFloat(request.getParameter("totale")));
 			p.setTotaleOrdine(somma);
 			p.setIdMetodoPagamento(Integer.parseInt(request.getParameter("idmetodopagamento")));
 			
 			try {
 				pagamentoDao.doSave(p);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				response.sendRedirect(this.getServletContext().getContextPath());
 			}
 		}
 		request.getSession().removeAttribute("prodotti");

@@ -23,7 +23,7 @@ import model.Prodotto;
 public class GetProdotto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	static IBeanDAO<Prodotto> productDao= new ProdottoControl();
+	private static IBeanDAO<Prodotto> productDao= new ProdottoControl();
 	
 	public GetProdotto() {
 		super();
@@ -74,7 +74,7 @@ public class GetProdotto extends HttpServlet {
 					request.setAttribute("prodotti", model);
 					
 				} catch (SQLException e) {
-					System.out.println(e);
+					response.sendRedirect(this.getServletContext().getContextPath());
 				}
 				RequestDispatcher dispatcher = this.getServletContext().
 						getRequestDispatcher("/pages/pageProduct.jsp");
@@ -89,7 +89,7 @@ public class GetProdotto extends HttpServlet {
 					request.setAttribute("prodotti", model);
 					
 				} catch (SQLException e) {
-					e.printStackTrace();
+					response.sendRedirect(this.getServletContext().getContextPath());
 				}
 				RequestDispatcher dispatcher = this.getServletContext().
 						getRequestDispatcher("/index.jsp");

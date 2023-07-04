@@ -21,7 +21,7 @@ import model.Ordine;
 public class GetOrdini extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	static IBeanDAO<Ordine> ordineDao= new OrdineControl();
+	private static IBeanDAO<Ordine> ordineDao= new OrdineControl();
 
     public GetOrdini() {
         super();
@@ -31,7 +31,7 @@ public class GetOrdini extends HttpServlet {
 		try {
 			request.setAttribute("ordini", ordineDao.doRetrieveAll(""));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.sendRedirect(this.getServletContext().getContextPath());
 		}
 		RequestDispatcher dispatcher = this.getServletContext().
 				getRequestDispatcher("/admin/viewOrders.jsp");

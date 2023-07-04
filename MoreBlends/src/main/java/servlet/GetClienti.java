@@ -33,7 +33,7 @@ public class GetClienti extends HttpServlet {
 			clienti=clienteDao.doRetrieveAll("");
 			request.setAttribute("clienti", clienti);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.sendRedirect(this.getServletContext().getContextPath());
 		}
 		RequestDispatcher dispatcher = this.getServletContext().
 			getRequestDispatcher("/admin/viewOrders.jsp");

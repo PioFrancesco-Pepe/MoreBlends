@@ -13,11 +13,9 @@
 <title>Carrello</title>
 <script src="../scripts/setSrcOther.js"></script>
 <script src="../scripts/redirect.js"></script>
-<script src="https://code.jquery.com/jquery-2.2.4.js" charset="utf-8"></script>
-
+<script src="../scripts/jquery-3.7.0.js" charset="utf-8"></script>
+<link rel="stylesheet" href="../styles/all.min.css">
 <link rel="stylesheet" href="../styles/header.css" type="text/css">
-<link rel="stylesheet" 
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="../styles/cart.css" type="text/css">
 <link rel="stylesheet" href="../styles/footer.css" type="text/css">
 </head>

@@ -32,7 +32,7 @@ public class ViewReport extends HttpServlet {
 				Report r = ProdottoControl.getReport(code, request.getParameter("dateG"));
 				request.getSession().setAttribute("reports", r);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				response.sendRedirect(this.getServletContext().getContextPath());
 			}
 		}
 		else if(code==2)
@@ -41,7 +41,7 @@ public class ViewReport extends HttpServlet {
 				Report r = ProdottoControl.getReport(code, request.getParameter("mese"));
 				request.getSession().setAttribute("reports", r);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				response.sendRedirect(this.getServletContext().getContextPath());
 			}
 		}
 		else if(code==3)
@@ -50,7 +50,7 @@ public class ViewReport extends HttpServlet {
 				Report r = ProdottoControl.getReport(code, request.getParameter("anno"));
 				request.getSession().setAttribute("reports", r);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				response.sendRedirect(this.getServletContext().getContextPath());
 			}
 		}	
 		response.sendRedirect("./admin/report.jsp");

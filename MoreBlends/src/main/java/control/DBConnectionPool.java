@@ -10,9 +10,11 @@ import java.util.List;
 public class DBConnectionPool  {
 
 	private static List<Connection> freeDbConnections;
-
+	
+	private static String password="Rosa1947@";
+	
 	static {
-		freeDbConnections = new LinkedList<Connection>();
+		freeDbConnections = new LinkedList<>();
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -26,9 +28,9 @@ public class DBConnectionPool  {
 		String port = "3306";
 		String db = "storage?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		String username = "MoreBlendsAmministrstor";
-		String password = "Rosa1947@";
 
-		newConnection = DriverManager.getConnection("jdbc:mysql://"+ ip+":"+ port+"/"+db, username, password);
+		newConnection= DriverManager.getConnection("jdbc:mysql://"+ ip+":"+ port+"/"+db, username, password);
+		
 
 		newConnection.setAutoCommit(false);
 		return newConnection;
@@ -39,7 +41,7 @@ public class DBConnectionPool  {
 		Connection connection;
 
 		if (!freeDbConnections.isEmpty()) {
-			connection = (Connection) freeDbConnections.get(0);
+			connection = freeDbConnections.get(0);
 			freeDbConnections.remove(0);
 
 			try {

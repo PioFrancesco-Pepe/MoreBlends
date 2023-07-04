@@ -39,7 +39,7 @@ public class UpdateEP extends HttpServlet {
 		try {
 			ClienteControl.updateCliente(c);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.sendRedirect(this.getServletContext().getContextPath());
 		}
 		request.getSession().setAttribute("currentUtente", c);
 		response.sendRedirect("./pages/Profilo.jsp");

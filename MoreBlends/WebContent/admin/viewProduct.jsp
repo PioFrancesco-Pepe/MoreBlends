@@ -27,14 +27,13 @@
 <head>
 <meta charset="ISO-8859-1">
 <meta name="viewport" content="initial-scale=1, width=device-width">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="../scripts/jquery-3.7.0.js" charset="utf-8"></script>
+<link rel="stylesheet" href="../styles/all.min.css">
 <link rel="stylesheet" href="../styles/header.css" type="text/css">
 <link rel="stylesheet" href="../styles/catalogo.css" type="text/css">
 <link rel="stylesheet" href="../styles/footer.css" type="text/css">
 <script src="../scripts/setSrcOther.js"></script>
 <script src="../scripts/redirect.js"></script>
-<script src="https://code.jquery.com/jquery-2.2.4.js" charset="utf-8"></script>
 <title>Visualizza tutti i prodotti</title>
 </head>
 <body>
@@ -89,7 +88,7 @@
 			%>
 			<li><div class="itemProductA">
 					<div class="polaroid">
-						<img src="../getImage?id=<%=item.getId()%> alt=<%=item.getNome()%>">
+						<img src="../getImage?id=<%=item.getId()%> alt=<%=item.getNome()%>" alt="<%=item.getNome()%>">
 						<div class="container">
 							<div id="edit-trash">
 								<a

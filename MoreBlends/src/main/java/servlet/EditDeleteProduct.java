@@ -22,9 +22,9 @@ import model.SottoCategoria;
 public class EditDeleteProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	static IBeanDAO<Prodotto> productDao= new ProdottoControl();
-	static IBeanDAO<Categoria> categoriaDao= new CategoriaControl();
-	static IBeanDAO<SottoCategoria> sottoCategoriaDao= new SottoCategoriaControl();
+	private static IBeanDAO<Prodotto> productDao= new ProdottoControl();
+	private static IBeanDAO<Categoria> categoriaDao= new CategoriaControl();
+	private static IBeanDAO<SottoCategoria> sottoCategoriaDao= new SottoCategoriaControl();
 	
 	
     public EditDeleteProduct() {

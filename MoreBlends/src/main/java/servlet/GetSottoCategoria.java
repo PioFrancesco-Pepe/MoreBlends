@@ -48,7 +48,7 @@ public class GetSottoCategoria extends HttpServlet {
 				try {
 					request.setAttribute("SottoCategoria", sottocategoriaDao.doRetrieveAll(""));
 				} catch (SQLException e) {
-					e.printStackTrace();
+					response.sendRedirect(this.getServletContext().getContextPath());
 				}
 				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/pages/catalogo.jsp");
 				dispatcher.forward(request, response);

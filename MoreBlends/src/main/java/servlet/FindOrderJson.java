@@ -36,7 +36,7 @@ public class FindOrderJson extends HttpServlet {
 	}
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws IOException {
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 
@@ -69,16 +69,18 @@ public class FindOrderJson extends HttpServlet {
 					datey = LocalDate.now().toString();
 				o = ordineControl.findOrder(datex, datey, Integer.parseInt(user));
 			} catch (NumberFormatException | SQLException e) {
-				e.printStackTrace();
+				response.sendRedirect(this.getServletContext().getContextPath());
 			}
 		}
 		String risultato = null;
-		String risultato2 = "";
+		String risultato2;
+		StringBuilder sb= new StringBuilder();
 		if (o != null) {
 			Iterator<Ordine> iterO = o.iterator();
 			while (iterO.hasNext()) {
 				Ordine temp = iterO.next();
 				Cliente c;
+				
 				try {
 					c = userDao.doRetrieveByKey(temp.getIdCliente());
 					risultato = "<li><div class=\"table-order\">" + "<div class=\"idOrdine\">\r\n"
@@ -86,11 +88,12 @@ public class FindOrderJson extends HttpServlet {
 							+ "</a>" + "</div>" + "<div class=\"dataOrdine\">" + temp.getDataInserimento() + "</div>"
 							+ "<div class=\"cliente\">" + c.getNome() + " " + c.getCognome() + "</div>"
 							+ "<div class=\"statusordine\">" + temp.getStatusOrdine() + "</div>" + "</div></li>";
-					risultato2 = risultato + risultato2;
+					sb.append(risultato);
 				} catch (SQLException e) {
-					e.printStackTrace();
+					response.sendRedirect(this.getServletContext().getContextPath());
 				}
 			}
+			risultato2=  sb.toString();
 		} else {
 			risultato2 = "Nessun Ordine trovato.";
 		}

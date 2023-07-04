@@ -33,7 +33,7 @@ public class InsertProduct extends HttpServlet {
 	private static IBeanDAO<StoricoPrezzi> spDao= new StoricoPrezziControl();
 	
 	public InsertProduct() {
-		
+		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,7 +58,7 @@ public class InsertProduct extends HttpServlet {
 		try {
 			productDao.doSave(p);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.sendRedirect(this.getServletContext().getContextPath());
 		}
 		
 		sp.setCosto(Float.parseFloat(request.getParameter("costo")));
@@ -69,7 +69,7 @@ public class InsertProduct extends HttpServlet {
 		try {
 			spDao.doSave(sp);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.sendRedirect(this.getServletContext().getContextPath());
 		}
 		
 		l.setIdProdotto(ProdottoControl.getLastID());
@@ -79,7 +79,7 @@ public class InsertProduct extends HttpServlet {
 		try {
 			locazioneDao.doSave(l);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.sendRedirect(this.getServletContext().getContextPath());
 		}
 		
 		for (Part part : request.getParts()) {
@@ -89,6 +89,7 @@ public class InsertProduct extends HttpServlet {
 					PhotoControl.updatePhoto(""+l.getIdProdotto(), part.getInputStream());
 				} catch (SQLException sqlException) {
 					System.out.println(sqlException);
+					response.sendRedirect(this.getServletContext().getContextPath());
 				}
 			}
 		}

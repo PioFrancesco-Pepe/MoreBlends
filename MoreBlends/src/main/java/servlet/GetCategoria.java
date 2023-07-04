@@ -23,7 +23,7 @@ import control.CategoriaControl;
 public class GetCategoria extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	static IBeanDAO<Categoria> categoriaDao = new CategoriaControl();
+	private static IBeanDAO<Categoria> categoriaDao = new CategoriaControl();
 	
     public GetCategoria() {
         super();
@@ -48,7 +48,7 @@ public class GetCategoria extends HttpServlet {
 				try {
 					request.setAttribute("Categoria", categoriaDao.doRetrieveAll(""));
 				} catch (SQLException e) {
-					e.printStackTrace();
+					response.sendRedirect(this.getServletContext().getContextPath());
 				}
 				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/pages/catalogo.jsp");
 				dispatcher.forward(request, response);

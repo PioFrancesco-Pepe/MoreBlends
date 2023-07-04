@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -29,11 +28,7 @@ public class UploadPhoto extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
-		response.setContentType("text/plain");
-
-		out.write("Error: GET method is used but POST method is required");
-		out.close();
+		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -47,7 +42,7 @@ public class UploadPhoto extends HttpServlet {
 				try {
 					PhotoControl.updatePhoto(id, part.getInputStream());
 				} catch (SQLException sqlException) {
-					System.out.println(sqlException);
+					response.sendRedirect(this.getServletContext().getContextPath());
 				}
 			}
 		}
