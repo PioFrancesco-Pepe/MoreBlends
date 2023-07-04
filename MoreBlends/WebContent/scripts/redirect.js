@@ -1,5 +1,5 @@
 function redirect() {
-	var url = document.URL;
+	let url = document.URL;
 	if (url.includes("catalogo.jsp"))
 		location.replace("../pages/cart.jsp");	
 	else if (url.includes("newProdotto.jsp"))

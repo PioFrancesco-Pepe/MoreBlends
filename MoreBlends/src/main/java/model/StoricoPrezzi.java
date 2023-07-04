@@ -6,36 +6,36 @@ public class StoricoPrezzi implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private int IdStoricoPrezzi;
-	private float Costo;
+	private int idStoricoPrezzi;
+	private float costo;
 	private float pv;
-	private String DataInizio;
-	private String DataFine;
-	private int IdProdotto;
+	private String dataInizio;
+	private String dataFine;
+	private int idProdotto;
 	
 	public StoricoPrezzi() {
-		IdStoricoPrezzi=-1;
-		Costo=0;
+		idStoricoPrezzi=-1;
+		costo=0;
 		pv=0;
-		DataInizio="";
-		DataFine=null;
-		IdProdotto=-1;
+		dataInizio="";
+		dataFine=null;
+		idProdotto=-1;
 	}
 
 	public int getIdStoricoPrezzi() {
-		return IdStoricoPrezzi;
+		return idStoricoPrezzi;
 	}
 
 	public void setIdStoricoPrezzi(int idStoricoPrezzi) {
-		IdStoricoPrezzi = idStoricoPrezzi;
+		this.idStoricoPrezzi = idStoricoPrezzi;
 	}
 
 	public float getCosto() {
-		return Costo;
+		return costo;
 	}
 
 	public void setCosto(float costo) {
-		Costo = costo;
+		this.costo = costo;
 	}
 
 	public float getPv() {
@@ -47,26 +47,26 @@ public class StoricoPrezzi implements Serializable {
 	}
 
 	public String getDataInizio() {
-		return DataInizio;
+		return dataInizio;
 	}
 
 	public void setDataInizio(String dataInizio) {
-		DataInizio = dataInizio;
+		this.dataInizio = dataInizio;
 	}
 
 	public String getDataFine() {
-		return DataFine;
+		return dataFine;
 	}
 
 	public void setDataFine(String dataFine) {
-		DataFine = dataFine;
+		this.dataFine = dataFine;
 	}
 
 	public int getIdProdotto() {
-		return IdProdotto;
+		return idProdotto;
 	}
 
 	public void setIdProdotto(int idProdotto) {
-		IdProdotto = idProdotto;
+		this.idProdotto = idProdotto;
 	}
 }

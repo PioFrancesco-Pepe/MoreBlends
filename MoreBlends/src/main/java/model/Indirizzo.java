@@ -10,7 +10,7 @@ public class Indirizzo implements Serializable {
 	private int idIndirizzo;
 	private String via;
 	private String civico;
-	private String CAP;
+	private String cap;
 	private String localita;
 	private String siglaProvincia;
 	private int idCliente;
@@ -19,7 +19,7 @@ public class Indirizzo implements Serializable {
 		this.idIndirizzo = -1;
 		this.via ="";
 		this.civico ="";
-		this.CAP="";
+		this.cap="";
 		this.localita = "";
 		this.siglaProvincia = "";
 		this.idCliente = -1;
@@ -50,11 +50,11 @@ public class Indirizzo implements Serializable {
 	}
 
 	public String getCAP() {
-		return CAP;
+		return cap;
 	}
 
 	public void setCAP(String cAP) {
-		CAP = cAP;
+		cap = cAP;
 	}
 
 	public String getLocalita() {
@@ -83,13 +83,8 @@ public class Indirizzo implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Indirizzo [idIndirizzo=" + idIndirizzo + ", via=" + via + ", civico=" + civico + ", CAP=" + CAP
+		return "Indirizzo [idIndirizzo=" + idIndirizzo + ", via=" + via + ", civico=" + civico + ", CAP=" + cap
 				+ ", localita=" + localita + ", siglaProvincia=" + siglaProvincia + ", idCliente=" + idCliente + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(CAP, civico, localita, siglaProvincia, via);
 	}
 
 	@Override
@@ -101,7 +96,7 @@ public class Indirizzo implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Indirizzo other = (Indirizzo) obj;
-		return Objects.equals(CAP, other.CAP) && Objects.equals(civico, other.civico)
+		return Objects.equals(cap, other.cap) && Objects.equals(civico, other.civico)
 				&& Objects.equals(localita, other.localita) && Objects.equals(siglaProvincia, other.siglaProvincia)
 				&& Objects.equals(via, other.via);
 	}

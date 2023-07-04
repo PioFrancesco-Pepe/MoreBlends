@@ -6,18 +6,30 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class PhotoControl {
-	public synchronized static byte[] load(String id) {
+	
+	private static Logger l = Logger.getLogger("ImageLogger");
+	
+	private PhotoControl(){
+			super();
+		}
+		
+	public static synchronized byte[] load(String id) {
 
+		
+		
 		Connection connection = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
 		byte[] bt = null;
-
+	
 		try {
+			
 			connection = DBConnectionPool.getConnection();
 			String sql = "SELECT immagineProdotto FROM prodotto WHERE idprodotto = ?";
 			stmt = connection.prepareStatement(sql);
@@ -30,14 +42,14 @@ public class PhotoControl {
 			}
 
 		} catch (SQLException sqlException) {
-			System.out.println(sqlException);
+			l.log(Level.WARNING,sqlException, ()-> "Errore: "+sqlException);
 		} 
 			finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 			} catch (SQLException sqlException) {
-				System.out.println(sqlException);
+				l.log(Level.WARNING,sqlException, ()-> "Errore: "+sqlException);
 			} finally {
 				if (connection != null) 
 					DBConnectionPool.releaseConnection(connection);
@@ -46,7 +58,7 @@ public class PhotoControl {
 		return bt;
 	}
 	
-	public synchronized static void updatePhoto(String idA, InputStream photo) 
+	public static synchronized void updatePhoto(String idA, InputStream photo) 
 			throws SQLException {
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -59,14 +71,14 @@ public class PhotoControl {
 				stmt.executeUpdate();
 				con.commit();
 			} catch (IOException e) {
-				System.out.println(e);
+				l.log(Level.WARNING,e, ()-> "Errore: "+e);
 			}
 		} finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 			} catch (SQLException sqlException) {
-				System.out.println(sqlException);
+				l.log(Level.WARNING,sqlException, ()-> "Errore: "+sqlException);
 			} finally {
 				if (con != null)
 					DBConnectionPool.releaseConnection(con);

@@ -66,9 +66,6 @@ div#telefono,div#indirizzo,div#metodospedizione,div#metodopagamento{
 .delete-btn {
 	display: inline-block;
 	Cursor: pointer;
-}
-
-.delete-btn {
 	width: 18px;
 	height: 17px;
 	background: url("../images/delete-icn.svg") no-repeat center;

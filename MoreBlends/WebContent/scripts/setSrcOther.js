@@ -1,7 +1,7 @@
 function setSrcOther() {
   document.getElementById("logoFooter").src = "../images/logo_transparent.png";
   document.getElementById("logoHeader").src = "../images/logo_transparent.png";
-  var url=document.URL;
+  let url=document.URL;
   if(url.includes("catalogo.jsp"))
   	document.Cerca.action="../search";
   else if(url.includes("newProdotto.jsp"))

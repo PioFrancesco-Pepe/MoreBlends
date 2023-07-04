@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import model.Prodotto;
 import model.Report;
@@ -17,7 +19,7 @@ import model.Report;
 public class ProdottoControl implements IBeanDAO<Prodotto> {
 
 	private static final String TABLE_NAME = "prodotto";
-	
+	private static Logger l= Logger.getLogger("ProdottoControlLogger");
 	private static int lastID;
 	
 	public static synchronized List<Prodotto> load() {
@@ -60,14 +62,14 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 			}
 
 		} catch (SQLException sqlException) {
-			System.out.println(sqlException);
+			l.log(Level.WARNING,sqlException, ()-> "Errore: "+sqlException);
 		} 
 			finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 			} catch (SQLException sqlException) {
-				System.out.println(sqlException);
+				l.log(Level.WARNING,sqlException, ()-> "Errore: "+sqlException);
 			} finally {
 				if (connection != null) 
 					DBConnectionPool.releaseConnection(connection);
@@ -113,14 +115,14 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 			}
 
 		} catch (SQLException sqlException) {
-			System.out.println(sqlException);
+			l.log(Level.WARNING,sqlException, ()-> "Errore: "+sqlException);
 		} 
 			finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 			} catch (SQLException sqlException) {
-				System.out.println(sqlException);
+				l.log(Level.WARNING,sqlException, ()-> "Errore: "+sqlException);
 			} finally {
 				if (connection != null) 
 					DBConnectionPool.releaseConnection(connection);
@@ -194,14 +196,14 @@ public class ProdottoControl implements IBeanDAO<Prodotto> {
 			}
 
 		} catch (SQLException sqlException) {
-			System.out.println(sqlException);
+			l.log(Level.WARNING,sqlException, ()-> "Errore: "+sqlException);
 		} 
 			finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 			} catch (SQLException sqlException) {
-				System.out.println(sqlException);
+				l.log(Level.WARNING,sqlException, ()-> "Errore: "+sqlException);
 			} finally {
 				if (connection != null) 
 					DBConnectionPool.releaseConnection(connection);

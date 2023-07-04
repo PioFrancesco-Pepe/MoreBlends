@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DBConnectionPool  {
 
@@ -13,12 +15,18 @@ public class DBConnectionPool  {
 	
 	private static String password="Rosa1947@";
 	
+	private DBConnectionPool()
+	{
+		super();
+	}
+	
 	static {
 		freeDbConnections = new LinkedList<>();
+		Logger l = Logger.getLogger("DBConnection");
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			System.out.println("DB driver not found:"+ e.getMessage());
+			l.log(Level.WARNING,e, ()-> "DB driver not found: " + e.getMessage());
 		} 
 	}
 	
