@@ -86,6 +86,11 @@ public class Indirizzo implements Serializable {
 		return "Indirizzo [idIndirizzo=" + idIndirizzo + ", via=" + via + ", civico=" + civico + ", CAP=" + cap
 				+ ", localita=" + localita + ", siglaProvincia=" + siglaProvincia + ", idCliente=" + idCliente + "]";
 	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(cap, civico, idCliente, idIndirizzo, localita, siglaProvincia, via);
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -96,9 +101,9 @@ public class Indirizzo implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Indirizzo other = (Indirizzo) obj;
-		return Objects.equals(cap, other.cap) && Objects.equals(civico, other.civico)
-				&& Objects.equals(localita, other.localita) && Objects.equals(siglaProvincia, other.siglaProvincia)
-				&& Objects.equals(via, other.via);
+		return Objects.equals(cap, other.cap) && Objects.equals(civico, other.civico) && idCliente == other.idCliente
+				&& idIndirizzo == other.idIndirizzo && Objects.equals(localita, other.localita)
+				&& Objects.equals(siglaProvincia, other.siglaProvincia) && Objects.equals(via, other.via);
 	}
 	
 	
