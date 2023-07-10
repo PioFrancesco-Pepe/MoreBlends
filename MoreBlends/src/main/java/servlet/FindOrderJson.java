@@ -69,7 +69,16 @@ public class FindOrderJson extends HttpServlet {
 					datey = LocalDate.now().toString();
 				o = ordineControl.findOrder(datex, datey, Integer.parseInt(user));
 			} catch (NumberFormatException | SQLException e) {
-				response.sendRedirect(this.getServletContext().getContextPath());
+				if(request.getHeader("referer").contains("/admin/viewOrders.jsp")) 
+				{
+					request.getSession().setAttribute("error","Errore riprova");
+					response.sendRedirect("./admin/viewOrders.jsp");
+				}
+				else if(request.getHeader("referer").contains("/pages/viewOrders.jsp")) 
+				{
+					request.getSession().setAttribute("error","Errore riprova");
+					response.sendRedirect("./pages/viewOrders.jsp");
+				}
 			}
 		}
 		String risultato = null;
@@ -87,7 +96,8 @@ public class FindOrderJson extends HttpServlet {
 							+ "<a href=\"../currentOrdine?code=" + temp.getIdOrdine() + "\">" + temp.getIdOrdine()
 							+ "</a>" + "</div>" + "<div class=\"dataOrdine\">" + temp.getDataInserimento() + "</div>"
 							+ "<div class=\"cliente\">" + c.getNome() + " " + c.getCognome() + "</div>"
-							+ "<div class=\"statusordine\">" + temp.getStatusOrdine() + "</div>" + "</div></li>";
+							+ "<div class=\"statusordine\">" 
+							+temp.getStatusOrdine() + "</div>" + "</div></li>";
 					sb.append(risultato);
 				} catch (SQLException e) {
 					response.sendRedirect(this.getServletContext().getContextPath());

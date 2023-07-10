@@ -27,6 +27,7 @@ public class Login extends HttpServlet {
 	static IBeanDAO<Cliente> clienteDao = new ClienteControl();
 	
     public Login() {
+    	super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

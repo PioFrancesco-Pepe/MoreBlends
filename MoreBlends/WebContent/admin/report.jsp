@@ -70,6 +70,17 @@ else
 					onchange="validateFormElem(this, document.getElementById('errorAnno'),annoErrorMessage)">
 					<span id="errorAnno"></span>
 			</div>
+			<div>
+				<span>
+					<%
+					if(request.getSession().getAttribute("error")!=null)
+					{
+						out.write((String)request.getSession().getAttribute("error"));
+						request.getSession().removeAttribute("error");
+					}	
+					%>
+				</span>
+			</div>
 			<div id="pulsanti">
 				<input type="submit" value="Invia" onclick="return validate()"> <input type="reset"
 					value="Reset" id="reset">

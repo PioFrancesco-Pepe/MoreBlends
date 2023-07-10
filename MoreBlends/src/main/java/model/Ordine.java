@@ -1,6 +1,10 @@
 package model;
 
-public class Ordine {
+import java.io.Serializable;
+
+public class Ordine implements Serializable {
+	
+	private static final long serialVersionUID = -6476648037868980179L;
 	
 	private int idOrdine;
 	private String dataInserimento;
@@ -13,7 +17,7 @@ public class Ordine {
 		idOrdine=-1;
 		dataInserimento="";
 		setIdCliente(-1);
-		idStatusOrdine=1;
+		idStatusOrdine=6;
 	}
 	
 	public int getIdOrdine() {

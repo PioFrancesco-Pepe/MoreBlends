@@ -57,7 +57,8 @@ public class Checkout extends HttpServlet {
 				ordineDao.doSave(beanOrdine);
 				beanOrdine.setIdOrdine(OrdineControl.getLastID());
 			} catch (SQLException e) {
-				response.sendRedirect(this.getServletContext().getContextPath());
+				request.getSession().setAttribute("error","Errore riprova");
+				response.sendRedirect("./pages/cart.jsp");
 			}
 			Iterator<Prodotto> iterP = cart.getProducts().iterator();
 			Iterator<Integer> iterQ = cart.getQuantita().iterator();
@@ -75,7 +76,8 @@ public class Checkout extends HttpServlet {
 					composizioneDao.doSave(beanComposizione);
 					somma+=prodotto.getPrezzoVendita()*quantita;
 				} catch (SQLException e) {
-					response.sendRedirect(this.getServletContext().getContextPath());
+					request.getSession().setAttribute("error","Errore riprova");
+					response.sendRedirect("./pages/cart.jsp");
 				}
 			}
 			
@@ -87,7 +89,8 @@ public class Checkout extends HttpServlet {
 			try {
 				spedizioneDao.doSave(s);
 			} catch (SQLException e) {
-				response.sendRedirect(this.getServletContext().getContextPath());
+				request.getSession().setAttribute("error","Errore riprova");
+				response.sendRedirect("./pages/cart.jsp");
 			}
 			
 			Pagamento p= new Pagamento();
@@ -99,7 +102,8 @@ public class Checkout extends HttpServlet {
 			try {
 				pagamentoDao.doSave(p);
 			} catch (SQLException e) {
-				response.sendRedirect(this.getServletContext().getContextPath());
+				request.getSession().setAttribute("error","Errore riprova");
+				response.sendRedirect("./pages/cart.jsp");
 			}
 		}
 		request.getSession().removeAttribute("prodotti");

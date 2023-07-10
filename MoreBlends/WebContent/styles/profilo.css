@@ -1,8 +1,8 @@
 @charset "ISO-8859-1";
    .profile {
       max-width: 800px;
-      margin: 50px auto;
-      background-color: #fff;
+      margin: 50px 10px;
+      background-color: var(--royal-blue-traditional);
       padding: 30px;
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -13,19 +13,19 @@
     }
     .profile h1 {
       text-align: center;
-      color: #333;
+      color: var(--linen);
       margin-bottom: 10px;
     }
     .profile p {
       line-height: 1.5;
-      color: #777;
+      color: var(--linen);
       text-align: center;
     }
     .profile .btn {
       display: inline-block;
       padding: 10px 20px;
-      background-color: #007bff;
-      color: #fff;
+      background-color: var(--glaucous);
+      color: var(--linen);
       text-decoration: none;
       border-radius: 5px;
       margin-top: 20px;
@@ -48,7 +48,7 @@
 	right: 0;
 	bottom: 0;
   	height: 100vh;
-	background: rgba(0,0,0,0.7); /* colore sfondo e opcit‡ */
+	background: rgba(0,0,0,0.7); /* colore sfondo e opcit√† */
 	text-align: center;
 	display: none; /*cambiaremo in display: none*/
 }

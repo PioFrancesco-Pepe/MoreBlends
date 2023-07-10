@@ -71,7 +71,16 @@ public class CurrentOrdine extends HttpServlet {
 			else if(request.getHeader("referer").contains("/pages/viewOrders.jsp"))
 				response.sendRedirect("./pages/complessivoOrdine.jsp");
 		} catch (SQLException e) {
-			response.sendRedirect(this.getServletContext().getContextPath());
+			if(request.getHeader("referer").contains("/admin/viewOrders.jsp")) 
+			{
+				request.getSession().setAttribute("error","Errore riprova");
+				response.sendRedirect("./admin/viewOrders.jsp");
+			}
+			else if(request.getHeader("referer").contains("/pages/viewOrders.jsp")) 
+			{
+				request.getSession().setAttribute("error","Errore riprova");
+				response.sendRedirect("./pages/viewOrders.jsp");
+			}
 		}
 		
 	}

@@ -32,6 +32,8 @@ function redirect() {
 		location.replace("../pages/cart.jsp");
 	else if (url.includes("accedi.jsp"))
 		location.replace("../pages/cart.jsp");
+	else if (url.includes("gestioneOrdini.jsp"))
+		location.replace("../pages/cart.jsp");
 	else
 		location.replace("./pages/cart.jsp");
 

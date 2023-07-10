@@ -109,6 +109,16 @@ else {
 						id="talkPhoto" required class="file" type="file" name="talkPhoto"
 						value="" maxlength="255">
 				</div>
+				<div>
+					<span>
+						<%if(request.getSession().getAttribute("status")!=null)
+							{
+								out.print(request.getSession().getAttribute("status"));
+								request.getSession().removeAttribute("status");
+							}
+						%>
+					</span>
+				</div>
 				<hr>
 				<div id="pulsanti">
 					<input type="submit" value="Aggiungi prodotto"

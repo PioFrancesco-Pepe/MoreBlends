@@ -39,9 +39,12 @@ public class UpdateEP extends HttpServlet {
 		try {
 			ClienteControl.updateCliente(c);
 		} catch (SQLException e) {
-			response.sendRedirect(this.getServletContext().getContextPath());
+			request.getSession().setAttribute("error","Riprova si è verificato un errore.");
+			response.sendRedirect("./pages/editProfile.jsp");
 		}
 		request.getSession().setAttribute("currentUtente", c);
+		request.getSession().setAttribute("popupP", 1);
+		request.getSession().setAttribute("error","Email e/o password aggiornato/i.");
 		response.sendRedirect("./pages/Profilo.jsp");
 	}
 	

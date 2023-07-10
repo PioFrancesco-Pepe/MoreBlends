@@ -8,9 +8,10 @@ div#containerAll{
 
 div#containerFilters {
 	text-align: center;
-    background-color: #efe5d0;
+    background-color: var(--royal-blue-traditional);
     width: 200px;
     margin: 0px 15px 0px 0px;
+	color: var(--linen);
 }
 
 div#marcaF, div#sistemaF{
@@ -99,29 +100,29 @@ a i.fa-pencil,a i.fa-trash-can{
 
 .pagination-number,
 .pagination-button{
-  font-size: 1.1rem;
+  font-size: 17.6px;
   background-color: transparent;
   border: none;
-  margin: 0.25rem 0.25rem;
+  margin: 4px;
   cursor: pointer;
-  height: 2.5rem;
-  width: 2.5rem;
-  border-radius: .2rem;
+  height: 40px;
+  width: 40px;
+  border-radius: 3.2px;
 }
 
 .pagination-number:hover,
 .pagination-button:not(.disabled):hover {
-  background: #fff;
+  background: var(--linen);
 }
 
 .pagination-number.active {
-  color: #fff;
-  background: #0085b6;
+  color: var(--linen);
+  background: var(--glaucous);
 }
 
 @media only screen and (max-width: 600px) {
 	
-	div#containerFilters,div.polaroid,select
+	div#containerFilters,div.polaroid
 	{
 		width: 115px;
 	}
@@ -136,14 +137,14 @@ a i.fa-pencil,a i.fa-trash-can{
 }
 
 @media only screen and (min-width: 600px) {
-	div#containerFilters,div.polaroid,select
+	div#containerFilters,div.polaroid
 	{
 		width: 150px;
 	}
 
 	div.polaroid{
 		font-size: 15px;
-		height: 250px;
+		height: 260px;
 	}
 	ul#list{
 		padding-left: 30px;
@@ -151,7 +152,7 @@ a i.fa-pencil,a i.fa-trash-can{
 }
 
 @media only screen and (min-width: 768px) {
-	div#containerFilters,div.polaroid,select
+	div#containerFilters,div.polaroid
 	{
 		width: 175px;
 	}
@@ -167,17 +168,17 @@ a i.fa-pencil,a i.fa-trash-can{
 }
 
 @media only screen and (min-width: 992px) {
-	div#containerFilters,div.polaroid,select
+	div#containerFilters,div.polaroid
 	{
 		width: 200px;
 	}
 
 	div.polaroid{
 		font-size: 19px;
-		height: 320px;
+		height: 350px;
 	}
 	ul#list{
 		padding-left: 50px;
-		gap: 185px 80px;
+		gap: 250px 80px;
 	}
 }

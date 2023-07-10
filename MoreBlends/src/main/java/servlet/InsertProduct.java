@@ -47,7 +47,7 @@ public class InsertProduct extends HttpServlet {
 		Locazione l = new Locazione();
 		StoricoPrezzi sp = new StoricoPrezzi();
 		LocalDate date = LocalDate.now();
-	
+	try {
 		p.setNome(request.getParameter("NomeProdotto"));
 		p.setDescrizione(request.getParameter("desc"));
 		p.setDescrizioneAmpia(request.getParameter("descA"));
@@ -55,45 +55,34 @@ public class InsertProduct extends HttpServlet {
 		p.setIdCategoria(Integer.parseInt(request.getParameter("categoria")));
 		p.setIdSottoCategoria(Integer.parseInt(request.getParameter("sottocategoria")));
 		
-		try {
-			productDao.doSave(p);
-		} catch (SQLException e) {
-			response.sendRedirect(this.getServletContext().getContextPath());
-		}
+		
+		productDao.doSave(p);
 		
 		sp.setCosto(Float.parseFloat(request.getParameter("costo")));
 		sp.setPv(Float.parseFloat(request.getParameter("pv")));
 		sp.setDataInizio(date.toString());
 		sp.setIdProdotto(ProdottoControl.getLastID());
 		
-		try {
-			spDao.doSave(sp);
-		} catch (SQLException e) {
-			response.sendRedirect(this.getServletContext().getContextPath());
-		}
+		
+		spDao.doSave(sp);
 		
 		l.setIdProdotto(ProdottoControl.getLastID());
 		l.setIdMagazzino(1);
 		l.setQuantita(Integer.parseInt(request.getParameter("q")));
 		
-		try {
-			locazioneDao.doSave(l);
-		} catch (SQLException e) {
-			response.sendRedirect(this.getServletContext().getContextPath());
-		}
+		locazioneDao.doSave(l);
 		
 		for (Part part : request.getParts()) {
 			String fileName = part.getSubmittedFileName();
 			if (fileName != null && !fileName.equals("")) {
-				try {
 					PhotoControl.updatePhoto(""+l.getIdProdotto(), part.getInputStream());
-				} catch (SQLException sqlException) {
-					System.out.println(sqlException);
-					response.sendRedirect(this.getServletContext().getContextPath());
 				}
 			}
-		}
-		response.sendRedirect("/MoreBlends");
+		
+	}catch (SQLException sqlException) {
+		request.getSession().setAttribute("status", "Errore riprova.");
+		response.sendRedirect("./admin/newProdotto.jsp");
 	}
-
+	response.sendRedirect(this.getServletContext().getContextPath());
+	}
 }

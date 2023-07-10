@@ -54,7 +54,9 @@ public class AddIndirizzo extends HttpServlet {
 					c.getIndirizzi().add(i);
 					request.getSession().setAttribute("currentUtente", c);
 				} catch (SQLException e) {
-					response.sendRedirect(this.getServletContext().getContextPath());
+					request.getSession().setAttribute("popupI", 1);
+					request.getSession().setAttribute("error","Errore riprova a reinserire l'indirizzo");
+					response.sendRedirect("./pages/insertOtherIndirizzo.jsp");
 				}
 				request.getSession().setAttribute("popupS", 1);
 				request.getSession().setAttribute("successo","Indirizzo inserito nella lista.");

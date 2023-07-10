@@ -10,11 +10,11 @@ if (l <= 600){
 	paginationLimit = 4;
 	$("ul#list").css("grid-template-columns", "repeat(1, 165px)");
 }
-else if (l >= 750 && l <= 800){
+else if (l >= 750 && l <= 859){
 	paginationLimit = 8;
 	$("ul#list").css("grid-template-columns", "repeat(2, 165px)");
 }
-else if(l >= 800 && l <= 1249)
+else if(l >= 860 && l <= 1249)
 {
 	paginationLimit = 15;
 	$("ul#list").css("grid-template-columns", "repeat(3, 165px)");
@@ -150,7 +150,7 @@ window.addEventListener("resize", () => {
 			}
 		});
 	}
-	else if (width >= 750 && width <= 800) {
+	else if (width >= 750 && width <= 859) {
 		paginationLimit = 8;
 		pageCount = Math.ceil(listItems.length / paginationLimit);
 		$("ul#list").css("grid-template-columns", "repeat(2, 165px)");
@@ -171,7 +171,7 @@ window.addEventListener("resize", () => {
 			}
 		});
 	}
-	else if (width >= 800 && width <= 1249) {
+	else if (width >= 860 && width <= 1249) {
 		paginationLimit = 15;
 		pageCount = Math.ceil(listItems.length / paginationLimit);
 		$("ul#list").css("grid-template-columns", "repeat(3, 165px)");

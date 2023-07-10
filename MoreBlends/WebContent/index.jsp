@@ -47,31 +47,31 @@ request.getSession().setAttribute("prodottiV2", model);
 			<div id="allSystem">
 				<div class="systemFeatured responsive">
 					<a href="./search?sistema=1&marca=0&search="><img
-						src="./images/AllSystem/cialde-cat-e1634101288563-300x300.webp" alt="Cialda ESE 44mm"></a>
+						src="./images/AllSystem/cialde-cat-e1634101288563-300x300.png" alt="Cialda ESE 44mm"></a>
 				</div>
 				<div class="grid-container">
 					<div class="grid-item">
 						<a href="./search?sistema=2&marca=0&search="><img
-							src="./images/AllSystem/lavazza-a-modo-mio-cat-100x100.webp" alt="Lavazza A Modo Mio"></a>
+							src="./images/AllSystem/lavazza-a-modo-mio-cat-100x100.png" alt="Lavazza A Modo Mio"></a>
 					</div>
 					<div class="grid-item">
 						<a href="./search?sistema=6&marca=0&search="><img
-							src="./images/AllSystem/dolce-gusto-cat-100x100.webp" alt="Nescafè Dolce Gusto"></a>
+							src="./images/AllSystem/dolce-gusto-cat-100x100.png" alt="Nescafè Dolce Gusto"></a>
 					</div>
 					<div class="grid-item">
 						<a href="./search?sistema=5&marca=0&search="><img
-							src="./images/AllSystem/espresso-point-cat-100x100.webp" alt="Lavazza Espresso Point"></a>
+							src="./images/AllSystem/espresso-point-cat-100x100.png" alt="Lavazza Espresso Point"></a>
 					</div>
 					<div class="grid-item">
 						<a href="./search?sistema=3&marca=0&search="><img
-							src="./images/AllSystem/nespresso-cat-100x100.webp" alt="Nespresso"></a>
+							src="./images/AllSystem/nespresso-cat-100x100.png" alt="Nespresso"></a>
 					</div>
 					<div class="grid-item">
 						<a href="./search?sistema=7&marca=0&search="><img
-							src="./images/AllSystem/iperespresso-cat-100x100.webp" alt="illyespresso"></a>
+							src="./images/AllSystem/iperespresso-cat-100x100.png" alt="illyespresso"></a>
 					</div>
 					<div class="grid-item">
-						<a href="./search?sistema=4&marca=0&search="><img src="./images/AllSystem/bialetti100x100.webp" alt="Bialetti"></a>
+						<a href="./search?sistema=4&marca=0&search="><img src="./images/AllSystem/bialetti100x100.png" alt="Bialetti"></a>
 					</div>
 				</div>
 			</div>

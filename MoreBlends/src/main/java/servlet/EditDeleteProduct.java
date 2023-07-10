@@ -62,7 +62,8 @@ public class EditDeleteProduct extends HttpServlet {
 			}
 		}
 	}catch (SQLException e) {
-		System.out.println("Error:" + e.getMessage());
+		request.getSession().setAttribute("status", "Errore riprova.");
+		response.sendRedirect("./admin/viewProduct.jsp");
 	}
 
 }

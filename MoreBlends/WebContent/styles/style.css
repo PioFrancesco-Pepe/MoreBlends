@@ -31,8 +31,9 @@ div.Container div#allSystem
 {
 	display: table;
 	margin: 10px;
-	background-color: #8C8F93;
+	background-color: var(--glaucous);
 	height: 322px;
+	border: 1px solid var(--royal-blue-traditional);
 }
 
 div.Container div#allSystem div.systemFeatured
@@ -40,6 +41,10 @@ div.Container div#allSystem div.systemFeatured
 	display: table-cell;
 	margin: 10px;
 	height: 50%;
+}
+
+div#allSystem img{
+	border: 1px solid var(--linen);
 }
 
 div.Container div#allSystem div.grid-container {
@@ -58,12 +63,12 @@ div.Container div#allSystem div.grid-item {
 
 div.textbar
 {
-	background-color: #8C8F93;
+	background-color: var(--chamoisee);
 	height: 22px;
 }
 
 div.textbar h3 {
-	color: #EEEEEE;
+	color: var(--linen);
 	text-align: left;
 	text-decoration: none;
 }

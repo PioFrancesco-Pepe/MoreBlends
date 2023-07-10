@@ -1,4 +1,11 @@
 @charset "ISO-8859-1";
+:root{
+	--blackbean: #351303ff; /*Marrone scuro*/	
+--royal-blue-traditional: #072768ff;/*Blu scuro*/
+--glaucous: #5079b2ff;/*Blu chiaro*/
+--linen: #f7efe8ff;/*Grigio*/
+--chamoisee: #996f51ff;/*Marrone chiaro*/
+}
 
 @font-face {
   font-family: "Roboto";
@@ -9,7 +16,7 @@
 	font-family: 'Roboto',Verdana, Helvetica, sans-serif;
 }
 header.top {
-	background-color: #393E46;
+	background-color: var(--blackbean);
 	margin: 10px 10px 0px 10px;
 	height: 230px;
 	display: flex;
@@ -22,7 +29,7 @@ header.top div.LogoContainer{
 }
 
 nav {
-	background-color: #8C8F93;
+	background-color: var(--chamoisee);
 	margin: 10px 10px 0px 10px;
 	height: 50px;
 	display: flex;
@@ -51,7 +58,7 @@ nav ul li{
 }
 
 nav ul li a:link, nav ul li a:visited {
-	color: #EEEEEE;
+	color: var(--linen);
 	text-decoration: none;
 	border-bottom: none;
 	font-weight: bold;
@@ -59,16 +66,22 @@ nav ul li a:link, nav ul li a:visited {
 }
 
 li.dropdown {
-  display: inline-block;
+	display: inline-block;
+	color: var(--linen);
+	text-decoration: none;
+	border-bottom: none;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #8C8F93;
+  background-color: var(--chamoisee);
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  width: 220px;
 }
 
 .dropdown-content a {
@@ -79,14 +92,12 @@ li.dropdown {
   text-align: left;
 }
 
-.dropdown-content a:hover {background-color: #c0c0c0;}
+.dropdown-content a:hover {
+	color: black;
+	background-color: white;}
 
 .dropdown:hover .dropdown-content {
   display: block;
-}
-
-li.selected {
-	background-color: #74777b;
 }
 
 input#cerca[type=text] {
@@ -101,14 +112,19 @@ input#cerca[type=text] {
   padding: 6px 10px;
   margin-top: 8px;
   margin-right: 16px;
-  background: #ddd;
+  background: var(--linen);
   font-size: 17px;
   border: none;
   cursor: pointer;
 }
 
+i.fa.fa-shopping-cart
+{
+	color: var(--linen);
+}
+
 .search-container button:hover {
-  background: #ccc;
+  background: white;
 }
 
 

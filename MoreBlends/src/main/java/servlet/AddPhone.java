@@ -52,7 +52,9 @@ public class AddPhone extends HttpServlet {
 					c.getNumeriTelefono().add(t);
 					request.getSession().setAttribute("currentUtente", c);
 				} catch (SQLException e) {
-					response.sendRedirect(this.getServletContext().getContextPath());
+					request.getSession().setAttribute("popupP", 1);
+					request.getSession().setAttribute("error","Errore riprova a reinserire il numero di telefono.");
+					response.sendRedirect("./pages/insertOtherTelefono.jsp");
 				}
 				request.getSession().setAttribute("popupS", 1);
 				request.getSession().setAttribute("successo","Telefono inserito nella lista.");

@@ -7,6 +7,9 @@ legend {
 
 h3 {
 	text-align: center;
+	background-color: var(--glaucous);
+	color: var(
+--linen);
 }
 
 fieldset {
@@ -58,7 +61,7 @@ div#pulsanti {
 	right: 0;
 	bottom: 0;
 	height: 100vh;
-	background: rgba(0, 0, 0, 0.7); /* colore sfondo e opcit‡ */
+	background: rgba(0, 0, 0, 0.7); /* colore sfondo e opcit√† */
 	text-align: center;
 	display: none; /*cambiaremo in display: none*/
 }

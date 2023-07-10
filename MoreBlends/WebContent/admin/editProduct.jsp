@@ -99,7 +99,7 @@
 				</div>
 				<div>
 					<label for="talkPhoto">Carica un'immagine: </label><input
-						id="talkPhoto" class="file" type="file" name="talkPhoto"
+						id="talkPhoto" class="file" type="file" accept="image/*" name="talkPhoto"
 						value="" maxlength="255">
 				</div>
 				<hr>

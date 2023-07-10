@@ -47,6 +47,16 @@ else {
 				<div>
 					<button type="button" id="find">Cerca</button>
 				</div>
+				<div>
+					<span>
+						<%if(request.getSession().getAttribute("error")!=null)
+						{
+							out.print(request.getSession().getAttribute("error"));
+							request.getSession().removeAttribute("error");
+						}
+						%>
+					</span>
+				</div>
 		</div>
 	</div>
 	<%@ include file="../fragments/footer.jsp"%>

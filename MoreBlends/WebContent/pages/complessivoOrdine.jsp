@@ -4,9 +4,9 @@
 			Collection<?> prodotti = (Collection<?>)request.getSession().getAttribute("prodottiOrdine");
 			Collection<?> quantita = (Collection<?>)request.getSession().getAttribute("quantitaOrdine");
 			if(prodotti==null)
-				response.sendRedirect("../errorPage.jsp");
+				response.sendRedirect(application.getContextPath());
 			if(quantita==null)
-				response.sendRedirect("../errorPage.jsp");
+				response.sendRedirect(application.getContextPath());
 %>
 <!DOCTYPE html>
 <html lang="it">

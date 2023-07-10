@@ -10,26 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import control.IBeanDAO;
 import control.OrdineControl;
-import model.Ordine;
 
 /**
- * Servlet implementation class GetOrdini
+ * Servlet implementation class GetStatusOrdine
  */
-@WebServlet("/getOrdini")
-public class GetOrdini extends HttpServlet {
+@WebServlet("/getStatusOrdine")
+public class GetStatusOrdine extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	private static IBeanDAO<Ordine> ordineDao= new OrdineControl();
-
-    public GetOrdini() {
+	
+    public GetStatusOrdine() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		try {
-			request.setAttribute("ordini", ordineDao.doRetrieveAll(" idordine ASC"));
+			request.setAttribute("status", OrdineControl.getStatusOrdine());
 		} catch (SQLException e) {
 			response.sendRedirect(this.getServletContext().getContextPath());
 		}

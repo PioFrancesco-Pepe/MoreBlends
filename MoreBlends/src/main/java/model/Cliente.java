@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Cliente implements Serializable{
 
@@ -98,6 +99,26 @@ public class Cliente implements Serializable{
 		return "Cliente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", email=" + email + ", password="
 				+ password + ", isAdmin=" + isAdmin + ", numeriTelefono=" + numeriTelefono + ", indirizzi=" + indirizzi
 				+ "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cognome, email, id, indirizzi, isAdmin, nome, numeriTelefono, password);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		return Objects.equals(cognome, other.cognome) && Objects.equals(email, other.email) && id == other.id
+				&& Objects.equals(indirizzi, other.indirizzi) && isAdmin == other.isAdmin
+				&& Objects.equals(nome, other.nome) && Objects.equals(numeriTelefono, other.numeriTelefono)
+				&& Objects.equals(password, other.password);
 	}
 	
 }

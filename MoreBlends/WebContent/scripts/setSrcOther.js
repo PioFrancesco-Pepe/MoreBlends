@@ -30,6 +30,8 @@ function setSrcOther() {
   	document.Cerca.action="../search";
   else if (url.includes("newMorS.jsp"))
   	document.Cerca.action="../search";
+  else if (url.includes("gestioneOrdini.jsp"))
+  	document.Cerca.action="../search";
 
 }
 

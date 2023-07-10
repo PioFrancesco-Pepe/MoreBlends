@@ -47,6 +47,15 @@
 						onclick="return validateLog()"> <input type="reset"
 						value="Reset">
 				</div>
+				<div>
+					<span>
+					<%if(request.getSession().getAttribute("error")!= null)
+						{
+							out.write((String)request.getSession().getAttribute("error"));
+							request.getSession().removeAttribute("error");
+						}%>
+					</span>
+				</div>
 				</fieldset>
 		</form>
 	</div>	

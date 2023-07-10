@@ -113,6 +113,11 @@
 			
 			out.write("<div id=\"metodospedizione\">");
 			out.write("<p>Spedizione gratuita</p>");
+			if(request.getSession().getAttribute("error")!= null)
+			{	
+				out.write("<span>"+request.getSession().getAttribute("error")+"</span>");
+				request.getSession().removeAttribute("error");
+			}	
 			out.write("</div>");
 			}
 		}

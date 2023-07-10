@@ -101,15 +101,13 @@ p#descrizione {
 }
 
 .overlay {
-	position: fixed; /* schermo intero*/
+	position: fixed; 
 	top: 0;
-	left: 0;
+	left: -165px;
 	right: 0;
 	bottom: 0;
-	height: 100vh;
-	background: rgba(0, 0, 0, 0.7); /* colore sfondo e opcità */
+	background: rgba(0, 0, 0, 0.7);
 	text-align: center;
-	display: none; /*cambiaremo in display: none*/
 }
 
 #close {
@@ -134,7 +132,7 @@ p#descrizione {
 		font-size: 12px;
 	}
 	div#table, div#NameProduct, div#row, div#inrow, p#descrizione {
-		width: 300px;
+		width: 265px;
 		font-size: 12px;
 	}
 }

@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import model.Ordine;
 
@@ -152,7 +154,7 @@ public class OrdineControl implements IBeanDAO<Ordine> {
 		return lastID;
 	}
 
-	public Collection<Ordine> findOrder(String datex, String datey, int user) throws SQLException {
+	public synchronized Collection<Ordine> findOrder(String datex, String datey, int user) throws SQLException {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -168,7 +170,6 @@ public class OrdineControl implements IBeanDAO<Ordine> {
 		}
 		else
 			selectSQL+="AND datadiinserimento BETWEEN ? AND ? ORDER BY O.idOrdine DESC";
-		
 		try {
 			connection = DBConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
@@ -204,5 +205,65 @@ public class OrdineControl implements IBeanDAO<Ordine> {
 			}
 		}
 		return ordini;
+	}
+	
+	public static Collection<Map<Integer,String>> getStatusOrdine() throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<Map<Integer,String>> status = new LinkedList<>();
+
+		String selectSQL = "SELECT * FROM StatusOrdine";
+
+		try {
+			connection = DBConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				Map<Integer,String> temp = new HashMap<>();
+				temp.put(rs.getInt("idStatusOrdine"),rs.getString("StatusOrdine"));
+				status.add(temp);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DBConnectionPool.releaseConnection(connection);
+			}
+		}
+		return status;
+	}
+	
+	public static synchronized boolean updateOrdine(int status,int code) throws SQLException
+	{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		int result = 0;
+		
+		String updateSQL="Update ordine SET idStatusOrdine = ? WHERE IdOrdine = ?";
+		
+		try {
+			connection = DBConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(updateSQL);
+			preparedStatement.setInt(1,status);
+			preparedStatement.setInt(2,code);
+			
+			result = preparedStatement.executeUpdate();
+			
+			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DBConnectionPool.releaseConnection(connection);
+			}
+		}
+		return (result != 0);
 	}
 }

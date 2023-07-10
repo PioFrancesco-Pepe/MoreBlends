@@ -39,6 +39,9 @@ Integer isAdmin=(Integer)request.getSession().getAttribute("isAdmin");
  	+ "/admin/viewOrders.jsp\">Visualizza Ordini</a>");
 	
 	out.write("<a href=\"" + application.getContextPath()
+ 	+ "/admin/gestioneOrdini.jsp\">Gestione Ordini</a>");
+	
+	out.write("<a href=\"" + application.getContextPath()
  	+ "/admin/report.jsp\">Report entrate</a></div></li>");
 	%>
 	</ul>
